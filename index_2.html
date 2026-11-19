@@ -2269,169 +2269,6 @@ dialog::backdrop{background:var(--scrim)}
 @media (prefers-reduced-motion:reduce){.dd-menu:not(.hidden),dialog[open]{animation:none}}
 @media print{body{font-family:var(--font-sans)}}
 </style>
-<style data-px="92-insights.css">
-/* =====================================================================
-   PREMPTA · insight edition (92-insights.css) — index_2
-   Built on the impeccable tokens: headline metrics, ranked insights,
-   donut / stacked bars, and a quieter page chrome.
-   ===================================================================== */
-:root{--viz-high:oklch(60% .19 35);--viz-med:oklch(77% .15 75);--viz-low:oklch(70% .03 258)}
-:root[data-theme="dark"]{--viz-high:oklch(68% .18 35);--viz-med:oklch(80% .14 80);--viz-low:oklch(58% .03 258)}
-
-/* ---------- quieter chrome ---------- */
-.ix-i{display:inline-grid;place-items:center;width:24px;height:24px;margin-left:6px;border-radius:var(--r-sm);color:var(--muted);vertical-align:middle}
-.ix-i:hover,.ix-i:focus-visible{color:var(--accent);background:var(--accent-soft)}
-.ix-i svg.i{width:15px;height:15px}
-h1 .ix-i{width:28px;height:28px;margin-left:8px;vertical-align:3px}
-h1 .ix-i svg.i{width:17px;height:17px}
-.page-head{margin-bottom:var(--sp-5)}
-.page-head .eyebrow{margin-bottom:6px}
-
-/* filters: one line until opened */
-.ix-fx{margin:0 0 12px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card)}
-.ix-fx>summary{display:flex;align-items:center;gap:10px;padding:8px 10px;cursor:pointer;list-style:none;min-height:44px;flex-wrap:wrap}
-.ix-fx>summary::-webkit-details-marker{display:none}
-.ix-fx-b{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:var(--fs-sm);color:var(--ink);padding:5px 10px;border:1px solid var(--input-line);border-radius:var(--r-md);background:var(--card)}
-.ix-fx>summary:hover .ix-fx-b{border-color:var(--ink-2)}
-.ix-fx[open] .ix-fx-b{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-.ix-fx-n{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:var(--fs-2xs);font-weight:600}
-.ix-fx-c{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
-.ix-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 6px 3px 10px;border-radius:999px;background:var(--subtle);border:1px solid var(--line);font-size:var(--fs-xs);color:var(--ink-2)}
-.ix-chip b{color:var(--ink);font-weight:600}
-.ix-chip svg.i{width:13px;height:13px;color:var(--muted)}
-.ix-chip:hover{border-color:var(--crit);color:var(--ink)}.ix-chip:hover svg.i{color:var(--crit)}
-.ix-fx>.px-filters{margin:0;border:0;border-top:1px solid var(--line-2);border-radius:0 0 var(--r-lg) var(--r-lg)}
-.ix-dn{display:inline-flex;margin:0 0 16px;gap:8px;cursor:help}
-.ix-dn>span:not(.px-prov){font-size:var(--fs-xs);color:var(--muted)}
-
-/* notices keep their title; the explanation opens on request */
-.notice.ix-note{display:block;padding:0}
-.ix-note>summary{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;list-style:none}
-.ix-note>summary::-webkit-details-marker{display:none}
-.ix-note>summary b{white-space:normal}
-.ix-note-m{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--fs-xs);font-weight:600;color:var(--ink-2)}
-.ix-note[open] .ix-note-m svg{transform:rotate(180deg)}
-.ix-note-b{padding:0 14px 12px 39px;color:var(--ink-2);font-size:var(--fs-sm);max-width:90ch}
-
-/* ---------- headline metrics ---------- */
-.ix-heroes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.ix-hero{display:flex;flex-direction:column;gap:10px;min-width:0;padding:18px 18px 16px;text-align:left;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg)}
-.ix-hero.click{cursor:pointer}
-.ix-hero.click:hover{border-color:var(--accent);background:var(--hover)}
-.ix-h-l{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500;color:var(--muted)}
-.ix-go{display:inline-grid;color:var(--muted);opacity:.7}
-.ix-h-v{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.ix-h-n{font-size:34px;font-weight:600;line-height:1.05;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.ix-hero.crit .ix-h-n{color:var(--crit)}
-.ix-of{font-size:var(--fs-sm);font-weight:500;letter-spacing:0;color:var(--muted);margin-left:6px}
-.ix-h-z{display:block;min-height:22px}
-.ix-h-z .pxc-spark{height:28px;margin:0}
-.ix-h-f{font-size:var(--fs-xs);color:var(--muted)}
-.ix-delta{display:inline-flex;align-items:center;gap:3px;padding:2px 8px 2px 6px;border-radius:999px;font-size:var(--fs-xs);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ix-delta svg.i{width:14px;height:14px}
-.ix-delta-l{font-size:var(--fs-xs);color:var(--muted);white-space:nowrap;margin-left:-4px}
-.ix-delta.bad{background:var(--crit-soft);color:var(--crit)}
-.ix-delta.good{background:var(--good-soft);color:var(--good)}
-.ix-delta.flat{background:var(--gray-soft);color:var(--gray)}
-.ix-mix{display:flex;gap:2px;height:8px;border-radius:999px;overflow:hidden;background:var(--line-2)}
-.ix-mix i{display:block;min-width:3px}
-.ix-mix-l{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:var(--fs-xs);color:var(--muted)}
-.ix-mix-l span{display:inline-flex;align-items:center;gap:5px}
-.ix-mix-l i{width:8px;height:8px;border-radius:2px;display:inline-block}
-.ix-mix-l b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
-.ix-meter{display:block;height:8px;border-radius:999px;background:var(--line-2);overflow:hidden}
-.ix-meter i{display:block;height:100%;border-radius:999px}
-
-/* secondary figures */
-.ix-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:12px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);overflow:hidden}
-.ix-stat{display:flex;flex-direction:column;gap:2px;padding:10px 14px;text-align:left;color:var(--ink);border-left:1px solid var(--line-2);min-width:0}
-.ix-stat:first-child{border-left:0}
-button.ix-stat:hover{background:var(--hover)}
-.ix-stat span{font-size:var(--fs-xs);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ix-stat b{font-size:var(--fs-xl);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ix-stat b .ds-u{font-size:var(--fs-sm);color:var(--muted);font-weight:500}
-.ix-stat.crit b{color:var(--crit)}.ix-stat.warn b{color:var(--warn)}
-
-/* ---------- insights ---------- */
-.ix-g-ins{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:start}
-.ix-ins .card-head h2{display:flex;align-items:center;gap:8px}
-.ix-ins .card-head h2 svg{color:var(--accent)}
-.ix-in-list{list-style:none;margin:0;padding:4px 0}
-.ix-in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 20px;border-top:1px solid var(--line-2)}
-.ix-in:first-child{border-top:0}
-.ix-in-i{display:grid;place-items:center;width:34px;height:34px;border-radius:var(--r-md);background:var(--accent-soft);color:var(--accent)}
-.ix-in-i svg.i{width:17px;height:17px}
-.ix-in.crit .ix-in-i{background:var(--crit-soft);color:var(--crit)}
-.ix-in.warn .ix-in-i{background:var(--sev-high-soft);color:var(--sev-high)}
-.ix-in.good .ix-in-i{background:var(--good-soft);color:var(--good)}
-.ix-in-t{display:flex;flex-direction:column;gap:2px;min-width:0}
-.ix-in-t b{font-weight:600;line-height:1.35;text-wrap:pretty}
-.ix-in-t>span{font-size:var(--fs-sm);color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ix-in-a{white-space:nowrap}
-.ix-in-a svg.i{width:14px;height:14px}
-/* the compact row used on working screens */
-.ix-row{list-style:none;margin:0 0 16px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.ix-row .ix-in{grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;align-items:start;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card)}
-.ix-row .ix-in:first-child{border-top:1px solid var(--line)}
-.ix-row .ix-in-a{grid-column:2;justify-self:start;margin-top:2px}
-.ix-row .ix-in-t>span{white-space:normal}
-.mt>.ix-row{margin-bottom:0}
-
-/* ---------- charts ---------- */
-.ix-donut{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.ix-donut-g{position:relative;flex:none}
-.ix-donut-g svg{width:100%;height:100%;display:block}
-.ix-donut-g circle[data-tip]{cursor:default}
-.ix-donut-c{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
-.ix-donut-c b{font-size:28px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
-.ix-donut-c span{font-size:var(--fs-xs);color:var(--muted);margin-top:4px}
-.ix-donut-l{flex:1 1 200px;display:grid;gap:2px;min-width:0}
-.ix-dl{display:grid;grid-template-columns:10px minmax(0,1fr) auto 44px;gap:10px;align-items:center;padding:7px 8px;border-radius:var(--r-md);text-align:left;color:var(--ink);font-size:var(--fs-sm)}
-.ix-dl.click:hover{background:var(--hover)}
-.ix-dl i{width:10px;height:10px;border-radius:3px}
-.ix-dl b{font-weight:600;font-variant-numeric:tabular-nums}
-.ix-dl-p{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
-.ix-sb{display:grid;gap:4px}
-.ix-sb-r{display:grid;grid-template-columns:minmax(110px,38%) minmax(0,1fr) 36px;gap:12px;align-items:center;padding:6px 4px;border-radius:var(--r-sm)}
-.ix-sb-r.click{cursor:pointer}.ix-sb-r.click:hover{background:var(--hover)}
-.ix-sb-l{font-size:var(--fs-sm);color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ix-sb-t{display:block;height:14px}
-.ix-sb-f{display:flex;gap:2px;height:100%;min-width:4px}
-.ix-sb-f i{display:block;min-width:2px}.ix-sb-f i:first-child{border-radius:3px 0 0 3px}.ix-sb-f i:last-child{border-radius:0 3px 3px 0}
-.ix-sb-v{text-align:right;font-variant-numeric:tabular-nums}
-
-/* ---------- dashboard composition ---------- */
-.ix-scope .ds-access{padding:6px 0;margin:0 0 10px;background:transparent;border:0;border-radius:0}
-.ix-scope .ds-access>.avatar,.ix-scope .ds-access-who{display:none}
-.ix-more{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card)}
-.ix-more>summary{display:flex;align-items:center;gap:10px;padding:14px 20px;cursor:pointer;font-weight:600;list-style:none}
-.ix-more>summary::-webkit-details-marker{display:none}
-.ix-more>summary .xs{margin-left:auto;font-weight:400}
-.ix-more[open]>summary{border-bottom:1px solid var(--line-2)}
-.ix-more>.ds-anchor>.card,.ix-more>div>.card{border:0;border-radius:0}
-
-/* ---------- PAGA defense: counts as tiles, tables behind tabs ---------- */
-.ix-cts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ix-ct{display:flex;flex-direction:column;gap:8px;padding:14px;text-align:left;color:var(--ink);border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);min-width:0}
-
-.ix-ct.off{background:var(--subtle)}
-.ix-ct-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.ix-ct-s{font-size:var(--fs-xs);color:var(--muted)}
-.ix-ct-t{font-weight:600;line-height:1.3}
-.ix-ct-n{font-size:var(--fs-sm);color:var(--ink-2)}
-.ix-ct-n b{font-size:var(--fs-xl);color:var(--ink);font-variant-numeric:tabular-nums}
-.ix-ct.hot .ix-ct-n b{color:var(--crit)}
-.ix-sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:8px 0 12px}
-.ix-sec-h h2{font-size:var(--fs-lg)}
-.ix-sec-h p{font-size:var(--fs-sm);color:var(--muted);margin-top:2px}
-.ix-tabbed>.tabs{margin-bottom:0}
-.ix-tabbed>.ds-anchor>.card,.ix-tabbed>.grid{margin-top:12px}
-
-@media (max-width:1280px){.ix-heroes{grid-template-columns:repeat(2,minmax(0,1fr))}.ix-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.ix-stat:nth-child(4){border-left:0}.ix-stat:nth-child(n+4){border-top:1px solid var(--line-2)}.ix-g-ins{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:1100px){.ix-row{grid-template-columns:minmax(0,1fr)}.ix-cts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.ix-heroes{grid-template-columns:minmax(0,1fr)}.ix-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.ix-stat:nth-child(odd){border-left:0}.ix-stat:nth-child(n+3){border-top:1px solid var(--line-2)}.ix-cts{grid-template-columns:minmax(0,1fr)}.ix-in{grid-template-columns:auto minmax(0,1fr);padding:12px 16px}.ix-in-a{grid-column:2;justify-self:start}.ix-h-n{font-size:30px}.ix-fx-c{width:100%}}
-@media print{.ix-fx,.ix-dn,.ix-in-a{display:none!important}.ix-more{border:0}}
-</style>
 </head>
 <body>
 
@@ -3084,10 +2921,7 @@ function go(view,filters,anchor){
   if(anchor){const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}else if(!same)window.scrollTo(0,0);
 }
 function render(){renderNav();$('#view').innerHTML=PX.renderView(S.view);PX.afterRender()}
-const headTip=p=>String(p).replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim().replace(/"/g,'&quot;');
-const headLive=p=>/<(button|a|select|input)\b/i.test(String(p||''));
-/* index_2: the page description moves behind an info button unless it holds a control */
-const head=(eb,t,p,act='')=>`<div class="page-head"><div><div class="eyebrow">${eb}</div><h1>${t}${p&&!headLive(p)?`<button type="button" class="ix-i" data-tip="${headTip(p)}" aria-label="${headTip(p)}">${ic('info','sm')}</button>`:''}</h1>${p&&headLive(p)?`<p>${p}</p>`:''}</div><div class="row">${act}</div></div>`;
+const head=(eb,t,p,act='')=>`<div class="page-head"><div><div class="eyebrow">${eb}</div><h1>${t}</h1>${p?`<p>${p}</p>`:''}</div><div class="row">${act}</div></div>`;
 
 /* =====================================================================
    8. DASHBOARD
@@ -4959,157 +4793,6 @@ C.card = ({id, title, sub = '', chart, cols, tableRows, actions = ''}) => { cons
 })();
 
 </script>
-<script data-px="92-insights.js">
-/* ===== PREMPTA platform layer · 92-insights.js (index_2 · insight edition) =====
-   Visual building blocks for insight-led screens, and a declutter pass:
-   long explanations move behind an info button, filters collapse to one line,
-   provenance sentences become chips and notices keep their title with the
-   detail one click away. No figure is computed differently: every number
-   comes from the same scoped PX.data / PX.alerts / PX.wf APIs. */
-(function () {
-'use strict';
-const U = PX.u, D = PX.data, UI = PX.ui, C = PX.chart, IX = PX.ix = {};
-
-Object.assign(ICONS, {
-  info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="11"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
-  up: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
-  down: '<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>',
-  flat: '<line x1="5" y1="12" x2="19" y2="12"/>',
-  target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
-  arrow: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'
-});
-
-const strip = s => String(s ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-const attr = s => String(s ?? '').replace(/"/g, '&quot;');
-const interactive = s => /<(button|a|select|input)\b/i.test(String(s || ''));
-IX.plural = (n, one, many) => `${U.int(n)} ${n === 1 ? one : many || one + 's'}`;
-IX.navAttr = view => (PX.canView(view) ? `data-nav="${esc(view)}"` : '');
-IX.days = date => Math.max(0, Math.round((new Date(TODAY + 'T00:00:00') - new Date(String(date).slice(0, 10) + 'T00:00:00')) / 864e5));
-
-/* ---------- small visual primitives ---------- */
-/** Change against the previous value. upIsBad: a rise is shown as worse (findings, money at issue). */
-IX.delta = (now, prev, {upIsBad = true, fmt = v => U.int(v), label = 'vs previous period'} = {}) => {
-  if (prev == null || !isFinite(prev)) return '';
-  const d = now - prev, same = Math.abs(d) < 1e-9, bad = !same && (upIsBad ? d > 0 : d < 0);
-  const sign = same ? '' : d > 0 ? '+' : '−';
-  return `<span class="ix-delta ${same ? 'flat' : bad ? 'bad' : 'good'}" data-tip="${attr(`${sign}${fmt(Math.abs(d))} ${label} (${fmt(prev)} before)`)}">${ic(same ? 'flat' : d > 0 ? 'up' : 'down', 'sm')}${same ? 'No change' : sign + esc(fmt(Math.abs(d)))}</span>`;
-};
-/** A share-of-whole meter. */
-IX.meter = (value, max, color = 'var(--accent)') => { const p = max ? Math.max(0, Math.min(1, value / max)) : 0; return `<span class="ix-meter" role="img" aria-label="${Math.round(p * 100)}%"><i style="width:${(p * 100).toFixed(1)}%;background:${color}"></i></span>`; };
-/** Thin part-to-whole bar with an inline legend. parts:[{label,value,color}] */
-IX.mix = (parts, {fmt = v => U.int(v)} = {}) => {
-  const shown = parts.filter(p => p.value > 0), t = U.sum(shown, p => p.value);
-  const bar = t ? `<span class="ix-mix" role="img" aria-label="${attr(shown.map(p => `${p.label} ${fmt(p.value)}`).join(', '))}">${shown.map(p => `<i style="flex:${p.value};background:${p.color}" data-tip="${attr(`${p.label}: ${fmt(p.value)} (${Math.round(p.value / t * 100)}%)`)}"></i>`).join('')}</span>` : '<span class="ix-mix empty"></span>';
-  return `${bar}<span class="ix-mix-l">${parts.map(p => `<span><i style="background:${p.color}"></i>${esc(p.label)} <b>${esc(fmt(p.value))}</b></span>`).join('')}</span>`;
-};
-/** Donut with the total in the middle and a clickable legend. parts:[{label,value,color,attrs}] */
-C.donut = ({parts, center, caption, fmt = v => U.int(v), size = 148}) => {
-  const t = U.sum(parts, p => p.value);
-  if (!t) return UI.empty('No data for the current filters');
-  const r = 52, sw = 16, circ = 2 * Math.PI * r, gap = parts.filter(p => p.value > 0).length > 1 ? 1.6 : 0;
-  let acc = 0;
-  const arcs = parts.filter(p => p.value > 0).map(p => { const len = p.value / t * circ, el = `<circle r="${r}" cx="70" cy="70" fill="none" stroke="${p.color}" stroke-width="${sw}" stroke-dasharray="${Math.max(0, len - gap).toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="${(-acc).toFixed(2)}" data-tip="${attr(`${p.label}: ${fmt(p.value)} (${Math.round(p.value / t * 100)}%)`)}"/>`; acc += len; return el; }).join('');
-  const legend = parts.map(p => { const tag = p.attrs ? 'button' : 'div'; return `<${tag} class="ix-dl ${p.attrs ? 'click' : ''}" ${p.attrs || ''}><i style="background:${p.color}"></i><span class="ix-dl-n">${esc(p.label)}</span><b>${esc(fmt(p.value))}</b><span class="ix-dl-p">${t ? Math.round(p.value / t * 100) : 0}%</span></${tag}>`; }).join('');
-  return `<div class="ix-donut"><div class="ix-donut-g" style="width:${size}px;height:${size}px"><svg viewBox="0 0 140 140" role="img" aria-label="${attr(parts.map(p => `${p.label} ${fmt(p.value)}`).join(', '))}"><circle r="${r}" cx="70" cy="70" fill="none" stroke="var(--line-2)" stroke-width="${sw}"/><g transform="rotate(-90 70 70)">${arcs}</g></svg><div class="ix-donut-c"><b>${esc(center ?? fmt(t))}</b><span>${esc(caption || 'total')}</span></div></div><div class="ix-donut-l">${legend}</div></div>`;
-};
-/** Ranked horizontal bars split into parts. rows:[{label,parts:[{name,value,color}],attr,tip}] */
-C.stackbars = ({rows, fmt = v => U.int(v), legend = []}) => {
-  const max = Math.max(1, ...rows.map(r => U.sum(r.parts, p => p.value)));
-  if (!rows.length) return UI.empty('No data for the current filters');
-  return `<div class="ix-sb">${rows.map(r => { const tot = U.sum(r.parts, p => p.value); return `<div class="ix-sb-r ${r.attr ? 'click' : ''}" ${r.attr || ''} ${r.attr ? 'role="button" tabindex="0"' : ''} data-tip="${attr(`${r.label}: ${r.parts.map(p => `${p.name} ${fmt(p.value)}`).join(' · ')}${r.tip ? ' · ' + r.tip : ''}`)}"><span class="ix-sb-l">${esc(r.label)}</span><span class="ix-sb-t"><span class="ix-sb-f" style="width:${(tot / max * 100).toFixed(1)}%">${r.parts.filter(p => p.value > 0).map(p => `<i style="flex:${p.value};background:${p.color}"></i>`).join('')}</span></span><b class="ix-sb-v">${esc(fmt(tot))}</b></div>`; }).join('')}</div>${legend.length ? C.legend(legend) : ''}`;
-};
-
-/* ---------- metric tiles ---------- */
-/** A headline metric: label, big value, change, one small visual. */
-UI.hero = o => {
-  const click = !!o.attrs, tag = click ? 'button' : 'div';
-  return `<${tag} class="ix-hero ${o.cls || ''} ${click ? 'click' : ''}" ${o.attrs || ''} ${o.tip ? `data-tip="${attr(o.tip)}"` : ''}><span class="ix-h-l">${esc(o.label)}${click ? `<span class="ix-go">${ic('chevr', 'sm')}</span>` : ''}</span><span class="ix-h-v"><span class="ix-h-n">${o.value}</span>${o.delta ? `${o.delta}<span class="ix-delta-l">${esc(o.deltaLabel || 'vs last period')}</span>` : ''}</span>${o.viz ? `<span class="ix-h-z">${o.viz}</span>` : ''}${o.foot ? `<span class="ix-h-f">${o.foot}</span>` : ''}</${tag}>`;
-};
-UI.heroes = list => `<div class="ix-heroes">${list.map(UI.hero).join('')}</div>`;
-/** Secondary figures in one quiet strip; their notes move to the tooltip. items:[{label,value,attrs,tip,cls}] */
-UI.stats = items => `<div class="ix-stats">${items.map(s => { const tag = s.attrs ? 'button' : 'div'; return `<${tag} class="ix-stat ${s.cls || ''}" ${s.attrs || ''} ${s.tip ? `data-tip="${attr(s.tip)}"` : ''}><span>${esc(s.label)}</span><b>${s.value}</b></${tag}>`; }).join('')}</div>`;
-
-/* ---------- insights ----------
-   item: {tone:'crit|warn|info|good', icon, head (HTML), text, act:{label, attrs}} */
-const insightItem = (x, compact) => `<li class="ix-in ${x.tone || 'info'}"><span class="ix-in-i">${ic(x.icon || 'sparkle')}</span><span class="ix-in-t"><b>${x.head}</b>${x.text ? `<span>${esc(x.text)}</span>` : ''}</span>${x.act && x.act.attrs ? `<button class="${compact ? 'btn-link small' : 'btn btn-secondary btn-sm'} ix-in-a" ${x.act.attrs}>${esc(x.act.label)}${compact ? '' : ic('arrow', 'sm')}</button>` : ''}</li>`;
-IX.rank = (list, n) => list.filter(Boolean).sort((a, b) => (b.w || 0) - (a.w || 0)).slice(0, n);
-UI.insights = (list, {title = 'Actionable insights', n = 4} = {}) => {
-  const top = IX.rank(list, n);
-  return `<section class="card ix-ins"><div class="card-head"><div><h2>${ic('sparkle', 'sm')}${esc(title)}</h2></div><span class="xs muted">From current data · ranked by urgency</span></div><ol class="ix-in-list">${top.length ? top.map(x => insightItem(x, false)).join('') : `<li class="ix-in good"><span class="ix-in-i">${ic('check')}</span><span class="ix-in-t"><b>Nothing needs action</b><span>No open items match the current filters.</span></span></li>`}</ol></section>`;
-};
-UI.insightRow = (list, n = 3) => { const top = IX.rank(list, n); return top.length ? `<ol class="ix-row" aria-label="Insights">${top.map(x => insightItem(x, true)).join('')}</ol>` : ''; };
-
-/* Apply one filter value, then open a view (drill from an insight). */
-PX.on('ix-go', d => {
-  const view = d.view || S.view;
-  if (!PX.canView(view)) { toast('Your role does not include this view.'); return; }
-  if (d.k) {
-    if ((d.k === 'job' && !PX.canJob(d.v)) || (d.k === 'emp' && !PX.canEmp(d.v))) { toast('That is outside the projects assigned to you.'); return; }
-    D.setCf({[d.k]: d.v}); Object.values(S.px.tbl).forEach(t => { t.page = 0; });
-  }
-  if (view === S.view) render(); else PX.nav(view);
-});
-PX.on('ix-unset', d => { const p = {[d.k]: d.k === 'range' ? 'period' : ''}; if (d.k === 'job') p.emp = ''; if (d.k === 'range') { p.from = ''; p.to = ''; } D.setCf(p); Object.values(S.px.tbl).forEach(t => { t.page = 0; }); render(); });
-
-/* ---------- declutter: filters, provenance, notices, card notes ---------- */
-const baseFilters = UI.filters;
-const RANGE = Object.fromEntries(D.RANGES);
-UI.filters = show => {
-  const f = D.cf(), keys = ['job', 'emp', 'cat', 'sev', 'status', 'report'].filter(k => f[k]);
-  const label = {job: 'Project', emp: 'Employee', cat: 'Category', sev: 'Severity', status: 'Review', report: 'Report'};
-  const val = (k, v) => (k === 'emp' ? `${nm(EMP[v] || D.employee(v))} · ${v}` : v);
-  const chips = (f.range !== 'period' ? [`<button class="ix-chip" data-x="ix-unset" data-k="range" aria-label="Remove date range filter">${esc(RANGE[f.range] || f.range)}${ic('x', 'sm')}</button>`] : [])
-    .concat(keys.map(k => `<button class="ix-chip" data-x="ix-unset" data-k="${k}" aria-label="Remove ${esc(label[k])} filter">${esc(label[k])}: <b>${esc(val(k, f[k]))}</b>${ic('x', 'sm')}</button>`));
-  const open = PX.mem.ixFx ? 'open' : '';
-  return `<details class="ix-fx" ${open}><summary><span class="ix-fx-b">${ic('sliders', 'sm')}Filters${chips.length ? ` <span class="ix-fx-n">${chips.length}</span>` : ''}</span>${chips.length ? `<span class="ix-fx-c">${chips.join('')}</span>` : '<span class="ix-fx-c xs muted">Selected pay period · all projects, employees and categories</span>'}</summary>${baseFilters(show)}</details>`;
-};
-document.addEventListener('toggle', e => { if (e.target.matches && e.target.matches('details.ix-fx')) PX.mem.ixFx = e.target.open; }, true);
-/* clicks on a chip inside <summary> must not also toggle the panel */
-document.addEventListener('click', e => { if (e.target.closest && e.target.closest('summary .ix-chip')) e.preventDefault(); }, true);
-
-const baseDataNote = UI.dataNote;
-UI.dataNote = () => {
-  const full = strip(baseDataNote()), real = T.realDay ? REAL_DAYS[T.realDay] : null, own = real && PX.canJob(real.job);
-  return `<div class="px-datanote ix-dn" data-tip="${attr(full)}">${UI.prov('synthetic', full)}<span>Demo data${own ? ` except <b class="mono">${esc(real.job)}</b>` : ''}</span>${own ? UI.prov('record') : ''}</div>`;
-};
-
-UI.notice = (title, text, cls = '') => `<details class="notice ix-note ${cls}"><summary>${ic(/warn|crit/.test(cls) ? 'alert' : 'info', 'sm')}<b>${esc(title)}</b><span class="ix-note-m">Details${ic('chevd', 'sm')}</span></summary><div class="ix-note-b">${text}</div></details>`;
-
-/* A long card note becomes an info button on the title; short notes stay as they are. */
-const baseCard = UI.card;
-UI.card = o => {
-  const sub = o && o.sub, plain = strip(sub);
-  if (!o || !o.title || !sub || plain.length <= 64 || interactive(sub)) return baseCard(o);
-  const html = baseCard(Object.assign({}, o, {sub: ''}));
-  return html.replace('</h2>', `<button type="button" class="ix-i" data-tip="${attr(plain)}" aria-label="${attr(plain)}">${ic('info', 'sm')}</button></h2>`);
-};
-
-/* ---------- screen-level insight rows (meal & rest, hours & pay) ---------- */
-const GROUPS_OF = {breaks: ['Meal', 'Rest'], hours: ['Hours & pay']};
-IX.opsInsights = (view, cf, d) => {
-  const groups = GROUPS_OF[view]; if (!groups || !d || d.denied) return '';
-  const inG = v => groups.includes(D.catGroup(v.cat));
-  const all = D.findings(cf).filter(inG), o = all.filter(open), out = [];
-  const by = (list, key) => { const m = {}; list.forEach(v => { const k = key(v); if (k) m[k] = (m[k] || 0) + 1; }); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
-  const cats = by(o, v => v.cat);
-  if (cats.length) out.push({w: 50 + cats[0][1], tone: 'warn', icon: 'alert', head: `${esc(cats[0][0])} leads with ${IX.plural(cats[0][1], 'open finding')}`, text: `${Math.round(cats[0][1] / o.length * 100)}% of open ${groups.join(' and ').toLowerCase()} findings`, act: {label: cf.cat === cats[0][0] ? 'Clear category' : 'Show only this', attrs: cf.cat === cats[0][0] ? 'data-x="ix-unset" data-k="cat"' : `data-x="ix-go" data-k="cat" data-v="${esc(cats[0][0])}"`}});
-  if (!d.emp) {
-    const emps = by(o.filter(v => !v.crew), v => v.emp);
-    if (emps.length && emps[0][1] > 1) { const e = D.employee(emps[0][0]); if (e) out.push({w: 40 + emps[0][1], tone: 'info', icon: 'user', head: `${esc(nm(e))} has ${IX.plural(emps[0][1], 'open finding')}`, text: `${e.id} · ${e.job} · the most of anyone in view`, act: {label: 'Open employee', attrs: `data-x="op-drill" data-view="${view}" data-job="${esc(e.job)}" data-emp="${esc(e.id)}"`}}); }
-  }
-  if (!d.job && !d.emp) {
-    const jobs = by(o, v => v.job);
-    if (jobs.length > 1) out.push({w: 30 + Math.round(jobs[0][1] / o.length * 20), tone: 'info', icon: 'target', head: `${esc(jobs[0][0])} holds ${Math.round(jobs[0][1] / o.length * 100)}% of open findings`, text: `${U.int(jobs[0][1])} of ${U.int(o.length)} · ${D.projectName(jobs[0][0])}`, act: {label: 'Open project', attrs: `data-x="op-drill" data-view="${view}" data-job="${esc(jobs[0][0])}"`}});
-  }
-  if (cf.range === 'period') {
-    const t = D.trend(c => D.findings(c).filter(inG).length, 2, Object.assign({}, cf, {cat: ''}));
-    if (t.length === 2) { const diff = t[1].value - t[0].value; out.push({w: diff > 0 ? 45 + diff : 20, tone: diff > 0 ? 'warn' : 'good', icon: diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat', head: diff ? `${IX.plural(Math.abs(diff), 'finding')} ${diff > 0 ? 'more' : 'fewer'} than the previous period` : 'Flat against the previous period', text: `${U.int(t[0].value)} flagged in ${t[0].label} · ${U.int(t[1].value)} in ${t[1].label}`}); }
-  }
-  if (!o.length) out.push({w: 10, tone: 'good', icon: 'check', head: 'No open findings in this view', text: 'Shifts in range screen clean against the current rules'});
-  return UI.insightRow(out, 3);
-};
-})();
-</script>
 <script data-px="10-admin.js">
 /* ===== PREMPTA platform layer · 10-admin.js ===== */
 /* =====================================================================
@@ -6008,7 +5691,6 @@ const inFlight = cf => W.visibleReports().filter(r => INFLIGHT.includes(r.status
 /** Opens a view with the project in context. Falls back to the original screen's own filter when the module is not loaded. */
 function drillTo(view, job, emp, anchor) {
   if (!PX.canView(view) || (job && !PX.canJob(job)) || (emp && !PX.canEmp(emp))) { denied(); return; }
-  if (anchor && view === 'paga') { const ixTab = {'ds-remediation': 'rem', 'ds-open-issues': 'open'}[anchor]; if (ixTab) S.px.tab['ix-pg'] = ixTab; }
   const params = {}; if (job) params.job = job; if (emp) params.emp = emp;
   PX.nav(view, params);
   if (!PX.views[view] && (job || emp)) { S.f = Object.assign({}, job ? {job} : {}, emp ? {emp} : {}); render(); }
@@ -6235,7 +5917,7 @@ function renderOverview(tabs) {
 }
 function renderDashboard() {
   const tab = UI.tab('ds-dash', 'overview'), tabs = UI.tabs('ds-dash', [['overview', 'Executive overview'], ['period', 'Pay-period compliance']], 'overview');
-  return tab === 'period' ? wrap(`${tabs}${UI.dataNote()}${PX.legacy('dashboard')}`) : renderOverviewIx(tabs);
+  return tab === 'period' ? wrap(`${tabs}${UI.dataNote()}${PX.legacy('dashboard')}`) : renderOverview(tabs);
 }
 PX.on('ds-summary', () => {
   if (!PX.can('dash.view')) { notAllowed(); return; }
@@ -6325,7 +6007,7 @@ function renderPaga() {
   const remTable = `<div id="ds-remediation" class="ds-anchor">${UI.card({title: 'Pending remediation actions', sub: `${plural(rem.length, 'finding')} in review or with counsel. Select a row to open the finding.`, flush: true, cls: 'mt', body: cards(UI.table({id: 'ds-pg-rem', compact: true, pageSize: 8, rows: rem, rowAttr: caseAttr, empty: 'No findings are in review or with counsel for the current filters.', cols: cols('id', 'what', 'emp', 'job', 'status', 'owner', 'next', 'date')}))})}</div>`;
   const openIssues = `<div id="ds-open-issues" class="ds-anchor">${UI.card({title: 'Open compliance issues', sub: `${plural(statusOpen.length, 'finding')} not yet picked up for review, highest priority first`, flush: true, cls: 'mt', actions: navBtn('exceptions', 'All exceptions'), body: cards(UI.table({id: 'ds-pg-open', compact: true, pageSize: 8, rows: byPriority(statusOpen), rowAttr: caseAttr, empty: 'No open issues for the current filters.', cols: cols('id', 'what', 'emp', 'job', 'date', 'sev', 'amt')}))})}</div>`;
   const matter = matterCard(c);
-  return wrap(renderPagaIx({top, m, f, o, cats, by, c, cf, t, recOnly, shown, rem, statusOpen, catCard, indCard, trend, matter, projTable, remTable, openIssues}));
+  return wrap(`${top}<div class="ds-kpis">${UI.kpis(kpis, 6)}</div><div class="grid g2 mt">${catCard}${indCard}</div>${coverageCard(c, m)}<div class="grid ${matter ? 'g-main' : ''} mt">${trend}${matter}</div>${projTable}${remTable}${openIssues}`);
 }
 
 /* ---------- compliance exceptions ---------- */
@@ -6388,7 +6070,7 @@ function renderExceptions() {
   const groupsCard = `<section class="card mt"><div class="card-head"><div><h2>Exception summary</h2><p>Select a row to expand it, or filter the findings table to that group.</p></div></div><div class="ds-tabs">${tabs}</div>${groupTable(kind, list, cf)}</section>`;
   const table = cards(UI.table({id: 'ds-ex-all', compact: true, rows: list, rowAttr: caseAttr, pageSize: 25, empty: 'No findings match the current filters. Clear a filter or widen the date range.', cols: cols('id', 'what', 'emp', 'job', 'date', 'sev', 'status', 'report', 'prov', 'amt')}));
   const tableCard = `<div id="ds-ex-table" class="ds-anchor">${UI.card({title: 'All matching findings', sub: `${plural(list.length, 'finding')} · ${filterText(cf) === 'None' ? 'no filters applied' : filterText(cf)} · sorted by priority`, cls: 'mt', flush: true, actions: canExport ? '<button class="btn btn-secondary btn-sm" data-x="ds-export">Export CSV</button>' : '', body: table})}</div>`;
-  return wrap(`${top}<div class="ds-kpis">${UI.kpis(kpis, 6)}</div>${ixExInsights(list, cf)}${groupsCard}${heatCard(list, cf)}${tableCard}`);
+  return wrap(`${top}<div class="ds-kpis">${UI.kpis(kpis, 6)}</div>${groupsCard}${heatCard(list, cf)}${tableCard}`);
 }
 PX.on('ds-export', () => {
   if (!PX.can('comp.view')) { notAllowed(); return; }
@@ -6401,131 +6083,6 @@ PX.on('ds-export', () => {
 });
 
 /* ---------- views ---------- */
-/* ---------- index_2 · insight-led layouts (executive overview, PAGA defense, exceptions) ----------
-   Same figures, same drill-downs; fewer words on screen. Detail tables stay one click away. */
-const IX = PX.ix;
-const ixTrend = cf => D.trend(c => { const l = D.findings(c), o = l.filter(open); return {flagged: l.length, open: o.length, ind: D.indicator(l), g: GROUPS.map(g => l.filter(v => groupOf(v) === g).length)}; }, 8, cf);
-const ixPrev = (t, cf) => (cf.range === 'period' && t.length > 1 ? t[t.length - 2].value : null);
-const ixAttrs = k => (k ? `${k.nav ? `data-nav="${esc(k.nav)}"` : ''} ${k.x ? `data-x="${esc(k.x)}"` : ''} ${k.attrs || ''}`.trim() : '');
-const goAttrs = (view, k, v) => (PX.canView(view) ? `data-x="ix-go" data-view="${esc(view)}"${k ? ` data-k="${esc(k)}" data-v="${esc(v)}"` : ''}` : '');
-/* chart fills: brighter than the text-contrast severity tokens so the parts stay distinct */
-const VIZ_SEV = {High: 'var(--viz-high)', Medium: 'var(--viz-med)', Low: 'var(--viz-low)'};
-const GROUP_VIEW = {Meal: 'breaks', Rest: 'breaks', 'Hours & pay': 'hours', Records: 'exceptions'};
-
-function ixHeroes(cf, m, f, o, t, recOnly) {
-  const prev = ixPrev(t, cf), shown = inView(cf), aff = people(o).length;
-  const sev = SEVS.map(s => ({label: s, value: o.filter(v => v.sev === s).length, color: VIZ_SEV[s]}));
-  const st = STATUSES.map(s => ({label: s, value: f.filter(v => v.status === s).length, color: ST_COLOR[s]}));
-  const done = f.length ? Math.round(m.resolved / f.length * 100) : 0;
-  return UI.heroes([
-    {label: 'Open findings', value: U.int(m.open), delta: prev ? IX.delta(m.open, prev.open) : '', viz: IX.mix(sev), attrs: IX.navAttr('exceptions'), cls: m.open ? 'crit' : '', tip: 'Unresolved findings from rule screening in the selected range, by severity.'},
-    {label: 'Wages & premiums at issue', value: recOnly ? UI.missing('Not on file') : U.usd0(m.indicator), delta: prev && !recOnly ? IX.delta(m.indicator, prev.ind, {fmt: U.usd0}) : '', viz: recOnly ? '' : C.spark(t.map(x => x.value.ind)), foot: recOnly ? `${NO_PAY} for ${shown[0].id}` : 'Screening indicator · demonstration data', attrs: IX.navAttr('paga'), tip: 'Sum of wages and premiums flagged in open findings. A screening indicator, not a legal figure.'},
-    {label: 'Employees affected', value: `${U.int(aff)}<span class="ix-of">of ${U.int(m.employees)}</span>`, viz: IX.meter(aff, m.employees, 'var(--sev-high)'), foot: `${U.pct(aff, m.employees)} of the workforce in view`, attrs: IX.navAttr('exceptions'), tip: 'Distinct employees named on unresolved findings.'},
-    Object.assign({label: 'Review progress', value: `${done}%<span class="ix-of">resolved</span>`, viz: IX.mix(st), tip: 'Every flagged finding by review status.'}, {attrs: PX.canView('paga') ? 'data-x="ds-go" data-v="paga" data-anchor="ds-remediation"' : ''})
-  ]);
-}
-function ixStats(cf) {
-  const want = ['Total Employees', 'Active Projects', 'Total Payroll Hours', 'Total Payroll Variance', 'Open Alerts', 'Reports Awaiting Approval'];
-  const short = {'Total Employees': 'Employees', 'Active Projects': 'Active projects', 'Total Payroll Hours': 'Payroll hours', 'Total Payroll Variance': 'Payroll variance', 'Open Alerts': 'Open alerts', 'Reports Awaiting Approval': 'In approval'};
-  return UI.stats(dashKpis(cf).filter(k => want.includes(k.label)).map(k => ({label: short[k.label], value: k.value, attrs: ixAttrs(k), cls: k.cls, tip: `${k.foot}. ${k.tip || ''}`.trim()})));
-}
-function ixDashInsights(cf, m, o, t, recOnly) {
-  const out = [], alerts = myAlerts(cf), crit = alerts.filter(a => a.sev === 'Critical'), high = alerts.filter(a => a.sev === 'High');
-  const flight = inFlight(cf), mine = W.myPending().filter(r => flight.includes(r)), prev = ixPrev(t, cf), pay = payroll(cf);
-  if (crit.length || high.length) { const a = (crit[0] || high[0]); out.push({w: crit.length ? 100 : 70, tone: crit.length ? 'crit' : 'warn', icon: 'bell', head: `${IX.plural(crit.length || high.length, crit.length ? 'critical alert' : 'high alert')} need${(crit.length || high.length) === 1 ? 's' : ''} attention`, text: a.title, act: PX.canView('alerts') ? {label: 'Open alerts', attrs: 'data-nav="alerts"'} : null}); }
-  if (mine.length) out.push({w: 95, tone: 'warn', icon: 'clipboard', head: `${IX.plural(mine.length, 'report version')} waiting on your approval`, text: `${mine[0].caseName} · v${mine[0].version}`, act: {label: 'Review', attrs: `data-x="ds-report" data-id="${esc(mine[0].id)}"`}});
-  const fresh = o.filter(v => v.status === 'Open'), freshHigh = fresh.filter(v => v.sev === 'High');
-  if (fresh.length) out.push({w: 80 + freshHigh.length, tone: freshHigh.length ? 'crit' : 'warn', icon: 'alert', head: `${IX.plural(fresh.length, 'finding')} not yet picked up for review`, text: freshHigh.length ? `${U.int(freshHigh.length)} high severity · assign an owner to start review` : 'Assign an owner to start review', act: PX.canView('exceptions') ? {label: 'Start review', attrs: goAttrs('exceptions', 'status', 'Open')} : null});
-  const by = D.byProject(cf).filter(r => r.open).sort((a, b) => b.open - a.open);
-  if (by.length > 1 && m.open) { const share = Math.round(by[0].open / m.open * 100); out.push({w: 55 + share / 4, tone: 'info', icon: 'target', head: `${esc(by[0].id)} holds ${share}% of open findings`, text: `${U.int(by[0].open)} of ${U.int(m.open)} · ${by[0].name}`, act: {label: cf.job === by[0].id ? 'Show all projects' : 'Focus project', attrs: `data-x="ds-job" data-job="${esc(by[0].id)}"`}}); }
-  if (prev && t.length > 1) {
-    const now = t[t.length - 1].value, moves = GROUPS.map((g, i) => ({g, d: now.g[i] - prev.g[i], now: now.g[i], before: prev.g[i]})).sort((a, b) => b.d - a.d), up = moves[0], total = now.flagged - prev.flagged;
-    if (up && up.d > 0) out.push({w: 60 + up.d, tone: 'warn', icon: 'up', head: `${esc(up.g)} findings up ${U.int(up.d)} on the previous period`, text: `${U.int(up.before)} → ${U.int(up.now)} flagged`, act: PX.canView(GROUP_VIEW[up.g]) ? {label: up.g === 'Records' ? 'Exceptions' : up.g === 'Hours & pay' ? 'Hours & pay' : 'Meal & rest', attrs: `data-x="ds-go" data-v="${GROUP_VIEW[up.g]}"`} : null});
-    else if (total < 0) out.push({w: 30, tone: 'good', icon: 'down', head: `Findings down ${U.int(-total)} on the previous period`, text: `${U.int(prev.flagged)} → ${U.int(now.flagged)} flagged`});
-  }
-  if (!recOnly && m.indicator > 0) {
-    const cats = D.CATS.map(c => ({c, v: D.indicator(o.filter(x => x.cat === c))})).sort((a, b) => b.v - a.v);
-    if (cats[0].v > 0) out.push({w: 45, tone: 'info', icon: 'dollar', head: `${U.usd0(cats[0].v)} at issue in ${esc(cats[0].c)}`, text: `${U.pct(cats[0].v, m.indicator)} of wages and premiums flagged`, act: PX.canView('exceptions') ? {label: 'View category', attrs: goAttrs('exceptions', 'cat', cats[0].c)} : null});
-  }
-  if (pay.periods && !pay.closed) out.push({w: 25, tone: 'info', icon: 'clock', head: 'Payroll for this period is still open', text: `${U.hrs(pay.recorded)} h recorded so far · variance follows when it closes`, act: PX.canView('hours') ? {label: 'Hours & pay', attrs: 'data-x="ds-go" data-v="hours"'} : null});
-  return UI.insights(out, {n: 4});
-}
-function ixTypeCard(cf, o) {
-  const parts = GROUPS.map(g => ({label: g, value: o.filter(v => groupOf(v) === g).length, color: C.GROUP_COLOR[g], attrs: PX.canView(GROUP_VIEW[g]) ? `data-x="ds-go" data-v="${GROUP_VIEW[g]}" data-tip="Open ${esc(g === 'Records' ? 'compliance exceptions' : g === 'Hours & pay' ? 'hours & pay' : 'meal & rest breaks')}"` : ''}));
-  return UI.card({title: 'Open findings by type', body: C.donut({parts, caption: 'open'})});
-}
-function ixRiskCard(cf, o) {
-  const rows = inView(cf).map(p => ({p, parts: SEVS.map(s => ({name: s, value: o.filter(v => v.job === p.id && v.sev === s).length, color: VIZ_SEV[s]}))})).filter(r => U.sum(r.parts, x => x.value)).sort((a, b) => U.sum(b.parts, x => x.value) - U.sum(a.parts, x => x.value));
-  const chart = C.stackbars({rows: rows.map(r => ({label: `${r.p.id} · ${r.p.name}`, parts: r.parts, attr: `data-x="ds-job" data-job="${esc(r.p.id)}"`, tip: cf.job === r.p.id ? 'Select to show every project' : 'Select to focus the dashboard on this project'})), legend: SEVS.map(s => ({label: s, color: VIZ_SEV[s]}))});
-  return C.card({id: 'ix-risk', title: 'Risk by project', sub: 'Open findings by severity', chart, cols: ['Project', ...SEVS, 'Open'], tableRows: rows.map(r => [r.p.id, ...r.parts.map(x => x.value), U.sum(r.parts, x => x.value)])});
-}
-function ixTopCard(open_) {
-  return UI.card({title: 'Top priorities', sub: `${U.int(Math.min(5, open_.length))} of ${U.int(open_.length)} open, highest risk first`, flush: true, actions: navBtn('exceptions', 'All exceptions'),
-    body: cards(UI.table({id: 'ix-top', compact: true, rows: open_.slice(0, 5), pageSize: 5, rowAttr: caseAttr, empty: 'No open findings match the current filters.', cols: cols('what', 'job', 'sev', 'amt')}))});
-}
-function renderOverviewIx(tabs) {
-  const cf = scoped(), ps = D.projects(), role = PX.user().role;
-  const actions = `<button class="btn btn-secondary" data-x="ds-summary">${ic('download', 'sm')} Export summary</button>${PX.canView('exceptions') ? `<button class="btn btn-primary" data-nav="exceptions">${ic('alert', 'sm')} Compliance exceptions</button>` : ''}`;
-  const top = `${tabs}${head(eyebrow(cf), 'Executive dashboard', esc(narrative(cf)), actions)}<div class="ix-scope">${accessBanner(cf)}</div>${UI.filters()}${UI.dataNote()}`;
-  if (!ps.length) return wrap(top + noProjects());
-  const m = D.metrics(cf), f = D.findings(cf), o = f.filter(open), t = ixTrend(cf), recOnly = recordOnly(cf), open_ = byPriority(o);
-  const queue = `${alertsCard(cf)}${role === 'bo' || W.myPending().length ? `<div class="mt">${approvalsCard(cf)}</div>` : ''}`;
-  const more = `<details class="ix-more mt"${PX.mem.ixMore ? ' open' : ''}><summary>${ic('list', 'sm')}Project detail${role === 'bo' ? ' and organization rollup' : ''}<span class="xs muted">${IX.plural(inView(cf).length, 'project')} · tables and exports</span></summary>${projectTable(cf)}${role === 'bo' ? `<div class="mt">${portfolioCard(cf)}</div>` : ''}</details>`;
-  return wrap(`<div class="ix-dash">${top}${ixHeroes(cf, m, f, o, t, recOnly)}${ixStats(cf)}<div class="grid ix-g-ins mt">${ixDashInsights(cf, m, o, t, recOnly)}${trendCard(cf)}</div><div class="grid g2 mt">${ixRiskCard(cf, o)}${ixTypeCard(cf, o)}</div><div class="grid g-main mt">${ixTopCard(open_)}<div>${queue}</div></div>${role === 'admin' ? healthCard() : ''}${more}</div>`);
-}
-document.addEventListener('toggle', e => { if (e.target.matches && e.target.matches('details.ix-more')) PX.mem.ixMore = e.target.open; }, true);
-
-/* PAGA defense: headline figures, ranked insights, counts as tiles, long tables behind tabs. */
-function renderPagaIx(p) {
-  const {top, m, f, o, cats, by, c, cf, t, recOnly, shown, rem, statusOpen} = p;
-  const counts = c ? c.counts.filter(x => x.alleged !== false) : [], byN = U.by(m.counts, x => x.n), evaluated = x => x.alleged !== false && x.scope !== 'Later phase';
-  const ev = counts.filter(evaluated), hit = ev.filter(x => ((byN[x.n] || {}).open || 0) > 0), gaps = counts.filter(x => x.scope === 'Later phase');
-  const st = STATUSES.map(s => ({label: s, value: f.filter(v => v.status === s).length, color: ST_COLOR[s]})), aff = people(o).length, prev = ixPrev(t, cf);
-  const heroes = UI.heroes([
-    {label: 'Potential violations', value: U.int(m.open), delta: prev ? IX.delta(m.open, prev.open) : '', viz: IX.mix(st), cls: m.open ? 'crit' : '', attrs: IX.navAttr('exceptions'), tip: 'Unresolved findings from rule screening, with every flagged finding by review status.'},
-    {label: 'Wages & premiums at issue', value: recOnly ? UI.missing('Not on file') : U.usd0(m.indicator), delta: prev && !recOnly ? IX.delta(m.indicator, prev.ind, {fmt: U.usd0}) : '', viz: recOnly ? '' : C.spark(t.map(x => x.value.ind)), foot: recOnly ? `${NO_PAY} for ${shown[0].id}` : 'Screening indicator · not a legal figure', tip: 'Sum of wages and premiums flagged in open findings, from demonstration data.'},
-    {label: 'Affected employees', value: `${U.int(aff)}<span class="ix-of">of ${U.int(m.employees)}</span>`, viz: IX.meter(aff, m.employees, 'var(--sev-high)'), foot: `${U.pct(aff, m.employees)} of employees in view`, tip: 'Distinct employees named on unresolved findings.'},
-    {label: 'Alleged counts with findings', value: c ? `${U.int(hit.length)}<span class="ix-of">of ${U.int(ev.length)} screened</span>` : UI.missing('No case'), viz: c ? IX.meter(hit.length, ev.length, 'var(--paga)') : '', foot: c ? (gaps.length ? `${IX.plural(gaps.length, 'count')} not screened yet` : 'Every alleged count is screened') : '', attrs: c ? 'data-x="px-tab" data-k="ix-pg-cov" data-v="tiles"' : '', tip: 'Alleged counts that have at least one open finding behind them.'}
-  ]);
-  const ins = [];
-  const topCount = ev.map(x => ({x, n: (byN[x.n] || {}).open || 0})).sort((a, b) => b.n - a.n)[0];
-  if (topCount && topCount.n) ins.push({w: 70 + topCount.n, tone: 'crit', icon: 'scale', head: `Count ${topCount.x.n} · ${esc(topCount.x.title)}: ${IX.plural(topCount.n, 'open finding')}`, text: `The most of any alleged count · ${topCount.x.statute}`, act: {label: 'Open count', attrs: `data-count="${topCount.x.n}"`}});
-  if (cats[0] && cats[0].open) ins.push({w: 60 + cats[0].open, tone: 'warn', icon: 'alert', head: `${esc(cats[0].cat)} leads with ${IX.plural(cats[0].open, 'open finding')}`, text: `${IX.plural(cats[0].employees, 'employee')} affected`, act: PX.canView('exceptions') ? {label: 'List exceptions', attrs: `data-x="ds-cat" data-cat="${esc(cats[0].cat)}"`} : null});
-  if (statusOpen.length) ins.push({w: 65, tone: 'warn', icon: 'clipboard', head: `${IX.plural(statusOpen.length, 'finding')} not yet picked up`, text: 'Highest priority first', act: {label: 'Show list', attrs: 'data-x="px-tab" data-k="ix-pg" data-v="open"'}});
-  if (rem.length) ins.push({w: 50, tone: 'info', icon: 'history', head: `${IX.plural(rem.length, 'finding')} in review or with counsel`, text: 'Pending remediation actions', act: {label: 'Show list', attrs: 'data-x="px-tab" data-k="ix-pg" data-v="rem"'}});
-  if (gaps.length) ins.push({w: 40, tone: 'info', icon: 'plug', head: `${IX.plural(gaps.length, 'alleged count')} cannot be screened yet`, text: `Counts ${gaps.map(x => x.n).join(', ')} need a data source that is not connected`, act: {label: 'See coverage', attrs: 'data-x="px-tab" data-k="ix-pg-cov" data-v="table"'}});
-  /* counts as tiles; the full mapping table is the other view */
-  let coverage = '';
-  if (c && PX.can('cases.view')) {
-    const mode = UI.tab('ix-pg-cov', 'tiles'), seg = `<span class="seg-ctl"><button class="${mode === 'tiles' ? 'on' : ''}" data-x="px-tab" data-k="ix-pg-cov" data-v="tiles">Tiles</button><button class="${mode === 'table' ? 'on' : ''}" data-x="px-tab" data-k="ix-pg-cov" data-v="table">Table</button></span>`;
-    if (mode === 'table') { const h = coverageCard(c, m); coverage = h.includes('<div class="row">') ? h.replace('<div class="row">', `<div class="row">${seg}`) : h.replace(/(<div class="card-head"><div>[\s\S]*?<\/div>)/, `$1<div class="row">${seg}</div>`); }
-    else {
-      const max = Math.max(1, ...ev.map(x => (byN[x.n] || {}).open || 0));
-      const tile = x => { const on = evaluated(x), n = on ? (byN[x.n] || {}).open || 0 : null, tot = on ? (byN[x.n] || {}).total || 0 : null; return `<div class="ix-ct ${on ? '' : 'off'} ${n ? 'hot' : ''}"><span class="ix-ct-h">${on ? pagaChip(x.n) : `<span class="paga deriv ds-chip-off">Count ${x.n}</span>`}<span class="ix-ct-s">${x.scope === 'Later phase' ? 'Not screened' : x.scope === 'Derivative' ? 'Derived' : 'Screened'}</span></span><b class="ix-ct-t">${esc(x.title)}</b><span class="ix-ct-n">${on ? `<b>${U.int(n)}</b> open <span class="muted">of ${U.int(tot)} flagged</span>` : '<span class="muted">No data source yet</span>'}</span>${on ? IX.meter(n, max, 'var(--paga)') : ''}</div>`; };
-      coverage = `<section class="ix-sec" aria-label="Allegation coverage"><div class="ix-sec-h"><div><h2>Allegation coverage</h2><p>${esc(c.id)} · ${IX.plural(ev.length, 'count')} screened</p></div>${seg}</div><div class="ix-cts">${counts.map(tile).join('')}</div></section>`;
-    }
-    coverage = `<div class="mt">${coverage}</div>`;
-  }
-  const tab = UI.tab('ix-pg', 'open'), tabs = UI.tabs('ix-pg', [['open', 'Open issues', statusOpen.length], ['rem', 'Pending remediation', rem.length], ['proj', 'Projects', by.length], ['trend', 'History']], 'open');
-  const pane = {open: p.openIssues, rem: p.remTable, proj: p.projTable, trend: `<div class="grid ${p.matter ? 'g-main' : ''} mt">${p.trend}${p.matter}</div>`}[tab] || p.openIssues;
-  return `${top}${heroes}<div class="mt">${UI.insightRow(ins, 3)}</div><div class="grid g2 mt">${p.catCard}${p.indCard}</div>${coverage}<div class="ix-tabbed mt">${tabs}${pane}</div>`;
-}
-
-/* Exceptions: three insights above the groupings. */
-function ixExInsights(list, cf) {
-  const o = list.filter(open), out = [];
-  if (!o.length) return '';
-  const cell = {}; o.forEach(v => { const k = `${v.job}|${v.cat}`; cell[k] = (cell[k] || 0) + 1; });
-  const hot = Object.entries(cell).sort((a, b) => b[1] - a[1])[0];
-  if (hot && hot[1] > 1) { const [job, cat] = hot[0].split('|'); out.push({w: 60 + hot[1], tone: 'warn', icon: 'target', head: `Hotspot: ${esc(cat)} on ${esc(job)}`, text: `${IX.plural(hot[1], 'open finding')} in one project and category`, act: {label: 'Filter to it', attrs: `data-x="ds-heat" data-job="${esc(job)}" data-cat="${esc(cat)}"`}}); }
-  const oldest = o.slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))[0];
-  if (oldest) out.push({w: 40 + Math.min(30, IX.days(oldest.date) / 2), tone: 'info', icon: 'clock', head: `Oldest open finding is ${IX.plural(IX.days(oldest.date), 'day')} old`, text: `${oldest.id} · ${oldest.title}`, act: {label: 'Open finding', attrs: caseAttr(oldest)}});
-  const fresh = o.filter(v => v.status === 'Open'), high = o.filter(v => v.sev === 'High');
-  if (high.length && cf.sev !== 'High') out.push({w: 70 + high.length, tone: 'crit', icon: 'alert', head: `${IX.plural(high.length, 'high-severity finding')} still open`, text: `${U.int(high.filter(v => v.status === 'Open').length)} not yet in review`, act: {label: 'Show high only', attrs: 'data-x="ds-filter" data-k="sev" data-v="High" data-scroll="1"'}});
-  else if (fresh.length && cf.status !== 'Open') out.push({w: 50, tone: 'warn', icon: 'clipboard', head: `${IX.plural(fresh.length, 'finding')} not yet picked up`, text: 'Assign an owner to start review', act: {label: 'Show them', attrs: 'data-x="ds-filter" data-k="status" data-v="Open" data-scroll="1"'}});
-  return `<div class="mt">${UI.insightRow(out, 3)}</div>`;
-}
-
 PX.view('dashboard', {title: 'Executive Dashboard', perm: 'dash.view', render: renderDashboard});
 PX.view('paga', {title: 'PAGA Defense', perm: 'comp.view', render: renderPaga});
 PX.view('exceptions', {title: 'Compliance Exceptions', perm: 'comp.view', render: renderExceptions});
@@ -6901,7 +6458,7 @@ function breaksPage() {
     const pr = bProjects(cf, rows);
     body = bKpis(s, cf, tr.t) + (empty ? `<div class="mt">${emptyCard}</div>` : `<div class="grid g2 mt">${tr.html}${bFreqCard(pr.list, 'op-b-fp', 'Variance frequency by project')}</div><div class="grid g2 mt">${bTimingCard(s, rows, 'op-b-time')}${bRestCard(s, pr.list, 'op-b-rest')}</div>`) + (empty && narrowed ? '' : `<div class="mt">${pr.html}</div>`) + (empty ? '' : `<div class="mt">${bRegister(rows, s, 'op-b-reg')}</div>`);
   }
-  return `${page}${filterBar(d)}${crumbs('breaks', d)}${d.emp ? '' : PX.ix.opsInsights('breaks', cf, d)}${body}`;
+  return `${page}${filterBar(d)}${crumbs('breaks', d)}${body}`;
 }
 PX.onChange('op-tol', (_, el) => { ST().tol = +el.value || 10; render(); });
 PX.on('op-kind', d => { const st = ST(); st.kind = st.kind === d.v ? '' : d.v; render(); if (d.scroll) { const el = document.getElementById('op-b-reg'); if (el) el.scrollIntoView({block: 'start'}); } });
@@ -7142,7 +6699,7 @@ function hoursPage() {
     body = hNotices(m, x) + hKpis(x, m, false) + (m.emps.length ? `<div class="grid g2 mt">${hTrendCard(cf, 'op-h-trend')}${C.card({id: 'op-h-byp', title: 'Unreconciled hours by project', sub: 'Hours above or below payroll, closed pay periods', chart: bars.length ? C.hbars({rows: bars, fmt: v => U.hrs(v)}) : UI.empty('Nothing to compare yet', m.closedPeriods.length ? 'There are no payroll differences in this view.' : 'Payroll for this pay period has not closed.'), cols: ['Project', 'Status', 'Recorded (closed)', 'Paid', 'Difference'], tableRows: pr.list.map(p => [p.id, p.status, p.noReg ? 'Timesheet only' : U.hrs(p.recClosed), p.noReg ? 'Not on file' : U.hrs(p.paid), p.noReg ? 'Not on file' : p.closedEmp ? signedH(p.diff) : '—'])})}</div>` : '') + `<div class="mt">${pr.html}</div>`
       + (m.emps.length ? `<div class="mt">${UI.card({title: 'Employee reconciliation', sub: showAll ? 'All employees in this view' : 'Employees with a difference or an open item', actions: `<span class="seg-ctl">${chip('attention', 'Needs attention', attention.length)}${chip('all', 'All employees', m.emps.length)}</span>`, flush: true, body: hEmpTable(list, `op-h-emps-${ST().hList}`, true, showAll ? undefined : 'Nothing needs attention in this view.')})}</div><div class="grid g2 mt">${hCodesCard(m.emps, cf, 'op-h-code')}${hLinesCard(m.emps.flatMap(o => o.lines), 'op-h-ln')}</div><div class="grid g2 mt">${hStatusCard(x, 'op-h-st', 'Employees')}${UI.card({title: 'Where the differences come from', sub: 'Pay period notes attached to employees with a difference', body: hNoteList(m)})}</div>${m.A.length ? `<div class="mt">${hFindingsCard(m.A, 'op-h-f')}</div>` : ''}` : `<div class="mt">${emptyCard}</div>`);
   }
-  return `${page}${filterBar(d)}${crumbs('hours', d)}${d.emp ? '' : PX.ix.opsInsights('hours', cf, d)}${body}`;
+  return `${page}${filterBar(d)}${crumbs('hours', d)}${body}`;
 }
 function hNoteList(m) {
   const by = {}; m.emps.filter(o => o.closedN && !o.real).forEach(o => { if (Math.abs(o.diff) >= .005 || o.incomplete) o.notes.forEach(n => { (by[n] = by[n] || []).push(o); }); });
