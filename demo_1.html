@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
-<title>PREMPTA AI · Product Walkthrough (impeccable)</title>
+<title>PREMPTA AI · Product Walkthrough (original design)</title>
 <meta name="description" content="A step-by-step visual walkthrough of the PREMPTA AI workflow for Watkins Environmental, from onboarding to attorney submission and revised report.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z' fill='%231d5fbf'/%3E%3Cpath d='M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -32,117 +29,6 @@ dialog{border:0;padding:0;background:transparent;max-width:none;max-height:none;
 @media (max-width:680px){.top-in,.hero-in,.wrap,.foot div{padding-left:16px;padding-right:16px}.pos,.brand span.t{display:none}.hero-in{padding-top:36px}.notes,.grid2{grid-template-columns:minmax(0,1fr)}.s-head{flex-wrap:wrap}.who{text-align:left;max-width:none;width:100%;padding-left:49px}.step{padding:16px}.pages{grid-template-columns:repeat(2,minmax(0,1fr))}.lb-img img{max-width:100%}.lb-nav{display:none}.legend div{grid-template-columns:112px 1fr}}
 @media print{.top,.toc,.jump,.hero .acts,dialog{display:none!important}.layout{display:block}body{background:#fff}.step,.stage-h,.panel,.j-card{box-shadow:none;break-inside:avoid-page}.zoom{border-color:#ccc}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}</style>
-<style data-flavour="impeccable">
-/* =====================================================================
-   Walkthrough · impeccable flavour (matches index_1.html)
-   Same OKLCH tokens and IBM Plex type as the app flavour; no radial halo,
-   gradient bars or kickers; one elevation per surface.
-   ===================================================================== */
-:root{
-  --bg:oklch(96.8% 0.006 258);--card:oklch(100.0% 0.000 0);--subtle:oklch(97.9% 0.005 258);--thead:oklch(97.5% 0.006 258);--hover:oklch(96.2% 0.014 258);--input:oklch(100.0% 0.000 0);--input-line:oklch(64.5% 0.022 258);--line:oklch(90.5% 0.011 258);--line-2:oklch(93.8% 0.008 258);--ink:oklch(24.5% 0.035 258);--ink-2:oklch(39.0% 0.030 258);--muted:oklch(48.5% 0.026 258);--side:oklch(25.5% 0.055 258);--side-2:oklch(23.5% 0.050 258);--side-ink:oklch(88.0% 0.025 258);--side-muted:oklch(74.0% 0.040 258);--side-active:oklch(33.5% 0.060 258);--accent:oklch(50.5% 0.160 258);--accent-h:oklch(44.5% 0.150 258);--accent-soft:oklch(95.2% 0.026 258);--on-accent:oklch(100.0% 0.000 0);--focus:oklch(58.0% 0.170 258);--teal:oklch(66.0% 0.110 182);--crit:oklch(50.5% 0.175 27);--crit-soft:oklch(95.8% 0.024 27);--on-crit:oklch(100.0% 0.000 0);--warn:oklch(50.0% 0.110 62);--warn-soft:oklch(96.2% 0.040 82);--good:oklch(47.5% 0.105 155);--good-soft:oklch(95.8% 0.030 155);--info:oklch(48.5% 0.130 255);--info-soft:oklch(95.8% 0.020 255);--gray:oklch(47.5% 0.022 258);--gray-soft:oklch(95.0% 0.007 258);--paga:oklch(43.0% 0.130 275);--paga-soft:oklch(95.8% 0.020 275);--paga-line:oklch(86.0% 0.050 275);--sev-high:oklch(50.5% 0.150 45);--sev-high-soft:oklch(96.2% 0.032 55);--sev-med:oklch(49.0% 0.100 85);--sev-med-soft:oklch(96.6% 0.045 95);--att:oklch(50.0% 0.170 295);--what:oklch(98.4% 0.012 27);--what-line:oklch(88.0% 0.050 27);--ok:oklch(98.2% 0.015 155);--ok-line:oklch(87.0% 0.050 155);--gap:oklch(98.4% 0.022 95);--gap-line:oklch(88.0% 0.060 95);--tip:oklch(27.0% 0.040 258);
-  --ink2:var(--ink-2);--line2:var(--line-2);--top:var(--card);--shadow:0 0 0 0 transparent;--brand-ai:oklch(50% .095 182);
-  --font-sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-  --font-mono:"IBM Plex Mono",Consolas,"SFMono-Regular",Menlo,monospace;
-  --ease-out:cubic-bezier(.16,1,.3,1);
-  --selection:color-mix(in oklch,var(--accent) 24%,transparent);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:oklch(17.2% 0.026 258);--card:oklch(21.2% 0.029 258);--subtle:oklch(23.8% 0.031 258);--thead:oklch(22.8% 0.030 258);--hover:oklch(25.8% 0.036 258);--input:oklch(19.2% 0.027 258);--input-line:oklch(52.5% 0.035 258);--line:oklch(31.0% 0.033 258);--line-2:oklch(27.2% 0.031 258);--ink:oklch(95.0% 0.008 258);--ink-2:oklch(85.5% 0.015 258);--muted:oklch(73.0% 0.022 258);--side:oklch(14.5% 0.022 258);--side-2:oklch(13.5% 0.020 258);--side-ink:oklch(87.0% 0.020 258);--side-muted:oklch(72.0% 0.035 258);--side-active:oklch(25.5% 0.040 258);--accent:oklch(72.0% 0.130 258);--accent-h:oklch(78.0% 0.110 258);--accent-soft:oklch(29.0% 0.055 258);--on-accent:oklch(17.0% 0.030 258);--focus:oklch(74.0% 0.130 258);--teal:oklch(74.0% 0.110 182);--crit:oklch(73.0% 0.150 27);--crit-soft:oklch(27.5% 0.060 27);--on-crit:oklch(17.0% 0.030 27);--warn:oklch(82.0% 0.120 78);--warn-soft:oklch(27.5% 0.045 78);--good:oklch(79.0% 0.130 155);--good-soft:oklch(27.0% 0.045 155);--info:oklch(78.0% 0.100 255);--info-soft:oklch(27.0% 0.045 255);--gray:oklch(77.0% 0.020 258);--gray-soft:oklch(27.5% 0.014 258);--paga:oklch(80.0% 0.090 275);--paga-soft:oklch(27.0% 0.050 275);--paga-line:oklch(43.0% 0.080 275);--sev-high:oklch(79.0% 0.120 52);--sev-high-soft:oklch(28.0% 0.050 52);--sev-med:oklch(85.0% 0.110 92);--sev-med-soft:oklch(28.0% 0.040 92);--att:oklch(76.0% 0.120 295);--what:oklch(22.5% 0.028 27);--what-line:oklch(40.0% 0.070 27);--ok:oklch(22.2% 0.026 155);--ok-line:oklch(40.0% 0.060 155);--gap:oklch(22.8% 0.026 92);--gap-line:oklch(42.0% 0.060 92);--tip:oklch(32.0% 0.030 258);
-  --ink2:var(--ink-2);--line2:var(--line-2);--top:var(--card);--shadow:0 0 0 0 transparent;--brand-ai:var(--teal);
-  --selection:color-mix(in oklch,var(--accent) 34%,transparent);
-}}
-:root[data-theme=dark]{
-  --bg:oklch(17.2% 0.026 258);--card:oklch(21.2% 0.029 258);--subtle:oklch(23.8% 0.031 258);--thead:oklch(22.8% 0.030 258);--hover:oklch(25.8% 0.036 258);--input:oklch(19.2% 0.027 258);--input-line:oklch(52.5% 0.035 258);--line:oklch(31.0% 0.033 258);--line-2:oklch(27.2% 0.031 258);--ink:oklch(95.0% 0.008 258);--ink-2:oklch(85.5% 0.015 258);--muted:oklch(73.0% 0.022 258);--side:oklch(14.5% 0.022 258);--side-2:oklch(13.5% 0.020 258);--side-ink:oklch(87.0% 0.020 258);--side-muted:oklch(72.0% 0.035 258);--side-active:oklch(25.5% 0.040 258);--accent:oklch(72.0% 0.130 258);--accent-h:oklch(78.0% 0.110 258);--accent-soft:oklch(29.0% 0.055 258);--on-accent:oklch(17.0% 0.030 258);--focus:oklch(74.0% 0.130 258);--teal:oklch(74.0% 0.110 182);--crit:oklch(73.0% 0.150 27);--crit-soft:oklch(27.5% 0.060 27);--on-crit:oklch(17.0% 0.030 27);--warn:oklch(82.0% 0.120 78);--warn-soft:oklch(27.5% 0.045 78);--good:oklch(79.0% 0.130 155);--good-soft:oklch(27.0% 0.045 155);--info:oklch(78.0% 0.100 255);--info-soft:oklch(27.0% 0.045 255);--gray:oklch(77.0% 0.020 258);--gray-soft:oklch(27.5% 0.014 258);--paga:oklch(80.0% 0.090 275);--paga-soft:oklch(27.0% 0.050 275);--paga-line:oklch(43.0% 0.080 275);--sev-high:oklch(79.0% 0.120 52);--sev-high-soft:oklch(28.0% 0.050 52);--sev-med:oklch(85.0% 0.110 92);--sev-med-soft:oklch(28.0% 0.040 92);--att:oklch(76.0% 0.120 295);--what:oklch(22.5% 0.028 27);--what-line:oklch(40.0% 0.070 27);--ok:oklch(22.2% 0.026 155);--ok-line:oklch(40.0% 0.060 155);--gap:oklch(22.8% 0.026 92);--gap-line:oklch(42.0% 0.060 92);--tip:oklch(32.0% 0.030 258);
-  --ink2:var(--ink-2);--line2:var(--line-2);--top:var(--card);--shadow:0 0 0 0 transparent;--brand-ai:var(--teal);
-  --selection:color-mix(in oklch,var(--accent) 34%,transparent);
-}
-
-/* base & browser surfaces */
-html{accent-color:var(--accent);scrollbar-color:var(--input-line) var(--bg)}
-body{font-family:var(--font-sans);font-size:15px;line-height:1.55;font-kerning:normal}
-::selection{background:var(--selection);color:var(--ink)}
-:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-a{text-underline-offset:.2em;text-decoration-thickness:1px}
-h1,h2,h3,h4{text-wrap:balance;font-weight:600}
-p,li,figcaption{text-wrap:pretty}
-
-/* labels: sentence case; the context line above a heading reads as a breadcrumb */
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:0;text-transform:none}
-
-/* top bar */
-.top{background:var(--top);backdrop-filter:none;-webkit-backdrop-filter:none}
-.brand{font-weight:700}
-.brand b{color:var(--brand-ai)}
-.pos{font-size:13px;font-variant-numeric:tabular-nums}
-.bar{height:2px}
-.bar i{background:var(--accent);transition:width .18s var(--ease-out)}
-.btn{font-size:13px;font-weight:600;border-radius:8px;transition:background-color .12s var(--ease-out),border-color .12s var(--ease-out)}
-.btn.p{background:var(--accent);color:var(--on-accent)}
-.btn.p:hover{background:var(--accent-h)}
-.btn.s{border-color:var(--input-line);color:var(--ink)}
-.btn.s:hover{background:var(--hover);border-color:var(--ink-2)}
-
-/* hero: the shell colour, secondary text tinted from it */
-.hero{background:var(--side)}
-.hero .eyebrow{color:oklch(84% .06 195)}
-.hero h1{font-weight:600;letter-spacing:-.025em;max-width:24ch}
-.hero p{color:oklch(87% .04 252);max-width:62ch}
-.stats div b{font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.stats div span{font-size:13px;color:oklch(83% .045 252)}
-.hero .btn.p{background:#fff;color:var(--side)}
-.hero .btn.p:hover{background:oklch(94% .02 252)}
-.hero .btn.s{background:oklch(32% .06 258);border-color:oklch(48% .06 258);color:#fff}
-.hero .btn.s:hover{background:oklch(36% .065 258)}
-
-/* surfaces: border only, no wide shadow */
-.j-card,.panel,.step,.stage-h{box-shadow:none;border-radius:12px;border-color:var(--line)}
-.j-card h2{font-size:13px;font-weight:600}
-.j-list a{font-size:13px;font-weight:500}
-.panel h2{font-size:17px}
-.panel th{font-size:11.5px;font-weight:600}
-.legend{font-size:13.5px}
-.tag{font-size:11.5px;font-weight:600;border-radius:6px}
-.t-ai{background:color-mix(in oklch,var(--att) 12%,var(--card));color:var(--att)}
-/* flat inside its panel: a divider and a coloured label, not a box in a box */
-.notice{background:transparent;border:0;border-top:1px solid var(--line-2);border-radius:0;padding:12px 0 0;margin-top:14px;font-size:13.5px;max-width:66ch}
-.notice b{color:var(--warn)}
-
-/* stages and steps */
-.stage-h{background:var(--card)}
-.stage-h .eyebrow{color:var(--muted);font-variant-numeric:tabular-nums}
-.stage-h h2{font-size:24px;letter-spacing:-.02em}
-.stage-h p{color:var(--ink-2);max-width:76ch}
-.num{background:var(--accent);color:var(--on-accent);font-weight:600;font-variant-numeric:tabular-nums}
-.s-t h3{font-size:19px;letter-spacing:-.01em}
-.where,.who{font-size:13px}
-.lead{max-width:66ch}
-/* step notes: two columns under one divider, not boxes inside the step card */
-.notes{gap:24px;border-top:1px solid var(--line-2);padding-top:14px;margin-bottom:18px}
-.notes>div{background:transparent;border:0;border-radius:0;padding:0}
-.notes h4{font-size:13px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
-.notes ol,.notes ul{font-size:14px}
-.ui{font-weight:600}
-
-/* table of contents */
-.toc{font-size:13.5px}
-.toc-s{font-weight:600}
-.toc-s span{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums}
-.toc-g.on .toc-s span{background:var(--accent);color:var(--on-accent)}
-.toc li a{font-size:13px}
-.toc li a em{opacity:1;color:var(--muted);font-variant-numeric:tabular-nums}
-.toc li a.on{color:var(--accent);font-weight:600}
-.toc li a.on em{color:var(--accent)}
-.jump select{border-color:var(--input-line)}
-
-/* screenshots */
-.zoom{border-radius:8px;transition:border-color .12s var(--ease-out)}
-.zoom:hover{box-shadow:none;border-color:var(--accent)}
-figcaption{font-size:13px}
-figcaption span{font-weight:600;font-variant-numeric:tabular-nums}
-dialog::backdrop{background:oklch(10% .02 258 / .9)}
-.lb button{border-radius:8px}
-.foot{font-size:13px}
-</style>
 </head>
 <body>
 <a class="skip" href="#walkthrough">Skip to the walkthrough</a>
