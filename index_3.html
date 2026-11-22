@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>PREMPTA AI</title>
+<meta name="description" content="PREMPTA AI simplified client demo: hours and pay reconciliation, meal and rest breaks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z' fill='%231d5fbf'/%3E%3Cpath d='M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>/* apply theme before paint */(function(){var t=null;try{t=localStorage.getItem('prempta-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+<style>
+/* PREMPTA · simplified client demo (index_3)
+   Tokens follow the impeccable layer of index.html: OKLCH colour, IBM Plex,
+   one elevation per surface (cards use a border, floating layers a shadow). */
+:root{
+  color-scheme:light;
+  --font-sans:"IBM Plex Sans","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+  --fs-xs:12px;--fs-sm:13px;--fs-md:14px;--fs-lg:15px;--fs-xl:17px;--fs-2xl:20px;--fs-3xl:24px;--fs-4xl:30px;--fs-5xl:40px;
+  --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --bg:oklch(96.8% 0.006 258);--card:oklch(100% 0 0);--subtle:oklch(97.9% 0.005 258);--thead:oklch(97.5% 0.006 258);
+  --hover:oklch(96.2% 0.014 258);--input:oklch(100% 0 0);--input-line:oklch(64.5% 0.022 258);
+  --line:oklch(90.5% 0.011 258);--line-2:oklch(93.8% 0.008 258);
+  --ink:oklch(24.5% 0.035 258);--ink-2:oklch(39% 0.03 258);--muted:oklch(48.5% 0.026 258);
+  --accent:oklch(50.5% 0.16 258);--accent-h:oklch(44.5% 0.15 258);--accent-soft:oklch(95.2% 0.026 258);--on-accent:oklch(100% 0 0);
+  --focus:oklch(58% 0.17 258);--teal:oklch(50% 0.095 182);--brand-ink:oklch(25.5% 0.055 258);
+  --crit:oklch(50.5% 0.175 27);--crit-soft:oklch(95.8% 0.024 27);--crit-line:oklch(86% 0.06 27);
+  --warn:oklch(50% 0.11 62);--warn-soft:oklch(96.2% 0.04 82);--warn-line:oklch(86% 0.07 82);
+  --low:oklch(47.5% 0.06 258);--low-soft:oklch(95.6% 0.012 258);
+  --good:oklch(47.5% 0.105 155);--good-soft:oklch(95.8% 0.03 155);--good-line:oklch(86% 0.06 155);
+  --gap:oklch(48% 0.02 258);--gap-soft:oklch(95% 0.007 258);
+  --bar-ok:oklch(70% 0.12 155);--bar-bad:oklch(60% 0.17 27);--bar-muted:oklch(88% 0.012 258);
+  --pop:0 2px 6px -1px oklch(25% .04 258 / .10),0 16px 36px -10px oklch(25% .04 258 / .24);
+  --selection:color-mix(in oklch,var(--accent) 24%,transparent);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:oklch(17.2% 0.026 258);--card:oklch(21.2% 0.029 258);--subtle:oklch(23.8% 0.031 258);--thead:oklch(22.8% 0.03 258);
+  --hover:oklch(25.8% 0.036 258);--input:oklch(19.2% 0.027 258);--input-line:oklch(52.5% 0.035 258);
+  --line:oklch(31% 0.033 258);--line-2:oklch(27.2% 0.031 258);
+  --ink:oklch(95% 0.008 258);--ink-2:oklch(85.5% 0.015 258);--muted:oklch(73% 0.022 258);
+  --accent:oklch(72% 0.13 258);--accent-h:oklch(78% 0.11 258);--accent-soft:oklch(29% 0.055 258);--on-accent:oklch(17% 0.03 258);
+  --focus:oklch(74% 0.13 258);--teal:oklch(74% 0.11 182);--brand-ink:oklch(95% 0.008 258);
+  --crit:oklch(73% 0.15 27);--crit-soft:oklch(27.5% 0.06 27);--crit-line:oklch(42% 0.09 27);
+  --warn:oklch(82% 0.12 78);--warn-soft:oklch(27.5% 0.045 78);--warn-line:oklch(44% 0.07 78);
+  --low:oklch(78% 0.05 258);--low-soft:oklch(27% 0.02 258);
+  --good:oklch(79% 0.13 155);--good-soft:oklch(27% 0.045 155);--good-line:oklch(42% 0.07 155);
+  --gap:oklch(77% 0.02 258);--gap-soft:oklch(27.5% 0.014 258);
+  --bar-ok:oklch(68% 0.12 155);--bar-bad:oklch(66% 0.16 27);--bar-muted:oklch(34% 0.03 258);
+  --pop:0 2px 6px -1px oklch(5% .02 258 / .5),0 18px 40px -10px oklch(5% .02 258 / .7);
+  --selection:color-mix(in oklch,var(--accent) 34%,transparent);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;accent-color:var(--accent);scrollbar-color:var(--input-line) var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:var(--fs-md);line-height:1.5;font-kerning:normal;text-rendering:optimizeLegibility}
+::selection{background:var(--selection);color:var(--ink)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+h1[tabindex="-1"]:focus{outline:none}
+.nw{white-space:nowrap}
+h1,h2,h3{margin:0;font-weight:600;text-wrap:balance;color:var(--ink)}
+h1{font-size:var(--fs-3xl);line-height:1.2;letter-spacing:-.02em}
+h2{font-size:var(--fs-xl);line-height:1.3;letter-spacing:-.01em}
+h3{font-size:var(--fs-lg);line-height:1.35}
+p{margin:0;text-wrap:pretty}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.mono{font-family:var(--font-mono);font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+svg.i.sm{width:15px;height:15px}
+svg.i.lg{width:22px;height:22px}
+[hidden]{display:none!important}
+
+/* ---------- buttons & inputs ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 16px;border-radius:var(--r-md);border:1px solid transparent;
+  font-size:var(--fs-sm);font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap;
+  transition:background-color 120ms var(--ease),border-color 120ms var(--ease),color 120ms var(--ease),opacity 120ms var(--ease)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-h)}
+.btn-primary[disabled]{opacity:.45;cursor:not-allowed}
+.btn-secondary{background:var(--card);border-color:var(--input-line);color:var(--ink)}
+.btn-secondary:hover{background:var(--hover)}
+.btn-ghost{background:transparent;color:var(--ink-2)}
+.btn-ghost:hover{background:var(--hover);color:var(--ink)}
+.btn-lg{min-height:46px;padding:11px 22px;font-size:var(--fs-lg)}
+.btn-block{width:100%}
+.icon-btn{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:var(--r-md);border:1px solid transparent;background:transparent;color:var(--ink-2)}
+.icon-btn:hover{background:var(--hover);color:var(--ink)}
+.field{display:grid;gap:6px}
+.field label{font-size:var(--fs-sm);font-weight:600;color:var(--ink-2)}
+.input{width:100%;min-height:42px;padding:9px 12px;border-radius:var(--r-md);border:1px solid var(--input-line);background:var(--input);color:var(--ink);caret-color:var(--accent)}
+.input:focus{outline:2px solid var(--focus);outline-offset:0;border-color:transparent}
+.input[readonly]{background:var(--subtle);color:var(--ink-2)}
+
+/* ---------- brand ---------- */
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--brand-ink)}
+.brand svg{width:30px;height:30px;flex:none}
+.brand b{font-size:15px;letter-spacing:.14em;font-weight:700}
+.brand b span{color:var(--teal);letter-spacing:.1em}
+
+/* ---------- auth & setup (centered) ---------- */
+.center{min-height:100vh;display:grid;place-items:center;padding:32px 16px}
+.auth{width:min(400px,100%);display:grid;gap:28px}
+.auth .brand{justify-self:center}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px}
+.auth .panel{display:grid;gap:18px}
+.auth h1{font-size:var(--fs-2xl)}
+.auth-foot{text-align:center;font-size:var(--fs-xs);color:var(--muted)}
+
+/* ---------- shell ---------- */
+.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;padding:0 24px;min-height:60px;display:flex;align-items:center;gap:20px}
+.top .spacer{flex:1}
+.org-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 10px 5px 6px;border-radius:999px;background:var(--subtle);border:1px solid var(--line);font-size:var(--fs-sm);font-weight:600;color:var(--ink);max-width:260px}
+.org-chip i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-style:normal;font-size:11px;font-weight:700;flex:none}
+.org-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav{display:flex;gap:4px}
+.nav a{display:inline-flex;align-items:center;min-height:36px;padding:6px 12px;border-radius:var(--r-md);color:var(--ink-2);text-decoration:none;font-size:var(--fs-sm);font-weight:600}
+.nav a:hover{background:var(--hover);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:var(--fs-xs);font-weight:600;color:var(--good);white-space:nowrap}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.user{position:relative}
+.avatar{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand-ink);color:var(--card);font-size:12px;font-weight:700;border:0}
+:root[data-theme="dark"] .avatar{background:oklch(36% .07 258);color:var(--ink)}
+.menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--pop);padding:6px;display:grid}
+.menu .who{padding:8px 10px 10px;border-bottom:1px solid var(--line-2);margin-bottom:4px;font-size:var(--fs-sm)}
+.menu .who b{display:block}
+.menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:var(--r-sm);border:0;background:transparent;font-size:var(--fs-sm)}
+.menu button:hover{background:var(--hover)}
+main{max-width:1200px;margin:0 auto;padding:32px 24px 64px}
+
+/* ---------- stepper ---------- */
+.steps{display:flex;align-items:center;gap:8px;list-style:none;margin:0;padding:0;font-size:var(--fs-sm)}
+.steps li{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:500}
+.steps li+li::before{content:"";width:28px;height:1px;background:var(--line)}
+.steps .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);font-size:12px;font-weight:600;background:var(--card)}
+.steps .on{color:var(--ink);font-weight:600}
+.steps .on .n{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.steps .done .n{background:var(--good-soft);border-color:var(--good-line);color:var(--good)}
+
+/* ---------- page heads ---------- */
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.head p{color:var(--ink-2);margin-top:6px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);text-decoration:none;font-size:var(--fs-sm);font-weight:600;margin-bottom:10px}
+.back:hover{color:var(--accent)}
+
+/* ---------- org setup ---------- */
+.setup{width:min(560px,100%);display:grid;gap:20px}
+.org-opt{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);cursor:pointer}
+.org-opt:hover{background:var(--hover)}
+.org-opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.org-opt input{margin:0;width:18px;height:18px}
+.org-logo{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:var(--r-md);background:var(--accent-soft);color:var(--accent);font-weight:700;flex:none}
+.org-opt:has(input:checked) .org-logo{background:var(--card)}
+.org-opt b{display:block}
+.org-opt small{color:var(--muted);font-size:var(--fs-sm)}
+.org-opt:has(input:checked) small{color:color-mix(in oklch,var(--accent) 45%,var(--ink))}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ---------- sources ---------- */
+.sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.src{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);padding:20px;display:flex;flex-direction:column;gap:14px}
+.src.is-on{border-color:var(--good-line)}
+.src-top{display:flex;align-items:flex-start;gap:12px}
+.src-ic{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:var(--r-md);flex:none}
+.src-ic.ff{background:oklch(95% .03 230);color:oklch(45% .12 230)}
+.src-ic.qb{background:oklch(95% .035 150);color:oklch(42% .1 150)}
+.src-ic.cf{background:oklch(95.5% .03 70);color:oklch(46% .1 60)}
+:root[data-theme="dark"] .src-ic.ff{background:oklch(29% .05 230);color:oklch(80% .1 230)}
+:root[data-theme="dark"] .src-ic.qb{background:oklch(29% .05 150);color:oklch(80% .1 150)}
+:root[data-theme="dark"] .src-ic.cf{background:oklch(30% .05 70);color:oklch(84% .1 75)}
+.src h2{font-size:var(--fs-lg)}
+.src-top p{font-size:var(--fs-sm);color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:var(--fs-xs);font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.off{background:var(--gap-soft);color:var(--gap)}
+.pill.busy{background:var(--accent-soft);color:var(--accent)}
+.pill.on{background:var(--good-soft);color:var(--good)}
+.pill.busy::before{animation:pulse 900ms ease-in-out infinite alternate}
+@keyframes pulse{to{opacity:.25}}
+.src-stat{display:flex;gap:18px;font-size:var(--fs-sm);color:var(--ink-2)}
+.src-stat b{display:block;font-size:var(--fs-2xl);color:var(--ink);font-weight:600;line-height:1.1}
+.src-actions{display:flex;gap:8px;margin-top:auto}
+.files{border-top:1px solid var(--line-2);padding-top:10px;display:grid;grid-template-columns:minmax(0,1fr);gap:2px}
+.src{min-width:0}
+.file{display:flex;align-items:center;gap:10px;padding:7px 6px;border-radius:var(--r-sm);font-size:var(--fs-sm)}
+.file:hover{background:var(--hover)}
+.file input{margin:0;width:16px;height:16px;flex:none}
+.file .fn{flex:1;min-width:0}
+.file .fn span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.file .fn small{display:block;color:var(--muted);font-size:var(--fs-xs)}
+.file.off .fn span{color:var(--muted);font-weight:400}
+.tag{display:inline-block;padding:1px 7px;border-radius:var(--r-sm);font-size:11.5px;font-weight:600;background:var(--gap-soft);color:var(--gap);white-space:nowrap}
+.ready{margin-top:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);padding:18px 20px}
+.checks{display:flex;gap:22px;flex-wrap:wrap;flex:1;list-style:none;margin:0;padding:0}
+.checks li{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);color:var(--ink-2)}
+.checks li b{color:var(--ink);font-weight:600}
+.ok-dot,.no-dot{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;flex:none}
+.ok-dot{background:var(--good-soft);color:var(--good)}
+.no-dot{background:var(--gap-soft);color:var(--gap)}
+.ok-dot svg,.no-dot svg{width:12px;height:12px;stroke-width:2.6}
+
+/* ---------- run analysis ---------- */
+.run{width:min(520px,100%);display:grid;gap:22px;text-align:center}
+.run ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;text-align:left}
+.run li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-md);color:var(--muted)}
+.run li .ic{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line);flex:none}
+.run li.now{color:var(--ink);background:var(--subtle)}
+.run li.now .ic{border-color:var(--accent);border-top-color:transparent;animation:spin 800ms linear infinite}
+.run li.done{color:var(--ink-2)}
+.run li.done .ic{background:var(--good-soft);border-color:var(--good-line);color:var(--good)}
+.run li.done .ic svg{width:13px;height:13px;stroke-width:2.6}
+.run li small{margin-left:auto;color:var(--muted);font-size:var(--fs-xs);font-variant-numeric:tabular-nums}
+@keyframes spin{to{transform:rotate(360deg)}}
+.progress{height:6px;border-radius:999px;background:var(--line-2);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);border-radius:inherit;transition:width 380ms var(--ease)}
+
+/* ---------- dashboard ---------- */
+.dash-head h1{font-size:var(--fs-3xl)}
+.meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:var(--fs-sm);color:var(--muted)}
+.meta span{display:inline-flex;align-items:center;gap:6px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;margin-bottom:20px}
+.kpi{background:var(--card);padding:18px 20px}
+.kpi .lbl{font-size:var(--fs-sm);color:var(--muted);font-weight:500}
+.kpi .val{font-size:var(--fs-4xl);font-weight:600;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi .val small{font-size:var(--fs-md);font-weight:500;color:var(--muted);letter-spacing:0;margin-left:4px}
+.kpi .sub{font-size:var(--fs-xs);color:var(--muted);margin-top:2px}
+.kpi.hi .val{color:var(--crit)}
+.ucs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.uc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);padding:24px;display:flex;flex-direction:column;gap:18px}
+.uc-top{display:flex;align-items:flex-start;gap:14px}
+.uc-letter{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:var(--r-md);background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:var(--fs-xl);flex:none}
+.uc-top h2{font-size:var(--fs-xl)}
+.uc-top p{font-size:var(--fs-sm);color:var(--muted);margin-top:2px}
+.uc-top .sev{margin-left:auto}
+.sev{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:var(--fs-xs);font-weight:600;white-space:nowrap}
+.sev::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.sev.High{background:var(--crit-soft);color:var(--crit)}
+.sev.Medium{background:var(--warn-soft);color:var(--warn)}
+.sev.Low{background:var(--low-soft);color:var(--low)}
+.sev.Pass{background:var(--good-soft);color:var(--good)}
+.sev.Pending,.sev.Gap{background:var(--gap-soft);color:var(--gap)}
+.hero{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero b{font-size:var(--fs-5xl);font-weight:600;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hero span{font-size:var(--fs-lg);color:var(--ink-2);font-weight:500}
+.uc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.uc-stats div{padding:12px 14px;border-radius:var(--r-md);background:var(--subtle)}
+.uc-stats dt{font-size:var(--fs-xs);color:var(--muted);font-weight:500}
+.uc-stats dd{margin:2px 0 0;font-size:var(--fs-xl);font-weight:600;font-variant-numeric:tabular-nums}
+.uc-stats dd small{font-size:var(--fs-xs);font-weight:500;color:var(--muted)}
+.uc-stats dd small.blk{display:block;margin-top:2px}
+.uc-line{font-size:var(--fs-md);color:var(--ink-2);padding-top:14px;border-top:1px solid var(--line-2)}
+.uc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;flex-wrap:wrap}
+.uc-foot .muted{font-size:var(--fs-xs)}
+/* split bar */
+.split{display:grid;gap:8px}
+.split .bar{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--bar-muted);gap:2px}
+.split .bar i{display:block;height:100%}
+.split .bar i.bad{background:var(--bar-bad)}
+.split .bar i.ok{background:var(--bar-ok)}
+.split .bar i.none{background:var(--bar-muted)}
+.split .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:var(--fs-xs);color:var(--ink-2)}
+.split .legend span{display:inline-flex;align-items:center;gap:6px}
+.split .legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.split .legend i.bad{background:var(--bar-bad)}.split .legend i.ok{background:var(--bar-ok)}.split .legend i.none{background:var(--bar-muted)}
+.split .cap{font-size:var(--fs-sm);font-weight:600;color:var(--ink-2)}
+.meters{display:grid;gap:10px}
+.meter{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;font-size:var(--fs-sm)}
+.meter .track{grid-column:1/-1;height:8px;border-radius:999px;background:var(--bar-muted);overflow:hidden}
+.meter .track i{display:block;height:100%;border-radius:inherit;background:var(--bar-ok);min-width:3px}
+.meter .track i.bad{background:var(--bar-bad)}
+.meter b{font-variant-numeric:tabular-nums;font-weight:600}
+.meter span{color:var(--ink-2)}
+
+/* findings list on dashboard */
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:36px 0 14px}
+.sec-h h2{font-size:var(--fs-xl)}
+.sec-h a{font-size:var(--fs-sm);font-weight:600;color:var(--accent);text-decoration:none}
+.ins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.insight{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;display:grid;gap:10px;align-content:start}
+.insight-h{display:flex;align-items:center;gap:10px}
+.insight-h h3{font-size:var(--fs-lg);flex:1}
+.insight .what{color:var(--ink)}
+.insight .why{font-size:var(--fs-sm);color:var(--ink-2)}
+.insight .why .cite,.cite{font-family:var(--font-mono);font-size:12px;color:var(--accent);background:var(--accent-soft);padding:1px 6px;border-radius:var(--r-sm);white-space:nowrap}
+.insight .foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line-2);font-size:var(--fs-sm)}
+.insight .foot b{font-variant-numeric:tabular-nums}
+.insight .next{display:flex;gap:8px;font-size:var(--fs-sm);color:var(--ink-2)}
+.insight .next svg{color:var(--accent);margin-top:2px}
+.insight>div:last-child .btn-ghost{margin-left:-14px}
+.rules-line{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);color:var(--muted)}
+.rules-line svg{color:var(--accent)}
+.fl-list{display:grid;gap:6px}
+.fl-list>span{display:block}
+.why-list{display:grid;gap:14px}
+.why-list h4{margin:0 0 4px;font-size:var(--fs-sm)}
+.uc-tag{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:var(--r-sm);padding:1px 7px}
+.data-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.data-strip>div{background:var(--card);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.data-strip b{display:block;font-size:var(--fs-sm)}
+.data-strip small{display:block;font-size:var(--fs-xs);color:var(--muted)}
+.gaps{margin-top:10px;font-size:var(--fs-xs);color:var(--muted);display:flex;gap:6px 14px;flex-wrap:wrap}
+.gaps span{display:inline-flex;align-items:center;gap:6px}
+
+/* ---------- detail ---------- */
+.d-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;margin-bottom:24px}
+.d-stats>div{background:var(--card);padding:16px 18px}
+.d-stats dt{font-size:var(--fs-sm);color:var(--muted)}
+.d-stats dd{margin:4px 0 0;font-size:var(--fs-2xl);font-weight:600;font-variant-numeric:tabular-nums}
+.d-stats dd small{font-size:var(--fs-sm);color:var(--muted);font-weight:500}
+.fl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;display:grid;gap:8px;text-align:left;align-content:start;width:100%}
+button.fcard:hover{background:var(--hover)}
+.fcard[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.fcard .insight-h h3{font-size:var(--fs-md)}
+.uc-line,.fcard .insight-h h3{font-weight:inherit}
+.fcard .insight-h h3{font-weight:600}
+.fcard .what{font-size:var(--fs-sm);color:var(--ink)}
+.fcard .why{font-size:var(--fs-sm);color:var(--ink-2)}
+.fcard .next{display:flex;gap:8px;font-size:var(--fs-sm);color:var(--ink-2)}
+.fcard .next svg{color:var(--accent);margin-top:2px}
+.fcard .cnt{font-size:var(--fs-sm);color:var(--ink-2)}
+.fcard .cnt b{color:var(--ink)}
+.tbl-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:28px 0 12px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:3px;border-radius:var(--r-md);background:var(--subtle);border:1px solid var(--line)}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:6px;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.seg button span{color:var(--muted);font-weight:500;margin-left:4px}
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:var(--fs-sm);font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:var(--fs-xs);font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:11px 12px;background:var(--thead);border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover td{background:var(--hover)}
+tbody tr.row[aria-expanded="true"] td{background:var(--subtle);border-bottom-color:transparent}
+td.r,th.r{text-align:right}
+tbody tr.row td:nth-last-child(2){min-width:180px}
+tbody tr.row td:first-child{min-width:130px}
+td .em{font-weight:600;color:var(--ink)}
+td .sub{display:block;font-size:var(--fs-xs);color:var(--muted)}
+td .diff-bad{color:var(--crit);font-weight:600}
+td .diff-ok{color:var(--good);font-weight:600}
+td .chev{color:var(--muted);transition:transform 160ms var(--ease)}
+tr[aria-expanded="true"] .chev{transform:rotate(90deg)}
+tr.ev td{background:var(--subtle);padding:0 14px 16px}
+.evp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px}
+.evp{padding-top:6px}
+.evp section+section{border-left:1px solid var(--line);padding-left:16px}
+.evp h3{margin:0 0 8px;font-size:var(--fs-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.evp ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.evp li{display:grid;gap:2px}
+.evp li b{font-size:var(--fs-sm)}
+.evp li span{font-size:var(--fs-xs);color:var(--muted)}
+.evp .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:var(--fs-sm)}
+.evp .kv dt{color:var(--muted)}
+.evp .kv dd{margin:0}
+.empty{padding:36px;text-align:center;color:var(--muted)}
+.note{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;border-radius:var(--r-md);background:var(--gap-soft);color:var(--ink-2);font-size:var(--fs-sm)}
+.note svg{color:var(--gap);margin-top:1px}
+.foot-legal{margin-top:40px;font-size:var(--fs-xs);color:var(--muted);text-align:center}
+
+/* ---------- motion ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(6px)}}
+.view{animation:rise 260ms var(--ease)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1020px){
+  .sources{grid-template-columns:1fr}
+  .ucs,.ins,.fl{grid-template-columns:1fr}
+  .top-in .status{display:none}
+}
+@media (max-width:760px){
+  .top-in{padding:0 16px;gap:10px;flex-wrap:wrap;padding-block:8px}
+  .nav{order:5;width:100%;overflow-x:auto}
+  .org-chip{padding:4px}
+  .org-chip span{display:none}
+  main{padding:24px 16px 48px}
+  .kpis,.d-stats{grid-template-columns:1fr 1fr}
+  .uc-stats{grid-template-columns:1fr 1fr}
+  .data-strip{grid-template-columns:1fr}
+  .evp{grid-template-columns:1fr}
+  .evp section+section{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:12px}
+  .grid2{grid-template-columns:1fr}
+  .steps .lbl{display:none}
+  .hero b{font-size:var(--fs-4xl)}
+}
+
+</style>
+</head>
+<body>
+<div id="app" aria-live="polite"></div>
+<noscript><p style="padding:24px">PREMPTA needs JavaScript to run the analysis.</p></noscript>
+<!-- Records parsed from the client's sample files (QuickBooks Time by Name Detail,
+     FieldFlow daily timesheets and activity report, the anonymized complaint, the rule catalog). -->
+<script>window.__PREMPTA_DATA__={"generatedFrom":"Client sample files supplied 2026-11-17 to 2026-11-22","org":{"name":"Watkins Environmental, Inc.","address":"4345 Murphy Canyon Road, San Diego, CA 92123"},"qb":{"meta":{"company":"Watkins Environmental, Inc.","report":"Time by Name Detail","period":"November 8 - 14, 2026","generated":"11/18/26 8:40 PM"},"lines":[{"row":4,"emp":"Aguirre, Christopher T","job":"MARROKAL:5575PB-8803 Heraldry St, San Diego","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":7.25,"notes":null},{"row":5,"emp":"Aguirre, Christopher T","job":"MARROKAL:5575PB-8803 Heraldry St, San Diego","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Overtime (x1.5) hourly","hours":0.75,"notes":null},{"row":8,"emp":"Aguirre, Christopher T","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":0.75,"notes":null},{"row":9,"emp":"Aguirre, Christopher T","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":"1 hr break premium for 11/9"},{"row":10,"emp":"Aguirre, Christopher T","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":"1 hr break premium for 11/9"},{"row":11,"emp":"Aguirre, Christopher T","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":"1 hr break premium for 11/9"},{"row":12,"emp":"Aguirre, Christopher T","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":"1 hr break premium for 11/9"},{"row":17,"emp":"Aguirre, Nicholas D.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":18,"emp":"Aguirre, Nicholas D.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":19,"emp":"Aguirre, Nicholas D.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":20,"emp":"Aguirre, Nicholas D.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":25,"emp":"Amoros, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":26,"emp":"Amoros, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":27,"emp":"Amoros, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":8.0,"notes":"gr1"},{"row":28,"emp":"Amoros, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":29,"emp":"Amoros, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":34,"emp":"Arreola Santos, Porfirio","job":"MARROKAL:5575PB-8803 Heraldry St, San Diego","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":37,"emp":"Arreola Santos, Porfirio","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":38,"emp":"Arreola Santos, Porfirio","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":39,"emp":"Arreola Santos, Porfirio","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":40,"emp":"Arreola Santos, Porfirio","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":45,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-09","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":46,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-10","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":47,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-10","item":null,"payItem":"Overtime (x1.5) hourly","hours":0.5,"notes":null},{"row":48,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-11","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":49,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-11","item":null,"payItem":"Overtime (x1.5) hourly","hours":0.25,"notes":null},{"row":50,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-12","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":51,"emp":"Becerra Sr., Jonathan D.","job":"Shop","date":"2026-11-13","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":56,"emp":"Branch, Michael J.","job":"5605PB-833 Barsby St, Vista","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":59,"emp":"Branch, Michael J.","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":62,"emp":"Branch, Michael J.","job":"JACKSON DESIGN AND REMODELING:5604PB-7535 Milky Way Point, San Diego","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":"mold"},{"row":65,"emp":"Branch, Michael J.","job":"KB HOME COASTAL:5601PB-Pasqual Heights","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":70,"emp":"Cardenas Martinez, J. Guadalupe Manuel","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":71,"emp":"Cardenas Martinez, J. Guadalupe Manuel","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":74,"emp":"Cardenas Martinez, J. Guadalupe Manuel","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":77,"emp":"Cardenas Martinez, J. Guadalupe Manuel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":78,"emp":"Cardenas Martinez, J. Guadalupe Manuel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":83,"emp":"Carrillo Paz, Daniel H.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":84,"emp":"Carrillo Paz, Daniel H.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":87,"emp":"Carrillo Paz, Daniel H.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":null},{"row":90,"emp":"Carrillo Paz, Daniel H.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":91,"emp":"Carrillo Paz, Daniel H.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":96,"emp":"Diaz, Bryan","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":97,"emp":"Diaz, Bryan","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":98,"emp":"Diaz, Bryan","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":99,"emp":"Diaz, Bryan","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":100,"emp":"Diaz, Bryan","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":105,"emp":"Durazo Wilson, Paulina","job":"No job assigned","date":"2026-11-12","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":106,"emp":"Durazo Wilson, Paulina","job":"No job assigned","date":"2026-11-13","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":111,"emp":"Elizalde Salgado, Jorge A","job":"5605PB-833 Barsby St, Vista","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":112,"emp":"Elizalde Salgado, Jorge A","job":"5605PB-833 Barsby St, Vista","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":115,"emp":"Elizalde Salgado, Jorge A","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":116,"emp":"Elizalde Salgado, Jorge A","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Overtime (x1.5) hourly","hours":2.0,"notes":null},{"row":119,"emp":"Elizalde Salgado, Jorge A","job":"KB HOME COASTAL:5601PB-Pasqual Heights","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":122,"emp":"Elizalde Salgado, Jorge A","job":"MARROKAL:5575PB-8803 Heraldry St, San Diego","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":127,"emp":"Esquivel Pacheco, Luis A.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":130,"emp":"Esquivel Pacheco, Luis A.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":131,"emp":"Esquivel Pacheco, Luis A.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":132,"emp":"Esquivel Pacheco, Luis A.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":133,"emp":"Esquivel Pacheco, Luis A.","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":138,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Training Hourly","hours":1.0,"notes":"badge"},{"row":139,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":9.0,"notes":"gr1"},{"row":140,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":141,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":142,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":143,"emp":"Flores Rangel, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":148,"emp":"Garcia, Pablo S.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":149,"emp":"Garcia, Pablo S.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":150,"emp":"Garcia, Pablo S.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":151,"emp":"Garcia, Pablo S.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":152,"emp":"Garcia, Pablo S.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":157,"emp":"Gaxiola, Alfred","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"State-Asb-Misc","hours":8.0,"notes":null},{"row":158,"emp":"Gaxiola, Alfred","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"State-Asb-Misc","hours":6.5,"notes":null},{"row":159,"emp":"Gaxiola, Alfred","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-13","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":1.5,"notes":null},{"row":162,"emp":"Gaxiola, Alfred","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":163,"emp":"Gaxiola, Alfred","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":164,"emp":"Gaxiola, Alfred","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":165,"emp":"Gaxiola, Alfred","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":0.25,"notes":null},{"row":168,"emp":"Gaxiola, Alfred","job":"Shop","date":"2026-11-11","item":null,"payItem":"Job Prep/Demob/DT","hours":0.75,"notes":null},{"row":173,"emp":"Gomez Morales., Martin","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":174,"emp":"Gomez Morales., Martin","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":175,"emp":"Gomez Morales., Martin","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":178,"emp":"Gomez Morales., Martin","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":183,"emp":"Gonzalez Jr, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Training Hourly","hours":1.0,"notes":"badge"},{"row":184,"emp":"Gonzalez Jr, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":9.0,"notes":"gr1"},{"row":185,"emp":"Gonzalez Jr, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":186,"emp":"Gonzalez Jr, Juan M.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":189,"emp":"Gonzalez Jr, Juan M.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":190,"emp":"Gonzalez Jr, Juan M.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":195,"emp":"Gonzalez Nunez, Santiago","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":196,"emp":"Gonzalez Nunez, Santiago","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":197,"emp":"Gonzalez Nunez, Santiago","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":200,"emp":"Gonzalez Nunez, Santiago","job":"JACOR CONSTRUCTION:5503PB-7733 Girard Ave, La Jolla","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":205,"emp":"Gonzalez Sr., Jesus H.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":4.5,"notes":null},{"row":206,"emp":"Gonzalez Sr., Jesus H.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":207,"emp":"Gonzalez Sr., Jesus H.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":210,"emp":"Gonzalez Sr., Jesus H.","job":"5609BB-10152 Ambassador Ave","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":4.5,"notes":null},{"row":213,"emp":"Gonzalez Sr., Jesus H.","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":218,"emp":"Gonzalez, Humberto","job":"JACKSON DESIGN AND REMODELING:5604PB-7535 Milky Way Point, San Diego","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":"mold"},{"row":221,"emp":"Gonzalez, Humberto","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.5,"notes":null},{"row":222,"emp":"Gonzalez, Humberto","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":0.25,"notes":null},{"row":225,"emp":"Gonzalez, Humberto","job":"Shop","date":"2026-11-10","item":null,"payItem":"Hourly-SHOP","hours":0.75,"notes":null},{"row":228,"emp":"Gonzalez, Humberto","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":233,"emp":"Guerrero Ibarra, Adan","job":"Shop","date":"2026-11-09","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":234,"emp":"Guerrero Ibarra, Adan","job":"Shop","date":"2026-11-10","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":235,"emp":"Guerrero Ibarra, Adan","job":"Shop","date":"2026-11-11","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":236,"emp":"Guerrero Ibarra, Adan","job":"Shop","date":"2026-11-12","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":237,"emp":"Guerrero Ibarra, Adan","job":"Shop","date":"2026-11-13","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":242,"emp":"Guzman Rivera, Juan","job":"Shop","date":"2026-11-09","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":243,"emp":"Guzman Rivera, Juan","job":"Shop","date":"2026-11-10","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":244,"emp":"Guzman Rivera, Juan","job":"Shop","date":"2026-11-12","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":245,"emp":"Guzman Rivera, Juan","job":"Shop","date":"2026-11-13","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":250,"emp":"Hernandez, Jose L.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Training Hourly","hours":1.0,"notes":"badge"},{"row":251,"emp":"Hernandez, Jose L.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":9.0,"notes":"gr1"},{"row":252,"emp":"Hernandez, Jose L.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":253,"emp":"Hernandez, Jose L.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":256,"emp":"Hernandez, Jose L.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":257,"emp":"Hernandez, Jose L.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":262,"emp":"Hernandez, Luis I","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":265,"emp":"Hernandez, Luis I","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":266,"emp":"Hernandez, Luis I","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":267,"emp":"Hernandez, Luis I","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":272,"emp":"Hidalgo Velazquez, Javier O.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":273,"emp":"Hidalgo Velazquez, Javier O.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":274,"emp":"Hidalgo Velazquez, Javier O.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":275,"emp":"Hidalgo Velazquez, Javier O.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":278,"emp":"Hidalgo Velazquez, Javier O.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":283,"emp":"Jimenez, Salvador","job":"No job assigned","date":"2026-11-09","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":284,"emp":"Jimenez, Salvador","job":"No job assigned","date":"2026-11-10","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":285,"emp":"Jimenez, Salvador","job":"No job assigned","date":"2026-11-11","item":null,"payItem":"Hourly-Holiday","hours":8.0,"notes":"veterans day"},{"row":286,"emp":"Jimenez, Salvador","job":"No job assigned","date":"2026-11-12","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":287,"emp":"Jimenez, Salvador","job":"No job assigned","date":"2026-11-13","item":null,"payItem":"Office Hourly","hours":8.0,"notes":null},{"row":292,"emp":"Korneman, Jaime R","job":"JACKSON DESIGN AND REMODELING:5539PB-4911 Randall St, San Diego","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":295,"emp":"Korneman, Jaime R","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":298,"emp":"Korneman, Jaime R","job":"MURRAY LAMPERT:5547PB-2752 Nansen Ave, San Diego","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":301,"emp":"Korneman, Jaime R","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":302,"emp":"Korneman, Jaime R","job":"RBT ROOFING:5557BB- NASNI B-194","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Federal-Asb-Misc","hours":8.0,"notes":null},{"row":305,"emp":"Korneman, Jaime R","job":"Shop","date":"2026-11-13","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":2.0,"notes":null},{"row":310,"emp":"Macias, Victor D.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr 1"},{"row":311,"emp":"Macias, Victor D.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr 1"},{"row":314,"emp":"Macias, Victor D.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":315,"emp":"Macias, Victor D.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":320,"emp":"Martin APP, Justin D.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":321,"emp":"Martin APP, Justin D.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":322,"emp":"Martin APP, Justin D.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":323,"emp":"Martin APP, Justin D.","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":328,"emp":"Mendez Olvera, Carlos","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Training Hourly","hours":1.0,"notes":"badge"},{"row":329,"emp":"Mendez Olvera, Carlos","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":9.0,"notes":"gr1"},{"row":330,"emp":"Mendez Olvera, Carlos","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":333,"emp":"Mendez Olvera, Carlos","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":334,"emp":"Mendez Olvera, Carlos","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":339,"emp":"Mendoza Chavez *, Alberto","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":340,"emp":"Mendoza Chavez *, Alberto","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":341,"emp":"Mendoza Chavez *, Alberto","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":344,"emp":"Mendoza Chavez *, Alberto","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":345,"emp":"Mendoza Chavez *, Alberto","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":350,"emp":"Ortega Gabriel, Cliserio P.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":353,"emp":"Ortega Gabriel, Cliserio P.","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"State-Asb-Misc","hours":8.0,"notes":null},{"row":354,"emp":"Ortega Gabriel, Cliserio P.","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"State-Asb-Misc","hours":4.0,"notes":null},{"row":355,"emp":"Ortega Gabriel, Cliserio P.","job":"FALLBROOK UNION HIGH SCHOOL DISTRICT:5607PB-Fallbrook HS Girls Coach Office","date":"2026-11-13","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":0.5,"notes":null},{"row":358,"emp":"Ortega Gabriel, Cliserio P.","job":"KB HOME COASTAL:5601PB-Pasqual Heights","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":361,"emp":"Ortega Gabriel, Cliserio P.","job":"RICHARD & RICHARD CONSTRUCTION:5516PB-1916 S Coast Hwy","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":3.5,"notes":null},{"row":364,"emp":"Ortega Gabriel, Cliserio P.","job":"TORRES COMPANIES:5583ML-225 N. Rancho Santa Fe Rd, San Mar","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":369,"emp":"Osuna Tirado, Fernando","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":370,"emp":"Osuna Tirado, Fernando","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":371,"emp":"Osuna Tirado, Fernando","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":4.0,"notes":null},{"row":374,"emp":"Osuna Tirado, Fernando","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":375,"emp":"Osuna Tirado, Fernando","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":380,"emp":"Parra, Cesar D.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":381,"emp":"Parra, Cesar D.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":382,"emp":"Parra, Cesar D.","job":"3500 KEATING SPE:5608PB-3555,3557,3567 Keating Street","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":385,"emp":"Parra, Cesar D.","job":"5609BB-10152 Ambassador Ave","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":386,"emp":"Parra, Cesar D.","job":"5609BB-10152 Ambassador Ave","date":"2026-11-10","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":1.0,"notes":null},{"row":389,"emp":"Parra, Cesar D.","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":394,"emp":"Parra, Gilberto A.","job":"RICHARD & RICHARD CONSTRUCTION:5516PB-1916 S Coast Hwy","date":"2026-11-13","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":5.0,"notes":null},{"row":397,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":398,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-10","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":1.0,"notes":null},{"row":399,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":7.0,"notes":null},{"row":400,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":401,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":402,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-13","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Job Prep/Demob/DT","hours":0.25,"notes":null},{"row":403,"emp":"Parra, Gilberto A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":2.75,"notes":null},{"row":408,"emp":"Quinonez., Francisco","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":409,"emp":"Quinonez., Francisco","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":410,"emp":"Quinonez., Francisco","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":8.0,"notes":"gr1"},{"row":411,"emp":"Quinonez., Francisco","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":414,"emp":"Quinonez., Francisco","job":"JACOR CONSTRUCTION:5503PB-7733 Girard Ave, La Jolla","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":419,"emp":"Ramirez, Jorge","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":420,"emp":"Ramirez, Jorge","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":421,"emp":"Ramirez, Jorge","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":424,"emp":"Ramirez, Jorge","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":425,"emp":"Ramirez, Jorge","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":430,"emp":"Ramirez, Luis M","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":431,"emp":"Ramirez, Luis M","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":434,"emp":"Ramirez, Luis M","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":435,"emp":"Ramirez, Luis M","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":436,"emp":"Ramirez, Luis M","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly - Operator Private","hours":4.0,"notes":null},{"row":441,"emp":"Ramos, Nicholas L","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":442,"emp":"Ramos, Nicholas L","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":443,"emp":"Ramos, Nicholas L","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":444,"emp":"Ramos, Nicholas L","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":445,"emp":"Ramos, Nicholas L","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":450,"emp":"Ruiz, Jaime A.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":451,"emp":"Ruiz, Jaime A.","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":454,"emp":"Ruiz, Jaime A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":455,"emp":"Ruiz, Jaime A.","job":"THE EDWARD GROUP:5578BB-718-732 Stevens Ave, Solana Beach","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":460,"emp":"Sanchez Esparza, Luis E.","job":"Shop","date":"2026-11-09","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":461,"emp":"Sanchez Esparza, Luis E.","job":"Shop","date":"2026-11-10","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":462,"emp":"Sanchez Esparza, Luis E.","job":"Shop","date":"2026-11-11","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":463,"emp":"Sanchez Esparza, Luis E.","job":"Shop","date":"2026-11-12","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":464,"emp":"Sanchez Esparza, Luis E.","job":"Shop","date":"2026-11-13","item":null,"payItem":"Hourly-SHOP","hours":8.0,"notes":null},{"row":469,"emp":"Sanchez, Aaron","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":472,"emp":"Sanchez, Aaron","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":473,"emp":"Sanchez, Aaron","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":474,"emp":"Sanchez, Aaron","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":475,"emp":"Sanchez, Aaron","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":480,"emp":"Sanchez, Alejo M.","job":"5605PB-833 Barsby St, Vista","date":"2026-11-11","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":481,"emp":"Sanchez, Alejo M.","job":"5605PB-833 Barsby St, Vista","date":"2026-11-12","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":484,"emp":"Sanchez, Alejo M.","job":"ETERNA DESIGN BUILD, INC:5593PB-6285 Broadmoor Dr, La Mesa","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":487,"emp":"Sanchez, Alejo M.","job":"JACKSON DESIGN AND REMODELING:5539PB-4911 Randall St, San Diego","date":"2026-11-10","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":490,"emp":"Sanchez, Alejo M.","job":"No job assigned","date":"2026-11-13","item":null,"payItem":"Hourly Sick-Field","hours":8.0,"notes":"8 out of 40 hours now used in 2026"},{"row":495,"emp":"Segura, Miguel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":496,"emp":"Segura, Miguel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":497,"emp":"Segura, Miguel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":498,"emp":"Segura, Miguel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":499,"emp":"Segura, Miguel","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":504,"emp":"Solorio, Jose","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":507,"emp":"Solorio, Jose","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":508,"emp":"Solorio, Jose","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":509,"emp":"Solorio, Jose","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":510,"emp":"Solorio, Jose","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":6.0,"notes":null},{"row":515,"emp":"Szymanski, William M.","job":"TORRES COMPANIES:5583ML-225 N. Rancho Santa Fe Rd, San Mar","date":"2026-11-09","item":"02 Site Work:A2-Asbestos Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":518,"emp":"Szymanski, William M.","job":"No job assigned","date":"2026-11-10","item":null,"payItem":"Hourly Sick-Field","hours":8.0,"notes":"32 out of 40 hours now used in 2026"},{"row":519,"emp":"Szymanski, William M.","job":"No job assigned","date":"2026-11-11","item":null,"payItem":"Hourly Sick-Field","hours":8.0,"notes":"32 out of 40 hours now used in 2026"},{"row":520,"emp":"Szymanski, William M.","job":"No job assigned","date":"2026-11-12","item":null,"payItem":"Hourly Sick-Field","hours":8.0,"notes":"32 out of 40 hours now used in 2026"},{"row":521,"emp":"Szymanski, William M.","job":"No job assigned","date":"2026-11-13","item":null,"payItem":"Hourly Sick-Field","hours":8.0,"notes":"32 out of 40 hours now used in 2026"},{"row":526,"emp":"Toscano Salayandia., Ramiro","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:S2-Job Prep/Demob/DT","payItem":"Training Hourly","hours":1.0,"notes":"badge"},{"row":527,"emp":"Toscano Salayandia., Ramiro","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-09","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":9.0,"notes":"gr1"},{"row":528,"emp":"Toscano Salayandia., Ramiro","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-10","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":10.0,"notes":"gr1"},{"row":529,"emp":"Toscano Salayandia., Ramiro","job":"HARPER CONSTRUCTION:5599CM-Bldg 5250 Emergency Camp Pendleton","date":"2026-11-11","item":"02 Site Work:D2-Demo Labor","payItem":"Federal-Lab-Misc","hours":4.0,"notes":"gr1"},{"row":532,"emp":"Toscano Salayandia., Ramiro","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-12","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null},{"row":533,"emp":"Toscano Salayandia., Ramiro","job":"M.A.C. PLASTERING INC:5600PB-Lakeshore Apartments","date":"2026-11-13","item":"02 Site Work:D2-Demo Labor","payItem":"Hourly","hours":8.0,"notes":null}],"reportTotal":1742,"totalsChecked":146},"ff":{"timesheets":[{"file":"daily-timesheet-2026-11-13.pdf","project":"3555, 3557, 3567, AND 3569 KEATING STREET","date":"2026-11-13","job":"J-5608PB","day":"Friday","foreman":"Cesar Parra","certifiedPayroll":"No","totalMinutes":2400,"shifts":[{"name":"Luis Esquivel Pacheco","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:35:45","verifiedBy":"Luis Esquivel Pacheco","position":"Hourly - Asbestos"},{"name":"Jesus H. Gonzalez Sr.","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:34:23","verifiedBy":"Jesus H. Gonzalez Sr.","position":"Hourly - Asbestos"},{"name":"J Guadalupe Manuel Cardenas Martinez","injured":"No","start":"07:30:00","end":"14:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":360,"verifiedAt":"14:28:56","verifiedBy":"J Guadalupe Manuel Cardenas Martinez","position":"Hourly - Asbestos"},{"name":"Fernando Osuna","injured":"No","start":"07:30:00","end":"11:30:00","breakMin":0,"meal":null,"workMin":240,"verifiedAt":"11:29:16","verifiedBy":"Fernando Osuna","position":"Hourly - Asbestos"},{"name":"Daniel Carrillo Paz","injured":"No","start":"07:30:00","end":"14:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":360,"verifiedAt":"14:28:00","verifiedBy":"Daniel Carrillo Paz","position":"Hourly - Asbestos"},{"name":"Cesar Parra","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"16:02:05","verifiedBy":"Cesar Parra","position":"Hourly - Asbestos"}]},{"file":"daily-timesheet-2026-11-19.pdf","project":"5133 DAWNE STREET, SAN DIEGO, CA 92117","date":"2026-11-19","job":"J-5610PB","day":"Thursday","foreman":"Francisco Quinonez","certifiedPayroll":"No","totalMinutes":2400,"shifts":[{"name":"Fernando Osuna","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:52:43","verifiedBy":"Fernando Osuna","position":"Hourly - Asbestos"},{"name":"Francisco Quinonez","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:59:23","verifiedBy":"Francisco Quinonez","position":"Hourly - Asbestos"},{"name":"Jaime Ruiz","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:52:42","verifiedBy":"Jaime Ruiz","position":"Hourly - Asbestos"},{"name":"Javier Hidalgo","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:52:30","verifiedBy":"Javier Hidalgo","position":"Hourly - Asbestos"},{"name":"Nicholas Aguirre","injured":"No","start":"07:30:00","end":"16:00:00","breakMin":30,"meal":["11:30","12:00"],"workMin":480,"verifiedAt":"15:52:50","verifiedBy":"Nicholas Aguirre","position":"Hourly - Asbestos"}]}],"activity":[{"file":"daily-activity-report-2026-11-13.pdf","date":"2026-11-13","job":"J-5608PB","site":"3555,3557,3567,3569 Keating St, San Diego, CA, 92103","manDaysToDate":"14.5","projectSupervisor":"Manny Lozano","breakQuestion":"Did everyone on the job site take their required rest and meal breaks?","attestedBy":"Cesar Parra","attestedAt":"15:51","answerReadable":false,"crew":["Luis Esquivel Pacheco","Jesus H. Gonzalez Sr.","J Guadalupe Manuel Cardenas Martinez","Fernando Osuna","Daniel Carrillo Paz","Cesar Parra"],"workPerformed":["Had crew begin on cleaning and bagging up all debris in 3557 Keating. This house is the safest to work in as all floors are still intact.","Went back outside to stockpile more bricks around 3555 & 3567 to cleaner areas as rain wasn't a factor anymore.","Picked through the soil for any paint chips on the west side of 3555 (White house furthest West).","Locked up fence at end of shift.","Also fixed and reinforced temp fence on west side of property due to it tipping over from last night.","On the 3557 property, gas is still live. I made sure to let crew know it was still live."],"incident":"No","injury":"No","photos":16}]},"complaint":{"file":"complaint","label":"Class action complaint (anonymized)","filed":"October 14, 2026","court":"California Superior Court","counts":[{"n":1,"title":"Failure to Pay All Wages Owed"},{"n":2,"title":"Failure to Pay All Overtime Wages"},{"n":3,"title":"Meal Period Violations"},{"n":4,"title":"Rest Period Violations"},{"n":5,"title":"Untimely Payment of Wages"},{"n":6,"title":"Wage Statement Violations"},{"n":7,"title":"Waiting Time Penalties"},{"n":8,"title":"Failure to Reimburse Business Expenses"},{"n":9,"title":"Unfair Competition"}],"paragraphsFound":[3,26,27,28,29,30,31,32,33,34,35]},"rules":{"CA-LAW-0003":{"topic":"Meal periods","law":"LAB § 512(a)","text":"A worker receives a first meal period lasting less than thirty uninterrupted minutes during a shift exceeding five hours."},"CA-LAW-0010":{"topic":"Meal periods","law":"LAB § 226.7(c)","text":"Payroll does not show the additional hour of regular-rate compensation owed for a workday when an employer failed to provide a legally required meal period."},"CA-LAW-0011":{"topic":"Rest and recovery periods","law":"8 CCR § 11040(12)(A)","text":"A covered nonexempt employee works a shift long enough to require paid rest time but is not authorized and permitted to take ten uninterrupted minutes."},"CA-LAW-0012":{"topic":"Rest and recovery periods","law":"8 CCR § 11040(12)(A)","text":"A worker receives fewer ten-minute paid rest breaks than the applicable wage order requires for the length of the workday."},"CA-LAW-0015":{"topic":"Rest and recovery periods","law":"LAB § 226.7(c)","text":"An employer fails to pay an additional hour at the employee's regular rate when it did not provide a legally compliant rest period."},"CA-LAW-0018":{"topic":"Hours worked and overtime","law":"LAB § 510(a)","text":"A nonexempt worker logs more than eight hours in a workday but is paid straight time instead of time-and-a-half for those extra hours."},"CA-LAW-0023":{"topic":"Hours worked and overtime","law":"LAB § 511(a)","text":"An employer uses a ten-hour straight-time schedule without establishing the legally required employee-approved alternative workweek arrangement."},"CA-LAW-0024":{"topic":"Hours worked and overtime","law":"LAB § 1194(a)","text":"Required work performed before clock-in, after clock-out or during an unpaid break is absent from payroll wages and overtime calculations."},"CA-LAW-0047":{"topic":"Pay statements and wage payment","law":"LAB § 1174(d)","text":"An employer lacks required records of workers' hours and wages sufficient to verify pay for covered periods."}},"ruleCatalogSize":118,"sources":{"fieldflow":{"files":[{"name":"daily-timesheet-2026-11-13.pdf","size":178412,"modified":"2026-11-17","type":"pdf","use":true,"kind":"Daily timesheet","records":6,"unit":"shifts"},{"name":"daily-timesheet-2026-11-19.pdf","size":178086,"modified":"2026-11-22","type":"pdf","use":true,"kind":"Daily timesheet","records":5,"unit":"shifts"},{"name":"daily-activity-report-2026-11-13.pdf","size":4847962,"modified":"2026-11-17","type":"pdf","use":true,"kind":"Daily activity report","records":1,"unit":"report"}]},"quickbooks":{"files":[{"name":"time by name detail.xlsx","size":21097,"modified":"2026-11-22","type":"xlsx","use":true,"kind":"Payroll time detail","records":242,"unit":"pay lines"},{"name":"time by name detail.pdf","size":49714,"modified":"2026-11-22","type":"pdf","use":false,"kind":"Same report (PDF copy)","records":null,"unit":null,"note":"Duplicate of the .xlsx"}]},"cases":{"files":[{"name":"Class action complaint (anonymized).pdf","size":34465,"modified":"2026-11-18","type":"pdf","use":true,"kind":"Complaint","records":9,"unit":"counts"},{"name":"PAGA -- Cure Plan -- samplez_2.pdf","size":134308,"modified":"2026-11-18","type":"pdf","use":false,"kind":"Sample cure plan","records":null,"unit":null,"note":"Template only"},{"name":"PAGA Mediation-Brief-Anonymized.pdf","size":19352,"modified":"2026-11-18","type":"pdf","use":false,"kind":"Mediation brief","records":null,"unit":null,"note":"Different employer"},{"name":"Toolbox_Technologies___California_Employment_Risk_Platform_Strategy_Report.docx.pdf","size":3424289,"modified":"2026-11-18","type":"pdf","use":false,"kind":"Strategy report","records":null,"unit":null,"note":"Not case evidence"}]}}};</script>
+<script>
+/* PREMPTA analysis engine (index_3).
+   Runs in the browser on the records parsed from the client's files. Every
+   number it reports is computed here from those records; nothing is typed in. */
+const Engine = (() => {
+  'use strict';
+  const MONTHS = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+  const NONWORK = /sick|holiday|vacation|pto|bereav/i;
+  const OT_ITEM = /overtime|double/i;
+  const PREMIUM_ITEM = /premium|meal|rest/i;
+  const DRIVE_ITEM = /job prep|demob|\bdt\b|drive/i;
+  const SUFFIX = new Set(['sr', 'jr', 'ii', 'iii', 'iv', 'app']);
+  const r2 = n => Math.round(n * 100) / 100;
+  const sum = (a, f = x => x) => a.reduce((s, x) => s + f(x), 0);
+  const mins = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+  const secs = t => { const [h, m, s = 0] = t.split(':').map(Number); return h * 3600 + m * 60 + s; };
+  const t12 = t => { const [h, m] = t.split(':').map(Number); return `${(h % 12) || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+  const md = d => `${+d.slice(5, 7)}/${+d.slice(8, 10)}`;
+  const t12s = t => { const [h, m, x = 0] = t.split(':').map(Number); return `${(h % 12) || 12}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+
+  /* ---------- names, jobs, periods ---------- */
+  const tokens = n => n.toLowerCase().replace(/[.,*]/g, ' ').split(/\s+/).filter(t => t.length > 1 && !SUFFIX.has(t));
+  const displayName = qb => {
+    const clean = qb.replace(/\*/g, ' ').replace(/\.(?=\s*,)/g, '').replace(/\s+/g, ' ').trim();
+    const i = clean.indexOf(',');
+    return i < 0 ? clean : `${clean.slice(i + 1).trim()} ${clean.slice(0, i).trim()}`;
+  };
+  function matchName(ffName, qbNames) {
+    const ft = tokens(ffName);
+    let best = null, score = 0, tie = false;
+    for (const q of qbNames) {
+      const qt = new Set(tokens(q));
+      const s = ft.filter(t => qt.has(t)).length;
+      if (s > score) { best = q; score = s; tie = false; } else if (s === score && s > 0) tie = true;
+    }
+    return score >= 2 && !tie ? best : null;
+  }
+  const titleCase = s => s.toLowerCase().replace(/\b([a-z])/g, c => c.toUpperCase()).replace(/\bInc\b/g, 'Inc');
+  function parseJob(j) {
+    if (!j) return {no: null, site: '—', customer: null};
+    if (j === 'Shop' || j === 'No job assigned') return {no: null, site: j, customer: null};
+    const c = j.indexOf(':');
+    const customer = c > 0 ? titleCase(j.slice(0, c)) : null;
+    const rest = c > 0 ? j.slice(c + 1) : j;
+    const m = rest.match(/^(\d{4}[A-Z]{2})\s*-?\s*(.*)$/);
+    return {no: m ? m[1] : null, site: (m ? m[2] : rest).trim(), customer};
+  }
+  const ffJobNo = j => j.replace(/^J-/, '');
+  function parsePeriod(label) {
+    const m = label.match(/(\w+) (\d+) - (\d+), (\d{4})/);
+    const mo = String(MONTHS.indexOf(m[1].toLowerCase()) + 1).padStart(2, '0');
+    return {start: `${m[4]}-${mo}-${m[2].padStart(2, '0')}`, end: `${m[4]}-${mo}-${m[3].padStart(2, '0')}`, label};
+  }
+  const addrNums = s => (s.match(/\b\d{4}\b/g) || []);
+  const craft = s => /asb/i.test(s || '') ? 'Asbestos' : /demo/i.test(s || '') ? 'Demolition' : null;
+  const restRequired = m => m < 210 ? 0 : m <= 360 ? 1 : m <= 600 ? 2 : 3;
+
+  /* ---------- complaint & rule references ---------- */
+  const CLAIM = {
+    unpaid: {count: 1, para: '¶26', text: 'The complaint alleges hours worked were left unpaid.'},
+    ot: {count: 2, para: '¶28–29', text: 'The complaint alleges 10-hour days were paid as straight time.'},
+    timesheet: {count: 1, para: '¶3', text: 'The complaint alleges timesheets were manipulated.'},
+    premium: {count: 3, para: '¶32', text: 'The complaint alleges meal premiums were not paid in full.'},
+    lateMeal: {count: 3, para: '¶30', text: 'The complaint alleges meals were taken late.'},
+    group: {count: 3, para: '¶31', text: 'The complaint alleges meals were scheduled for the group, not the person.'},
+    rest: {count: 4, para: '¶33', text: 'The complaint alleges first rest breaks were missed.'},
+    attest: {count: 4, para: '¶34', text: 'The complaint alleges break certifications did not reflect breaks taken.'},
+  };
+  const RULE_WHY = {
+    'CA-LAW-0018': 'Daily overtime is owed after 8 hours.',
+    'CA-LAW-0024': 'All hours worked must be paid.',
+    'CA-LAW-0047': 'Payroll records must let hours and pay be verified.',
+    'CA-LAW-0010': 'A missed or late meal is owed one hour of premium pay.',
+    'CA-LAW-0012': 'Each 4 hours worked earns a paid 10-minute rest break.',
+    'CA-LAW-0003': 'A meal must be a full, uninterrupted 30 minutes.',
+    'CA-LAW-0011': 'Rest breaks must be authorized and permitted.',
+  };
+
+  /* ---------- analysis ---------- */
+  function analyse(D, sel) {
+    const has = (src, name) => sel[src] && sel[src].includes(name);
+    const useQB = has('quickbooks', 'time by name detail.xlsx');
+    const timesheets = D.ff.timesheets.filter(t => has('fieldflow', t.file));
+    const activity = D.ff.activity.filter(a => has('fieldflow', a.file));
+    const complaintFile = D.sources.cases.files.find(f => f.kind === 'Complaint');
+    const complaint = complaintFile && has('cases', complaintFile.name) ? D.complaint : null;
+    const lines = useQB ? D.qb.lines : [];
+    const period = parsePeriod(D.qb.meta.period);
+    const qbNames = [...new Set(lines.map(l => l.emp))];
+    const name = e => e && e.startsWith('ff:') ? e.slice(3) : displayName(e);
+
+    // pay lines by employee-day
+    const days = new Map();
+    for (const l of lines) {
+      const k = `${l.emp}|${l.date}`;
+      if (!days.has(k)) days.set(k, {emp: l.emp, date: l.date, lines: [], worked: 0, ot: 0});
+      const d = days.get(k);
+      d.lines.push(l);
+      if (!NONWORK.test(l.payItem)) d.worked += l.hours;
+      if (OT_ITEM.test(l.payItem)) d.ot += l.hours;
+    }
+    const mainJob = ls => {
+      const by = {};
+      for (const l of ls) by[l.job] = (by[l.job] || 0) + l.hours;
+      return Object.entries(by).sort((a, b) => b[1] - a[1])[0][0];
+    };
+
+    // FieldFlow shifts, matched to payroll employees
+    const shifts = timesheets.flatMap(t => t.shifts.map((s, i) => {
+      const emp = matchName(s.name, qbNames);
+      return {...s, i, ts: t, date: t.date, job: t.job, jobNo: ffJobNo(t.job), emp: emp || `ff:${s.name}`, matched: !!emp,
+        inPeriod: useQB && t.date >= period.start && t.date <= period.end};
+    }));
+    const shiftFor = (emp, date) => shifts.filter(s => s.emp === emp && s.date === date);
+
+    const findings = [];
+    const add = f => { f.people = new Set(f.rows.map(r => r.emp).filter(Boolean)); findings.push(f); return f; };
+    const why = (claim, rule) => ({claim: complaint && claim ? CLAIM[claim] : null, rule: rule ? {id: rule, ...D.rules[rule], why: RULE_WHY[rule]} : null});
+    const qbRef = l => ({src: 'QuickBooks', file: 'time by name detail.xlsx', ref: `row ${l.row}`, text: `${l.payItem} · ${r2(l.hours)} h`, sub: [l.item, l.notes].filter(Boolean).join(' · ')});
+    const ffRef = (s, named) => ({src: 'FieldFlow', file: s.ts.file, ref: s.ts.job,
+      text: `${named ? `${s.name}: ` : ''}${t12(s.start)}–${t12(s.end)} · ${s.workMin / 60} h worked`,
+      sub: [s.meal ? `meal ${t12(s.meal[0])}–${t12(s.meal[1])}` : 'no meal entry', `verified ${t12s(s.verifiedAt)}`].join(' · ')});
+
+    /* ===== A · Hours & Pay Reconciliation ===== */
+    const recon = [], pending = [], unmatched = [];
+    for (const s of shifts) {
+      const rec = s.workMin / 60;
+      if (!useQB) continue;
+      if (!s.inPeriod) { pending.push({id: `p-${s.date}-${s.i}`, kind: 'pending', emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, recorded: rec, shift: s, evidence: [ffRef(s)]}); continue; }
+      if (!s.matched) { unmatched.push(s); continue; }
+      const d = days.get(`${s.emp}|${s.date}`);
+      const jl = d ? d.lines.filter(l => parseJob(l.job).no === s.jobNo) : [];
+      const paid = sum(jl, l => l.hours);
+      recon.push({id: `m-${s.date}-${s.i}`, emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, recorded: rec, paid, diff: r2(paid - rec), lines: jl, shift: s,
+        evidence: [ffRef(s), ...jl.map(qbRef)]});
+    }
+    const matchedRows = recon.filter(r => Math.abs(r.diff) < 0.01 && r.lines.length);
+    const diffRows = recon.filter(r => !(Math.abs(r.diff) < 0.01 && r.lines.length));
+    if (diffRows.length) add({id: 'A0', short: 'pay gaps', uc: 'A', sev: diffRows.some(r => r.diff < 0) ? 'High' : 'Medium', title: 'Recorded and paid hours differ',
+      what: `${diffRows.length} FieldFlow shift${diffRows.length > 1 ? 's' : ''} differ from QuickBooks by ${r2(sum(diffRows, r => Math.abs(r.diff)))} h in total.`,
+      ...why('unpaid', 'CA-LAW-0024'), next: 'Trace each difference to an edit or a missed pay line.',
+      rows: diffRows.map(r => ({...r, fid: 'A0', label: r.lines.length ? (r.diff < 0 ? 'Paid less than recorded' : 'Paid more than recorded') : 'Recorded, not paid'}))});
+    if (unmatched.length) add({id: 'A4', short: 'name gaps', uc: 'A', sev: 'Low', title: 'Timecard name not found in payroll',
+      what: `${unmatched.length} FieldFlow name${unmatched.length > 1 ? 's' : ''} could not be matched to a QuickBooks employee.`, ...why(null, 'CA-LAW-0047'),
+      next: 'Map these names to payroll IDs.', rows: unmatched.map(s => ({id: `u-${s.date}-${s.i}`, fid: 'A4', emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, recorded: s.workMin / 60, evidence: [ffRef(s)], label: 'No payroll match'}))});
+
+    // daily / weekly overtime
+    const otRows = [];
+    let otOk = 0;
+    const byEmp = new Map();
+    for (const d of days.values()) { if (!byEmp.has(d.emp)) byEmp.set(d.emp, []); byEmp.get(d.emp).push(d); }
+    for (const [emp, ds] of byEmp) {
+      ds.sort((a, b) => a.date.localeCompare(b.date));
+      let req = 0, paid = 0, regCap = 0;
+      const per = ds.map(d => { const dr = Math.max(0, Math.min(d.worked, 12) - 8) + Math.max(0, d.worked - 12); req += dr; paid += d.ot; regCap += Math.min(d.worked, 8); return {d, dr}; });
+      const weekly = Math.max(0, regCap - 40);
+      req += weekly;
+      let short = r2(req - paid);
+      if (short > 0.009) {
+        for (const {d, dr} of per) {
+          const s = r2(Math.min(dr - d.ot, short));
+          if (s <= 0.009) continue;
+          short = r2(short - s);
+          const job = mainJob(d.lines);
+          const fs = shiftFor(emp, d.date)[0];
+          otRows.push({id: `o-${emp}-${d.date}`, fid: 'A1', emp, date: d.date, job: parseJob(job).site, jobNo: parseJob(job).no, recorded: fs ? fs.workMin / 60 : null,
+            paid: d.worked, otShort: s, lines: d.lines, label: `${r2(d.worked)} h paid at straight time`, evidence: [...(fs ? [ffRef(fs)] : []), ...d.lines.map(qbRef)]});
+        }
+      } else otOk += per.filter(p => p.d.worked > 8).length;
+    }
+    if (otRows.length) {
+      const jobs = {};
+      for (const r of otRows) jobs[r.jobNo || r.job] = (jobs[r.jobNo || r.job] || 0) + 1;
+      const top = Object.entries(jobs).sort((a, b) => b[1] - a[1])[0];
+      const topRow = otRows.find(r => (r.jobNo || r.job) === top[0]);
+      const fed = otRows.some(r => r.lines.some(l => /^federal/i.test(l.payItem)));
+      const hrs = r2(sum(otRows, r => r.otShort));
+      add({id: 'A1', short: 'overtime', uc: 'A', sev: 'High', title: 'Overtime paid as straight time',
+        what: `${otRows.length} shifts over 8 h were paid entirely at straight time${top[1] === otRows.length ? `, all on ${topRow.job} (${top[0]})` : ''}.`,
+        ...why('ot', 'CA-LAW-0018'),
+        next: fed ? 'Confirm whether this federal-rate job is exempt (federal enclave or alternative workweek); if not, correct pay.' : 'Check for an alternative-workweek election; if none, correct pay.',
+        contrast: otOk ? `Other jobs paid overtime after 8 h on ${otOk} of ${otOk} long days.` : null,
+        rows: otRows, hours: hrs});
+    }
+
+    // verified before recorded end
+    const early = shifts.filter(s => secs(s.verifiedAt) < secs(s.end));
+    if (early.length) {
+      const gap = s => Math.round((secs(s.end) - secs(s.verifiedAt)) / 60);
+      const max = Math.max(...early.map(gap));
+      add({id: 'A2', short: 'verified early', uc: 'A', sev: 'Medium', title: 'Hours verified before the shift ended',
+        what: `${early.length} of ${shifts.length} shifts were verified before their recorded end time, up to ${max} min early.`,
+        ...why('timesheet', 'CA-LAW-0024'), next: 'Confirm actual end of work against gate, GPS or supervisor records.',
+        rows: early.map(s => ({id: `e-${s.date}-${s.i}`, fid: 'A2', emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, recorded: s.workMin / 60,
+          paid: s.inPeriod ? sum((days.get(`${s.emp}|${s.date}`) || {lines: []}).lines.filter(l => parseJob(l.job).no === s.jobNo), l => l.hours) : null,
+          early: gap(s), label: `Verified ${gap(s)} min before end`, shift: s, evidence: [ffRef(s)]}))});
+    }
+
+    // job code consistency
+    const jc = [];
+    for (const l of lines) {
+      if (/S2-Job Prep/i.test(l.item || '') && !DRIVE_ITEM.test(l.payItem)) {
+        const j = parseJob(l.job);
+        jc.push({id: `j-${l.row}`, fid: 'A3', emp: l.emp, date: l.date, job: j.site, jobNo: j.no, paid: l.hours, lines: [l],
+          label: `Coded ${l.item.split(':').pop()}, paid as ${l.payItem}`, evidence: [qbRef(l)]});
+      }
+    }
+    for (const t of timesheets) {
+      const no = ffJobNo(t.job);
+      const ql = lines.find(l => parseJob(l.job).no === no);
+      if (!ql) continue;
+      const qn = addrNums(parseJob(ql.job).site), fn = addrNums(t.project);
+      const miss = fn.filter(n => !qn.includes(n));
+      if (miss.length) jc.push({id: `jn-${no}`, fid: 'A3', emp: null, date: t.date, job: t.project, jobNo: no,
+        label: `QuickBooks job name omits ${miss.join(', ')}`, evidence: [{src: 'FieldFlow', file: t.file, ref: t.job, text: t.project}, {src: 'QuickBooks', file: 'time by name detail.xlsx', ref: `row ${ql.row}`, text: ql.job}]});
+    }
+    for (const r of recon) {
+      const a = craft(r.shift.position), b = craft((r.lines[0] || {}).item);
+      if (a && b && a !== b) jc.push({id: `jp-${r.id}`, fid: 'A3', emp: r.emp, date: r.date, job: r.job, jobNo: r.jobNo, label: `${a} timecard, ${b} pay line`, evidence: r.evidence});
+    }
+    if (jc.length) {
+      const coded = jc.filter(r => r.lines).length, names = jc.filter(r => !r.emp).length;
+      add({id: 'A3', short: 'job codes', uc: 'A', sev: 'Low', title: 'Job codes do not line up',
+        what: [coded ? `${coded} pay lines are coded as job prep / drive time but paid as training` : '', names ? `the QuickBooks job name for ${jc.find(r => !r.emp).jobNo} omits an address on the FieldFlow job` : '']
+          .filter(Boolean).join('; ').replace(/^./, c => c.toUpperCase()) + '.',
+        ...why(null, 'CA-LAW-0047'), next: 'Align service items with payroll items and correct the job name.', rows: jc});
+    }
+
+    /* ===== B · Meal & Rest Breaks ===== */
+    const premiumLines = lines.filter(l => PREMIUM_ITEM.test(l.payItem));
+    const memo = lines.filter(l => /premium/i.test(l.notes || ''));
+    const memoGroups = new Map();
+    for (const l of memo) {
+      const m = (l.notes || '').match(/for (\d{1,2})\/(\d{1,2})/);
+      const ref = m ? `${period.start.slice(0, 4)}-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}` : l.date;
+      const k = `${l.emp}|${ref}`;
+      if (!memoGroups.has(k)) memoGroups.set(k, {emp: l.emp, date: ref, lines: []});
+      memoGroups.get(k).lines.push(l);
+    }
+    const unpaid = [...memoGroups.values()].filter(g => !premiumLines.some(l => l.emp === g.emp));
+    if (unpaid.length) {
+      const g0 = unpaid[0];
+      add({id: 'B1', short: 'premium', uc: 'B', sev: 'High', title: 'Break premium noted, not paid',
+        what: `A premium for ${md(g0.date)} is written in the memo of ${g0.lines.length} pay lines, but the register has no premium pay item${premiumLines.length ? ' for this employee' : ''}.`,
+        ...why('premium', 'CA-LAW-0010'), next: 'Confirm whether it was paid in another run; record premiums as their own pay item.',
+        rows: unpaid.map(g => {
+          const j = parseJob(g.lines[0].job);
+          const fs = shiftFor(g.emp, g.date)[0];
+          return {id: `pr-${g.emp}-${g.date}`, fid: 'B1', emp: g.emp, date: g.date, job: j.site, jobNo: j.no, shift: fs || null,
+            premium: `Noted on ${g.lines.length} lines · not paid`, label: 'Premium not paid',
+            evidence: [...g.lines.map(qbRef), ...(fs ? [ffRef(fs)] : [{src: 'FieldFlow', file: '—', ref: '—', text: `No timesheet supplied for ${j.site} on this date`}])]};
+        })});
+    }
+
+    // meal timing on recorded shifts
+    const mealRows = [], mealOk = [];
+    for (const s of shifts) {
+      if (s.workMin <= 300) continue;
+      let issue = null, sev = 'High';
+      if (!s.meal) { issue = s.workMin <= 360 ? 'No meal; no waiver on file' : 'No meal recorded'; sev = s.workMin <= 360 ? 'Medium' : 'High'; }
+      else if (mins(s.meal[0]) - mins(s.start) > 300) issue = 'Meal started after the 5th hour';
+      else if (mins(s.meal[1]) - mins(s.meal[0]) < 30) issue = 'Meal shorter than 30 min';
+      else if (s.workMin > 600) issue = 'No second meal after 10 h';
+      if (!issue) { mealOk.push(s); continue; }
+      const paid = premiumLines.some(l => l.emp === s.emp && l.date === s.date);
+      mealRows.push({id: `ml-${s.date}-${s.i}`, fid: 'B2', emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, shift: s, sev,
+        premium: paid ? 'Premium paid' : (useQB && s.inPeriod ? 'No premium paid' : 'Payroll not available'), label: issue, evidence: [ffRef(s)]});
+    }
+    if (mealRows.length) add({id: 'B2', short: 'meal', uc: 'B', sev: mealRows.some(r => r.sev === 'High') ? 'High' : 'Medium', title: 'Meal break issues in time records',
+      what: `${mealRows.length} recorded shifts show a missing, late or short meal.`, ...why('lateMeal', 'CA-LAW-0010'),
+      next: 'Pay the meal premium or document the reason.', rows: mealRows});
+
+    // rest breaks
+    const restShifts = shifts.filter(s => restRequired(s.workMin) > 0);
+    const restNeeded = sum(restShifts, s => restRequired(s.workMin));
+    if (restShifts.length) add({id: 'B3', short: 'rest breaks', uc: 'B', sev: 'Medium', title: 'Rest breaks not recorded',
+      what: `FieldFlow records no 10-minute rest breaks; ${restShifts.length} shifts called for ${restNeeded}.`,
+      ...why('rest', 'CA-LAW-0012'), next: 'Capture rest breaks, or a per-shift rest attestation from each employee.',
+      rows: restShifts.map(s => ({id: `r-${s.date}-${s.i}`, fid: 'B3', emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, shift: s,
+        restNeed: restRequired(s.workMin), label: `0 of ${restRequired(s.workMin)} rest breaks recorded`, evidence: [ffRef(s)]}))});
+
+    // identical meal windows for the crew
+    const groupRows = [];
+    for (const t of timesheets) {
+      const ms = shifts.filter(s => s.ts === t && s.meal);
+      if (ms.length >= 3 && new Set(ms.map(s => s.meal.join('-'))).size === 1)
+        for (const s of ms) groupRows.push({id: `g-${s.date}-${s.i}`, fid: 'B4', emp: s.emp, date: s.date, job: t.project, jobNo: s.jobNo, shift: s,
+          label: 'Crew meal time', evidence: [ffRef(s)]});
+    }
+    if (groupRows.length) {
+      const w = groupRows[0].shift.meal;
+      const sheets = new Set(groupRows.map(r => r.shift.ts.file)).size;
+      add({id: 'B4', short: 'crew meal time', uc: 'B', sev: 'Medium', title: 'Same meal time for the whole crew',
+        what: `All ${groupRows.length} meals on ${sheets === 1 ? 'the timesheet' : `${sheets} timesheets`} read ${t12(w[0])}–${t12(w[1])}, so they look scheduled rather than punched.`,
+        ...why('group', 'CA-LAW-0003'), next: 'Collect individual meal punches.', rows: groupRows});
+    }
+
+    // supervisor break attestation timing
+    const attRows = [];
+    for (const a of activity) {
+      const crew = shifts.filter(s => s.date === a.date && s.job === a.job);
+      if (!crew.length) continue;
+      const lastEnd = Math.max(...crew.map(s => mins(s.end)));
+      if (mins(a.attestedAt) < lastEnd) {
+        const fs = crew.find(s => tokens(s.name).join() === tokens(a.attestedBy).join()) || crew[0];
+        attRows.push({id: `at-${a.date}`, fid: 'B5', emp: fs.emp, date: a.date, job: crew[0].ts.project, jobNo: crew[0].jobNo, shift: fs,
+          attest: a, early: lastEnd - mins(a.attestedAt), crew: crew.length, label: `Signed ${lastEnd - mins(a.attestedAt)} min before crew end`,
+          evidence: [{src: 'FieldFlow', file: a.file, ref: a.job, text: `“${a.breakQuestion}”`, sub: `Signed by ${a.attestedBy} at ${t12(a.attestedAt)}; Yes/No mark not machine-readable`}, ...crew.filter(s => mins(s.end) === lastEnd).map(s => ffRef(s, true))]});
+      }
+    }
+    if (attRows.length) {
+      const r = attRows[0];
+      add({id: 'B5', short: 'attestation', uc: 'B', sev: 'Low', title: 'Break attestation signed before shift end',
+        what: `The foreman answered the daily break question at ${t12(r.attest.attestedAt)}, ${r.early} min before the crew's recorded end.`,
+        ...why('attest', 'CA-LAW-0011'), next: 'Take break attestations from each employee after clock-out.', rows: attRows, crew: r.crew});
+    }
+
+    /* ---------- coverage, passes, totals ---------- */
+    const longDays = [...days.values()].filter(d => d.worked > 5);
+    const longWithMeal = longDays.filter(d => shiftFor(d.emp, d.date).length);
+    const tenHour = longDays.filter(d => d.worked >= 10 && !shiftFor(d.emp, d.date).length).length;
+    const ex = findings.filter(f => f.rows.length);
+    const rowsOf = uc => ex.filter(f => f.uc === uc).flatMap(f => f.rows.map(r => ({...r, sev: r.sev || f.sev, finding: f})));
+    const rank = {High: 0, Medium: 1, Low: 2};
+    const ucSummary = uc => {
+      const fs = ex.filter(f => f.uc === uc).sort((a, b) => rank[a.sev] - rank[b.sev] || b.rows.length - a.rows.length);
+      const rows = rowsOf(uc);
+      const people = new Set(rows.map(r => r.emp).filter(Boolean));
+      return {findings: fs, rows, exceptions: rows.length, high: rows.filter(r => r.sev === 'High').length, people,
+        sev: fs.length ? fs[0].sev : 'Pass'};
+    };
+    const A = ucSummary('A'), B = ucSummary('B');
+    A.matched = matchedRows; A.pending = pending; A.reconciled = recon.length;
+    A.otHours = (findings.find(f => f.id === 'A1') || {}).hours || 0;
+    A.longDays = otRows.length + otOk; A.longPaidStraight = otRows.length; A.otOk = otOk;
+    B.mealOk = mealOk; B.restNeeded = restNeeded; B.restShifts = restShifts.length;
+    B.premiumsNoted = memoGroups.size; B.premiumsPaid = memoGroups.size - unpaid.length; B.premiumLines = premiumLines.length;
+    B.coverage = {paidLong: longDays.length, withMeal: longWithMeal.length, tenHour};
+    const allPeople = new Set([...A.people, ...B.people]);
+    return {
+      period, useQB, complaint, lines, shifts, timesheets, activity, findings: ex, A, B, name, parseJob,
+      totals: {
+        reviewed: lines.length + shifts.length + activity.length, payLines: lines.length, shifts: shifts.length, reports: activity.length,
+        exceptions: A.exceptions + B.exceptions, high: A.high + B.high, people: allPeople.size,
+        employees: new Set([...qbNames, ...shifts.map(s => s.emp)]).size, matchedNames: shifts.filter(s => s.matched).length,
+        jobs: new Set(lines.map(l => l.job)).size, days: new Set(lines.map(l => l.date)).size,
+      },
+    };
+  }
+  return {analyse, displayName, parseJob, matchName, restRequired, t12, t12s, md};
+})();
+
+</script>
+<script>
+/* PREMPTA · simplified client demo (index_3): screens and interaction. */
+(() => {
+  'use strict';
+  const D = window.__PREMPTA_DATA__;
+  const KEY = 'prempta3-state', THEME = 'prempta-theme';
+  const app = document.getElementById('app');
+  const {t12, md} = Engine;
+
+  /* ---------- helpers ---------- */
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  const r2 = n => Math.round(n * 100) / 100;
+  const fmtH = h => { const r = r2(h); return `${Number.isInteger(r) ? r.toFixed(1) : r} h`; };
+  const num = n => Number(n).toLocaleString('en-US');
+  const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dt = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+  const fmtD = s => { const d = dt(s); return `${MON[d.getMonth()]} ${d.getDate()}`; };
+  const dow = s => DOW[dt(s).getDay()];
+  const range = p => { const a = dt(p.start), b = dt(p.end); return `${MON[a.getMonth()]} ${a.getDate()}–${b.getDate()}, ${b.getFullYear()}`; };
+  const size = b => b > 1e6 ? `${(b / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1e3))} KB`;
+  const plural = (n, one, many = one + 's') => `${num(n)} ${n === 1 ? one : many}`;
+  const initials = s => s.split(/[\s@._-]+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+
+  const P = {
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+    folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', minus: '<path d="M6 12h12"/>',
+    right: '<path d="M5 12h14M13 6l6 6-6 6"/>', left: '<path d="M19 12H5M11 6l-6 6 6 6"/>', chev: '<path d="M9 6l6 6-6 6"/>',
+    play: '<path d="M7 5v14l12-7z"/>', cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+    db: '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
+    refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>', moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    out: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+    shield: '<path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/>',
+    plug: '<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/>',
+    reset: '<path d="M4 11a8 8 0 1 1 2.3 5.7M4 4v7h7"/>',
+    file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+  };
+  const ic = (n, cls = '') => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+  const LOGO = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z" fill="oklch(50.5% 0.16 258)"/><path d="M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/></svg>';
+  const brand = (href = '#/') => `<a class="brand" href="${href}" aria-label="PREMPTA AI home">${LOGO}<b>PREMPTA <span>AI</span></b></a>`;
+  const sev = (s, label = s) => `<span class="sev ${esc(s)}">${esc(label)}</span>`;
+  // payroll days and jobs that have no FieldFlow timesheet, e.g. "Nov 9, 10, 11, 12 and 18 of 19 jobs on Nov 13"
+  const missingDays = R => {
+    const ins = R.shifts.filter(s => s.inPeriod);
+    const covered = [...new Set(ins.map(s => s.date))].sort();
+    const all = [...new Set(R.lines.map(l => l.date))].sort();
+    const miss = all.filter(d => !covered.includes(d));
+    const jobsOn = d => new Set(R.lines.filter(l => l.date === d).map(l => l.job)).size;
+    const parts = [];
+    if (miss.length) parts.push(`${MON[dt(miss[0]).getMonth()]} ${miss.map(d => dt(d).getDate()).join(', ')}`);
+    for (const d of covered) {
+      const jobs = jobsOn(d), have = new Set(ins.filter(s => s.date === d).map(s => s.jobNo)).size;
+      if (jobs > have) parts.push(`${jobs - have} of ${jobs} jobs on ${fmtD(d)}`);
+    }
+    return parts.join(' and ') || 'none';
+  };
+  const SEV_RANK = {High: 0, Medium: 1, Low: 2, Pass: 3, Pending: 4};
+  // one table row per record (employee, day, job), listing every finding on it
+  const mergeRows = rows => {
+    const by = new Map();
+    for (const r of rows.slice().sort((a, b) => SEV_RANK[a.sev] - SEV_RANK[b.sev])) {
+      const k = r.emp ? `${r.emp}|${r.date}|${r.jobNo || ''}` : r.id;
+      if (!by.has(k)) by.set(k, {...r, id: `x-${k}`, all: []});
+      by.get(k).all.push(r);
+    }
+    return [...by.values()].map(m => {
+      const seen = new Set();
+      m.evidence = m.all.flatMap(r => r.evidence || []).filter(e => { const k = [e.src, e.file, e.ref, (e.text || '').replace(/^[^:]+: /, ''), e.sub].join('|'); if (seen.has(k)) return false; seen.add(k); return true; });
+      return m;
+    });
+  };
+  const findingCell = r => (r.all || [r]).length > 1
+    ? `<span class="fl-list">${r.all.map(x => `<span>${sev(x.sev)}<span class="sub" style="margin-top:4px">${esc(x.label)}</span></span>`).join('')}</span>`
+    : `${sev(r.sev)}<span class="sub" style="margin-top:4px">${esc(r.label)}</span>`;
+
+  /* ---------- state ---------- */
+  let S = {};
+  try { S = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { S = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable: state lives for this visit */ } };
+  const U = {open: {}, exp: new Set(), fA: 'ex', fB: 'ex', menu: false, busy: {}, runTimer: null};
+  S.conn = S.conn || {}; S.sel = S.sel || {};
+  const defaults = src => D.sources[src].files.filter(f => f.use).map(f => f.name);
+  const SRC = {
+    fieldflow: {name: 'FieldFlow', icon: 'clock', cls: 'ff', blurb: 'Timecards, shifts, meal times'},
+    quickbooks: {name: 'QuickBooks', icon: 'receipt', cls: 'qb', blurb: 'Payroll pay lines'},
+    cases: {name: 'Case files', icon: 'folder', cls: 'cf', blurb: 'Complaint and evidence'},
+  };
+
+  let memo = {key: null, R: null};
+  const result = () => {
+    const key = JSON.stringify(S.sel);
+    if (memo.key !== key) memo = {key, R: Engine.analyse(D, S.sel)};
+    return memo.R;
+  };
+  const selFiles = src => (S.conn[src] ? S.sel[src] || [] : []);
+  const srcStats = src => {
+    const sel = selFiles(src);
+    if (src === 'fieldflow') {
+      const ts = D.ff.timesheets.filter(t => sel.includes(t.file));
+      return {shifts: ts.reduce((n, t) => n + t.shifts.length, 0), days: ts.length, reports: D.ff.activity.filter(a => sel.includes(a.file)).length};
+    }
+    if (src === 'quickbooks') {
+      const on = sel.includes('time by name detail.xlsx');
+      return {lines: on ? D.qb.lines.length : 0, employees: on ? new Set(D.qb.lines.map(l => l.emp)).size : 0, on};
+    }
+    const cf = D.sources.cases.files.find(f => f.kind === 'Complaint');
+    return {complaint: sel.includes(cf.name), counts: sel.includes(cf.name) ? D.complaint.counts.length : 0};
+  };
+  const period = () => { const m = D.qb.meta.period.match(/(\w+) (\d+) - (\d+), (\d{4})/); const mo = ['january','february','march','april','may','june','july','august','september','october','november','december'].indexOf(m[1].toLowerCase()) + 1; return {start: `${m[4]}-${String(mo).padStart(2, '0')}-${m[2].padStart(2, '0')}`, end: `${m[4]}-${String(mo).padStart(2, '0')}-${m[3].padStart(2, '0')}`}; };
+  const readiness = () => {
+    const ff = srcStats('fieldflow'), qb = srcStats('quickbooks'), cf = srcStats('cases');
+    const p = period();
+    const overlap = qb.on ? D.ff.timesheets.filter(t => selFiles('fieldflow').includes(t.file) && t.date >= p.start && t.date <= p.end).length : 0;
+    return {ff, qb, cf, overlap, ok: ff.shifts > 0 && qb.on};
+  };
+
+  /* ---------- theme ---------- */
+  const theme = () => document.documentElement.getAttribute('data-theme') || 'light';
+  const themeBtn = () => `<button class="icon-btn" data-act="theme" aria-label="Switch to ${theme() === 'dark' ? 'light' : 'dark'} theme">${ic(theme() === 'dark' ? 'sun' : 'moon')}</button>`;
+
+  /* ---------- chrome ---------- */
+  const STEPS = [['org', 'Organization'], ['connect', 'Connect data'], ['run', 'Analyze'], ['overview', 'Insights']];
+  const stepper = cur => {
+    const ix = STEPS.findIndex(s => s[0] === cur);
+    return `<ol class="steps" aria-label="Setup progress">${STEPS.map(([k, l], i) => `<li class="${i < ix ? 'done' : i === ix ? 'on' : ''}"${i === ix ? ' aria-current="step"' : ''}><span class="n">${i < ix ? ic('check', 'sm') : i + 1}</span><span class="lbl">${l}</span></li>`).join('')}</ol>`;
+  };
+  const userMenu = () => `<div class="user"><button class="avatar" data-act="menu" aria-haspopup="menu" aria-expanded="${U.menu}" aria-label="Account menu">${esc(initials(S.user.name))}</button>${U.menu ? `
+    <div class="menu" role="menu"><div class="who"><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div>
+      <button role="menuitem" data-act="go" data-to="connect">${ic('plug', 'sm')}Data sources</button>
+      ${S.analysed ? `<button role="menuitem" data-act="rerun">${ic('refresh', 'sm')}Run analysis again</button>` : ''}
+      <button role="menuitem" data-act="reset">${ic('reset', 'sm')}Start the demo over</button>
+      <button role="menuitem" data-act="signout">${ic('out', 'sm')}Sign out</button></div>` : ''}</div>`;
+  const topSetup = cur => `<header class="top"><div class="top-in">${brand('#/')}<div class="spacer"></div>${stepper(cur)}<div class="spacer"></div>${themeBtn()}${userMenu()}</div></header>`;
+  const topApp = cur => {
+    const R = result();
+    const nav = [['overview', 'Overview'], ['hours', 'Hours & Pay'], ['breaks', 'Meal & Rest']];
+    return `<header class="top"><div class="top-in">${brand('#/overview')}
+      <span class="org-chip" title="${esc(S.org.name)}"><i>${esc(initials(S.org.name))}</i><span>${esc(S.org.name)}</span></span>
+      <nav class="nav" aria-label="Main">${nav.map(([k, l]) => `<a href="#/${k}"${k === cur ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>
+      <div class="spacer"></div><span class="status">Analysis complete · ${range(R.period)}</span>${themeBtn()}${userMenu()}</div></header>`;
+  };
+
+  /* ---------- screens ---------- */
+  function vLogin() {
+    return `<div class="center"><div class="auth view">${brand()}
+      <form class="panel" data-form="login" novalidate>
+        <div><h1>Sign in</h1><p class="muted">PAGA compliance insights</p></div>
+        <div class="field"><label for="em">Work email</label><input class="input" id="em" type="email" value="demo@prempta.ai" autocomplete="username" required></div>
+        <div class="field"><label for="pw">Password</label><input class="input" id="pw" type="password" value="prempta-demo" autocomplete="current-password" required></div>
+        <p class="muted" id="lerr" role="alert" hidden></p>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Sign in</button>
+      </form>
+      <p class="auth-foot">Read-only access. Your source systems are never changed.</p>
+      <div style="justify-self:center">${themeBtn()}</div></div></div>`;
+  }
+
+  function vOrg() {
+    const o = S.org || {};
+    const isNew = o.name && o.name !== D.org.name;
+    return `${topSetup('org')}<main><div class="center" style="min-height:auto;padding-top:24px"><form class="setup view" data-form="org">
+      <div><h1>Your organization</h1><p class="muted" style="margin-top:6px">Choose who this analysis is for.</p></div>
+      <label class="org-opt"><input type="radio" name="org" value="known"${isNew ? '' : ' checked'}><span class="org-logo">${esc(initials(D.org.name))}</span><span><b>${esc(D.org.name)}</b><small>${esc(D.org.address)}</small></span></label>
+      <label class="org-opt"><input type="radio" name="org" value="new"${isNew ? ' checked' : ''}><span class="org-logo">+</span><span><b>Add another organization</b><small>Name only. You can add details later.</small></span></label>
+      <div class="field" id="newOrg"${isNew ? '' : ' hidden'}><label for="on">Organization name</label><input class="input" id="on" value="${isNew ? esc(o.name) : ''}" autocomplete="organization"></div>
+      <p class="rules-line">${ic('shield', 'sm')}California wage-and-hour rules · ${num(D.ruleCatalogSize)} in the catalog</p>
+      <div><button class="btn btn-primary btn-lg" type="submit">Continue ${ic('right', 'sm')}</button></div>
+    </form></div></main>`;
+  }
+
+  function srcCard(src) {
+    const s = SRC[src], on = !!S.conn[src], busy = U.busy[src], st = srcStats(src);
+    const files = D.sources[src].files, sel = S.sel[src] || [];
+    let stats = '';
+    if (on && src === 'fieldflow') stats = `<div class="src-stat"><span><b class="num">${st.shifts}</b>shifts</span><span><b class="num">${st.days}</b>${st.days === 1 ? 'day' : 'days'}</span><span><b class="num">${st.reports}</b>${st.reports === 1 ? 'report' : 'reports'}</span></div>`;
+    if (on && src === 'quickbooks') stats = `<div class="src-stat"><span><b class="num">${num(st.lines)}</b>pay lines</span><span><b class="num">${st.employees}</b>employees</span></div>`;
+    if (on && src === 'cases') stats = `<div class="src-stat"><span><b class="num">${st.complaint ? 1 : 0}</b>complaint</span><span><b class="num">${st.counts}</b>counts</span></div>`;
+    const pill = busy ? '<span class="pill busy">Connecting</span>' : on ? `<span class="pill on">Connected</span>` : '<span class="pill off">Not connected</span>';
+    const list = on && U.open[src] ? `<div class="files" role="group" aria-label="${s.name} files">${files.map(f => {
+      const id = `f-${src}-${files.indexOf(f)}`;
+      const meta = [f.kind, f.records != null ? plural(f.records, f.unit.replace(/s$/, ''), f.unit) : null, size(f.size)].filter(Boolean).join(' · ');
+      return `<label class="file${f.use ? '' : ' off'}" for="${id}"><input type="checkbox" id="${id}" data-file="${esc(f.name)}" data-src="${src}"${sel.includes(f.name) ? ' checked' : ''}${f.use ? '' : ' disabled'}>
+        ${ic('file', 'sm')}<span class="fn"><span title="${esc(f.name)}">${esc(f.name)}</span><small>${esc(meta)}</small></span>${f.use ? '' : `<span class="tag">${esc(f.note)}</span>`}</label>`;
+    }).join('')}</div>` : '';
+    return `<section class="src${on ? ' is-on' : ''}" aria-labelledby="h-${src}">
+      <div class="src-top"><span class="src-ic ${s.cls}">${ic(s.icon, 'lg')}</span><div style="flex:1;min-width:0"><h2 id="h-${src}">${s.name}</h2><p>${s.blurb}</p></div>${pill}</div>
+      ${stats}${list}
+      <div class="src-actions">${on
+        ? `<button class="btn btn-secondary" data-act="browse" data-src="${src}" aria-expanded="${!!U.open[src]}">${U.open[src] ? 'Hide files' : `Browse files (${files.length})`}</button>`
+        : `<button class="btn btn-primary" data-act="connect" data-src="${src}"${busy ? ' disabled' : ''}>${ic('plug', 'sm')}Connect</button>`}</div></section>`;
+  }
+
+  function vConnect() {
+    const r = readiness();
+    const chk = (ok, label, val, opt) => `<li><span class="${ok ? 'ok-dot' : 'no-dot'}">${ic(ok ? 'check' : 'minus')}</span>${label} <b>${val}</b>${opt ? ` <span class="muted">${opt}</span>` : ''}</li>`;
+    const p = period();
+    return `${topSetup('connect')}<main class="view">
+      <div class="head"><div><h1>Connect your data</h1><p>Read-only. Pick the files to analyse.</p></div>
+        ${Object.keys(SRC).every(k => S.conn[k]) ? '' : `<button class="btn btn-secondary" data-act="connect-all">${ic('plug', 'sm')}Connect all</button>`}</div>
+      <div class="sources">${Object.keys(SRC).map(srcCard).join('')}</div>
+      <div class="ready" aria-live="polite">
+        <ul class="checks">
+          ${chk(r.ff.shifts > 0, 'Time records', r.ff.shifts ? plural(r.ff.shifts, 'shift') : 'needed')}
+          ${chk(r.qb.on, 'Payroll', r.qb.on ? range(p) : 'needed')}
+          ${chk(r.cf.complaint, 'Case file', r.cf.complaint ? `${r.cf.counts} counts` : 'optional')}
+          ${chk(r.overlap > 0, 'Overlap', r.overlap ? plural(r.overlap, 'day') + ' in both' : (r.ok ? 'none yet' : '—'))}
+        </ul>
+        <button class="btn btn-primary btn-lg" data-act="run"${r.ok ? '' : ' disabled'}>${ic('play', 'sm')}Run analysis</button>
+      </div></main>`;
+  }
+
+  const RUN_STEPS = R => [
+    ['Reading files', plural(Object.values(S.sel).reduce((n, a) => n + a.length, 0), 'file')],
+    ['Matching people across systems', `${R.totals.matchedNames} of ${R.totals.shifts} timecards`],
+    ['Reconciling hours and pay', plural(R.totals.payLines, 'pay line')],
+    ['Checking meal and rest breaks', plural(R.totals.shifts, 'shift')],
+    ['Linking findings to the complaint', R.complaint ? `${R.complaint.counts.length} counts` : 'no case file'],
+  ];
+  function vRun() {
+    const R = result();
+    return `${topSetup('run')}<main><div class="center" style="min-height:auto;padding-top:40px"><div class="run view">
+      <div><h1>Analyzing your data</h1><p class="muted" style="margin-top:6px">${range(R.period)} · ${plural(R.totals.reviewed, 'record')}</p></div>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pbar"></i></div>
+      <ol id="runSteps">${RUN_STEPS(R).map(([l, v], i) => `<li data-i="${i}"><span class="ic"></span><span>${l}</span><small hidden>${esc(v)}</small></li>`).join('')}</ol>
+    </div></div></main>`;
+  }
+  function animateRun() {
+    clearTimeout(U.runTimer);
+    const items = [...document.querySelectorAll('#runSteps li')], bar = document.getElementById('pbar');
+    let i = 0;
+    const tick = () => {
+      if (!document.getElementById('runSteps')) return;
+      items.forEach((li, j) => {
+        li.className = j < i ? 'done' : j === i ? 'now' : '';
+        li.querySelector('.ic').innerHTML = j < i ? ic('check') : '';
+        li.querySelector('small').hidden = j >= i;
+      });
+      bar.style.width = `${Math.round(i / items.length * 100)}%`;
+      bar.parentElement.setAttribute('aria-valuenow', Math.round(i / items.length * 100));
+      if (i >= items.length) {
+        U.runTimer = setTimeout(() => { S.analysed = true; S.ranAt = new Date().toISOString(); save(); go('overview'); }, 450);
+        return;
+      }
+      i++;
+      U.runTimer = setTimeout(tick, i === 1 ? 250 : 560);
+    };
+    tick();
+  }
+
+  /* ----- dashboard ----- */
+  const claimHtml = f => [f.claim ? `${esc(f.claim.text)} <span class="cite">Count ${f.claim.count} · ${esc(f.claim.para)}</span>` : (f.rule ? esc(f.rule.why) : ''),
+    f.rule ? `<span class="cite">${esc(f.rule.law)}</span>` : ''].filter(Boolean).join(' ');
+  const countLine = f => {
+    const unit = {A1: 'shift', A2: 'shift', A3: 'record', A0: 'shift', A4: 'timecard', B1: 'premium', B2: 'shift', B3: 'shift', B4: 'meal', B5: 'attestation'}[f.id] || 'record';
+    const ppl = f.id === 'B5' ? f.crew : f.people.size;
+    return `<b>${plural(f.rows.length, unit)}</b>${ppl ? ` · ${plural(ppl, 'employee')}` : ''}${f.id === 'A1' ? ` · ${fmtH(f.hours)} OT` : ''}`;
+  };
+  const insight = f => `<article class="insight">
+      <div class="insight-h"><span class="uc-tag">${f.uc}</span><h3>${esc(f.title)}</h3>${sev(f.sev)}</div>
+      <p class="what">${esc(f.what)}</p>
+      <p class="why">${claimHtml(f)}</p>
+      <div class="foot"><span>${countLine(f)}</span></div>
+      <p class="next">${ic('right', 'sm')}<span>${esc(f.next)}</span></p>
+      <div><a class="btn btn-ghost" href="#/${f.uc === 'A' ? 'hours' : 'breaks'}" data-act="focus" data-f="${f.id}">Review records ${ic('chev', 'sm')}</a></div></article>`;
+
+  function vOverview() {
+    const R = result(), T = R.totals, A = R.A, B = R.B;
+    const hi = R.findings.filter(f => f.sev === 'High').map(f => `${f.rows.length} ${f.short}`).join(' · ');
+    const a1 = R.findings.find(f => f.id === 'A1'), b1 = R.findings.find(f => f.id === 'B1');
+    const topA = A.findings[0], topB = B.findings[0];
+    const pct = (a, b) => b ? Math.max(0, Math.min(100, a / b * 100)) : 0;
+    const top = [A.findings[0], B.findings[0], A.findings[1], B.findings[1]].filter(Boolean);
+    const p = R.period;
+    const ffDays = new Set(R.shifts.filter(s => s.inPeriod).map(s => s.date)).size;
+    const ran = S.ranAt ? new Date(S.ranAt) : null;
+    const cardA = `<article class="uc" aria-labelledby="ucA">
+      <div class="uc-top"><span class="uc-letter">A</span><div><h2 id="ucA">Hours &amp; Pay Reconciliation</h2><p>Compare recorded hours, edits, job codes and pay lines.</p></div>${sev(A.sev)}</div>
+      ${a1 ? `<div class="hero"><b class="num">${a1.rows.length}</b><span>shifts paid straight time after 8 h</span></div>
+      <div class="split"><span class="cap">Shifts over 8 hours · ${A.longDays}</span><div class="bar" role="img" aria-label="${A.longPaidStraight} of ${A.longDays} long shifts paid straight time; ${A.otOk} paid overtime"><i class="bad" style="flex:${A.longPaidStraight}"></i><i class="ok" style="flex:${A.otOk || 0.0001}"></i></div>
+        <div class="legend"><span><i class="bad"></i>${A.longPaidStraight} straight time only</span><span><i class="ok"></i>${A.otOk} paid overtime</span></div></div>`
+      : `<div class="hero"><b class="num">${A.matched.length}/${A.reconciled}</b><span>timecards match payroll</span></div>`}
+      <dl class="uc-stats"><div><dt>Exceptions</dt><dd>${A.exceptions}</dd></div>
+        <div><dt>Exposure</dt><dd>${a1 ? `${r2(A.otHours)} h` : '—'}${a1 ? '<small class="blk">overtime hours · pay rates not in export</small>' : ''}</dd></div>
+        <div><dt>Timecards matched</dt><dd>${A.matched.length}<small>/${A.reconciled}</small></dd></div></dl>
+      ${topA ? `<p class="uc-line">${esc(topA.what)}${topA.contrast ? ` ${esc(topA.contrast)}` : ''}</p>` : ''}
+      <div class="uc-foot"><span class="muted">${plural(A.findings.length, 'finding')} · ${plural(A.people.size, 'employee')}</span><a class="btn btn-primary" href="#/hours">View details ${ic('right', 'sm')}</a></div></article>`;
+    const cov = B.coverage;
+    const cardB = `<article class="uc" aria-labelledby="ucB">
+      <div class="uc-top"><span class="uc-letter">B</span><div><h2 id="ucB">Meal &amp; Rest Breaks</h2><p>Check meal timestamps, attestations and premium-pay entries.</p></div>${sev(B.sev)}</div>
+      ${b1 ? `<div class="hero"><b class="num">${B.premiumsNoted - B.premiumsPaid}</b><span>break premium noted, not paid</span></div>`
+        : `<div class="hero"><b class="num">${B.exceptions}</b><span>potential break exceptions</span></div>`}
+      <div class="meters">
+        <div class="meter"><span>Rest breaks recorded</span><b>${0} of ${B.restNeeded}</b><div class="track"><i class="bad" style="width:${pct(0, B.restNeeded)}%"></i></div></div>
+        <div class="meter"><span>Recorded meals on time, 30 min</span><b>${B.mealOk.length} of ${B.mealOk.length + (R.findings.find(f => f.id === 'B2') || {rows: []}).rows.length}</b><div class="track"><i style="width:${pct(B.mealOk.length, B.mealOk.length + (R.findings.find(f => f.id === 'B2') || {rows: []}).rows.length)}%"></i></div></div>
+        ${R.useQB ? `<div class="meter"><span>Paid shifts over 5 h with meal times</span><b>${cov.withMeal} of ${cov.paidLong}</b><div class="track"><i class="bad" style="width:${pct(cov.withMeal, cov.paidLong)}%"></i></div></div>` : ''}
+      </div>
+      <dl class="uc-stats"><div><dt>Exceptions</dt><dd>${B.exceptions}</dd></div>
+        <div><dt>Premium gaps</dt><dd>${B.premiumsNoted - B.premiumsPaid}<small>/${B.premiumsNoted} noted</small></dd></div>
+        <div><dt>Premium pay lines</dt><dd>${B.premiumLines}</dd></div></dl>
+      ${topB ? `<p class="uc-line">${esc(topB.what)}</p>` : ''}
+      <div class="uc-foot"><span class="muted">${plural(B.findings.length, 'finding')} · ${plural(B.people.size, 'employee')}</span><a class="btn btn-primary" href="#/breaks">View details ${ic('right', 'sm')}</a></div></article>`;
+    const files = n => plural(n, 'file');
+    return `${topApp('overview')}<main class="view">
+      <div class="head dash-head"><div><h1>Compliance insights</h1>
+        <div class="meta"><span>${ic('cal', 'sm')}Pay period ${range(p)}</span><span>${ic('db', 'sm')}${files(Object.values(S.sel).reduce((n, a) => n + a.length, 0))} from 3 sources</span>${ran ? `<span>${ic('clock', 'sm')}Analysed ${ran.toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'})}</span>` : ''}</div></div>
+        <button class="btn btn-secondary" data-act="rerun">${ic('refresh', 'sm')}Run again</button></div>
+      <section class="kpis" aria-label="Summary">
+        <div class="kpi"><div class="lbl">Records reviewed</div><div class="val">${num(T.reviewed)}</div><div class="sub">${num(T.payLines)} pay lines · ${T.shifts} shifts · ${T.reports} report</div></div>
+        <div class="kpi"><div class="lbl">Exceptions identified</div><div class="val">${T.exceptions}</div><div class="sub">${A.exceptions} hours &amp; pay · ${B.exceptions} meal &amp; rest</div></div>
+        <div class="kpi hi"><div class="lbl">High priority</div><div class="val">${T.high}</div><div class="sub">${esc(hi || 'None')}</div></div>
+        <div class="kpi"><div class="lbl">Employees needing review</div><div class="val">${T.people}<small>of ${T.employees}</small></div><div class="sub">across ${plural(T.jobs, 'job')} in payroll</div></div>
+      </section>
+      <section class="ucs">${cardA}${cardB}</section>
+      <div class="sec-h"><h2>Review these first</h2></div>
+      <section class="ins">${top.map(insight).join('')}</section>
+      <div class="sec-h"><h2>Data analysed</h2></div>
+      <section class="data-strip">
+        <div><span class="src-ic ff">${ic('clock')}</span><span><b>FieldFlow</b><small>${plural(R.timesheets.length, 'daily timesheet')} · ${plural(R.activity.length, 'activity report')}</small><small>${T.shifts} shifts · ${R.timesheets.map(t => fmtD(t.date)).join(', ')}</small></span></div>
+        <div><span class="src-ic qb">${ic('receipt')}</span><span><b>QuickBooks</b><small>${esc(D.qb.meta.report)} · ${range(p)}</small><small>${num(T.payLines)} pay lines · ${T.employees} employees · ${T.jobs} jobs</small></span></div>
+        <div><span class="src-ic cf">${ic('folder')}</span><span><b>Case files</b><small>${R.complaint ? `${esc(R.complaint.label)}` : 'No complaint selected'}</small><small>${R.complaint ? `Filed ${esc(R.complaint.filed)} · ${R.complaint.counts.length} counts` : 'Findings shown without complaint links'}</small></span></div>
+      </section>
+      <p class="gaps"><span>${ic('info', 'sm')}Not in the source data:</span><span>timecard edit history</span><span>·</span><span>pay rates</span><span>·</span><span>rest-break punches</span><span>·</span><span>FieldFlow timesheets for ${missingDays(R)}</span></p>
+      <p class="foot-legal">Potential exceptions for review, not legal conclusions. Every figure comes from the supplied files.</p>
+    </main>`;
+  }
+
+  /* ----- detail views ----- */
+  const empCell = (R, r) => r.emp ? `<span class="em">${esc(R.name(r.emp))}</span>` : '<span class="em">Job record</span>';
+  const jobCell = r => `<span>${esc(r.jobNo || '')}</span><span class="sub">${esc(r.job || '')}</span>`;
+  const dateCell = r => `<span class="em nw">${fmtD(r.date)}</span><span class="sub">${dow(r.date)}</span>`;
+  const evidence = (R, r, f, cols) => {
+    const ev = (r.evidence || []).map(e => `<li><b>${esc(e.src)} · ${esc(e.file)}${e.ref && e.ref !== '—' ? ` · ${esc(e.ref)}` : ''}</b><span>${esc(e.text)}${e.sub ? ` · ${esc(e.sub)}` : ''}</span></li>`).join('');
+    const extra = r.shift ? `<dl class="kv" style="margin-top:12px"><dt>Edit history</dt><dd>Not in the FieldFlow export</dd>${r.shift.verifiedAt ? `<dt>Verified by</dt><dd>${esc(r.shift.verifiedBy)} at ${Engine.t12s(r.shift.verifiedAt)}</dd>` : ''}<dt>Position</dt><dd>${esc(r.shift.position)}</dd></dl>` : '';
+    const fs = r.all ? [...new Map(r.all.map(x => [x.finding.id, x.finding])).values()] : f ? [f] : [];
+    const right = fs.length ? `<section><h3>Why it matters</h3><div class="why-list">${fs.map(x => `<div>${fs.length > 1 ? `<h4>${esc(x.title)}</h4>` : ''}<p class="why" style="font-size:13px">${claimHtml(x)}</p>${x.rule ? `<p class="muted" style="font-size:12px;margin-top:4px">${esc(x.rule.id)} · ${esc(x.rule.topic)}</p>` : ''}<p style="font-size:13px;margin-top:6px"><b>Review next:</b> ${esc(x.next)}</p></div>`).join('')}</div></section>`
+      : `<section><h3>Result</h3><p style="font-size:13px">${r.kind === 'pending' ? `QuickBooks export covers ${range(R.period)}. This shift will reconcile once that pay period is exported.` : 'Recorded and paid hours agree for this shift.'}</p></section>`;
+    return `<tr class="ev" id="ev-${esc(r.id)}"><td colspan="${cols}"><div class="evp"><section><h3>Source records</h3><ul>${ev}</ul>${extra}</section>${right}</div></td></tr>`;
+  };
+  const rowHtml = (R, r, cells, f, cols) => {
+    const open = U.exp.has(r.id);
+    return `<tr class="row" data-act="row" data-id="${esc(r.id)}" tabindex="0" aria-expanded="${open}" aria-controls="ev-${esc(r.id)}">${cells}<td class="r"><span class="chev">${ic('chev', 'sm')}</span></td></tr>${open ? evidence(R, r, f, cols) : ''}`;
+  };
+  const segBtns = (key, opts) => `<div class="seg" role="group" aria-label="Filter records">${opts.map(([k, l, n]) => `<button data-act="filter" data-key="${key}" data-f="${k}" aria-pressed="${U[key] === k}">${esc(l)}<span>${n}</span></button>`).join('')}</div>`;
+  const fcard = (key, f) => `<button class="fcard" data-act="filter" data-key="${key}" data-f="${f.id}" aria-pressed="${U[key] === f.id}">
+      <span class="insight-h">${sev(f.sev)}<h3>${esc(f.title)}</h3></span>
+      <span class="what">${esc(f.what)}${f.contrast ? ` ${esc(f.contrast)}` : ''}</span>
+      <span class="why">${claimHtml(f)}</span>
+      <span class="cnt">${countLine(f)}</span>
+      <span class="next">${ic('right', 'sm')}<span>${esc(f.next)}</span></span></button>`;
+  const passCard = (key, k, s, title, what, n) => `<button class="fcard" data-act="filter" data-key="${key}" data-f="${k}" aria-pressed="${U[key] === k}"><span class="insight-h">${sev(s)}<h3>${esc(title)}</h3></span><span class="what">${esc(what)}</span><span class="cnt"><b>${n}</b></span></button>`;
+  const sorter = (R) => (a, b) => ({High: 0, Medium: 1, Low: 2, Pass: 3, Pending: 4}[a.sev] - {High: 0, Medium: 1, Low: 2, Pass: 3, Pending: 4}[b.sev]) || a.date.localeCompare(b.date) || R.name(a.emp || '').localeCompare(R.name(b.emp || ''));
+
+  function vHours() {
+    const R = result(), A = R.A;
+    const p = R.period;
+    const pass = A.matched.map(r => ({...r, sev: 'Pass', label: 'Matched'}));
+    const pend = A.pending.map(r => ({...r, sev: 'Pending', label: 'Awaiting payroll'}));
+    const mergedA = mergeRows(A.rows);
+    const opts = [['ex', 'All flagged', mergedA.length], ...A.findings.map(f => [f.id, f.short[0].toUpperCase() + f.short.slice(1), f.rows.length]), ['ok', 'Matched', pass.length], ['pend', 'Awaiting payroll', pend.length]].filter(o => o[2] || o[0] === 'ex');
+    if (!opts.some(o => o[0] === U.fA)) U.fA = 'ex';
+    const rows = (U.fA === 'ex' ? mergedA : U.fA === 'ok' ? pass : U.fA === 'pend' ? pend : A.rows.filter(r => r.fid === U.fA)).slice().sort(sorter(R));
+    const fOf = r => r.finding || null;
+    const cells = r => {
+      const recorded = r.recorded != null ? `<span class="em">${fmtH(r.recorded)}</span>${r.shift ? `<span class="sub nw">${t12(r.shift.start)}–${t12(r.shift.end)}</span>` : ''}` : '<span class="muted">—</span><span class="sub">No timecard</span>';
+      const paid = r.paid != null ? `<span class="em">${fmtH(r.paid)}</span>${r.lines && r.lines.length ? `<span class="sub">${esc([...new Set(r.lines.map(l => l.payItem))].join(', '))}</span>` : ''}` : `<span class="muted">—</span><span class="sub">${r.kind === 'pending' || (r.shift && !r.shift.inPeriod) ? `Not in ${range(p)}` : 'No pay line'}</span>`;
+      const diff = r.fid === 'A1' ? `<span class="diff-bad">${fmtH(r.otShort)} OT</span><span class="sub nw">paid straight time</span>` : (r.diff != null ? `<span class="${Math.abs(r.diff) < 0.01 ? 'diff-ok' : 'diff-bad'}">${r.diff > 0 ? '+' : ''}${fmtH(r.diff)}</span>` : '<span class="muted">—</span>');
+      return `<td>${empCell(R, r)}</td><td>${dateCell(r)}</td><td>${jobCell(r)}</td><td class="r">${recorded}</td><td class="r">${paid}</td><td class="r">${diff}</td><td>${findingCell(r)}</td>`;
+    };
+    return `${topApp('hours')}<main class="view">
+      <a class="back" href="#/overview">${ic('left', 'sm')}Dashboard</a>
+      <div class="head"><div><h1>Hours &amp; Pay Reconciliation</h1><p>Compare recorded hours, edits, job codes and pay lines.</p></div>${sev(A.sev)}</div>
+      <dl class="d-stats">
+        <div><dt>Exceptions</dt><dd>${A.exceptions}<small> in ${mergedA.length} records</small></dd></div>
+        <div><dt>Employees</dt><dd>${A.people.size}</dd></div>
+        <div><dt>Overtime at issue</dt><dd>${r2(A.otHours)} h <small>pay rates not in export</small></dd></div>
+        <div><dt>Timecards matched</dt><dd>${A.matched.length}<small> of ${A.reconciled}${A.pending.length ? ` · ${A.pending.length} awaiting payroll` : ''}</small></dd></div></dl>
+      <h2 class="sr">Findings</h2>
+      <div class="fl">${A.findings.map(f => fcard('fA', f)).join('')}
+        ${pass.length ? passCard('fA', 'ok', 'Pass', 'Recorded and paid hours match', `${pass.length} of ${A.reconciled} FieldFlow shifts in the pay period match QuickBooks to the minute (${fmtH(pass.reduce((n, r) => n + r.recorded, 0))} each side).`, plural(pass.length, 'shift')) : ''}
+        ${pend.length ? passCard('fA', 'pend', 'Pending', 'Awaiting payroll', `${pend.length} FieldFlow shifts on ${[...new Set(pend.map(r => fmtD(r.date)))].join(', ')} fall after the QuickBooks export (${range(p)}).`, plural(pend.length, 'shift')) : ''}</div>
+      <div class="tbl-bar"><h2>Records</h2>${segBtns('fA', opts)}</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Employee</th><th>Date</th><th>Job</th><th class="r">Recorded</th><th class="r">Paid</th><th class="r">Difference</th><th>Finding</th><th><span class="sr">Details</span></th></tr></thead>
+        <tbody>${rows.length ? rows.map(r => rowHtml(R, r, cells(r), fOf(r), 8)).join('') : '<tr><td colspan="8" class="empty">No records in this view.</td></tr>'}</tbody></table></div>
+      <p class="note">${ic('info', 'sm')}<span>Not in the source data: timecard edit history and pay rates, so exposure is shown in hours. FieldFlow timesheets cover ${new Set(R.shifts.filter(s => s.inPeriod).map(s => s.date)).size} of ${R.totals.days} payroll days.</span></p>
+    </main>`;
+  }
+
+  function vBreaks() {
+    const R = result(), B = R.B;
+    const okRows = B.mealOk.map(s => ({id: `ok-${s.date}-${s.i}`, emp: s.emp, date: s.date, job: s.ts.project, jobNo: s.jobNo, shift: s, sev: 'Pass', label: 'On time · 30 min', evidence: [{src: 'FieldFlow', file: s.ts.file, ref: s.ts.job, text: `${t12(s.start)}–${t12(s.end)} · meal ${t12(s.meal[0])}–${t12(s.meal[1])}`, sub: `verified ${Engine.t12s(s.verifiedAt)}`}]}));
+    const mergedB = mergeRows(B.rows);
+    const opts = [['ex', 'All flagged', mergedB.length], ...B.findings.map(f => [f.id, f.short[0].toUpperCase() + f.short.slice(1), f.rows.length]), ['ok', 'Compliant meals', okRows.length]].filter(o => o[2] || o[0] === 'ex');
+    if (!opts.some(o => o[0] === U.fB)) U.fB = 'ex';
+    const rows = (U.fB === 'ex' ? mergedB : U.fB === 'ok' ? okRows : B.rows.filter(r => r.fid === U.fB)).slice().sort(sorter(R));
+    const cov = B.coverage;
+    const cells = r => {
+      const s = r.shift;
+      const shift = s ? `<span class="em nw">${t12(s.start)}–${t12(s.end)}</span><span class="sub">${esc(r.jobNo)} · ${fmtH(s.workMin / 60)}</span>` : `<span class="muted">—</span><span class="sub">No timesheet · ${esc(r.jobNo || '')}</span>`;
+      const meal = s ? (s.meal ? `<span class="nw">${t12(s.meal[0])}–${t12(s.meal[1])}</span>` : `<span class="muted">None</span><span class="sub">${s.workMin <= 300 ? 'not required' : 'required'}</span>`) : '<span class="muted">—</span>';
+      const need = s ? Engine.restRequired(s.workMin) : 0;
+      const rest = s && need ? `<span class="diff-bad">0 of ${need}</span>` : '<span class="muted">—</span>';
+      const ax = (r.all || [r]).find(x => x.attest);
+      const att = ax ? `<span class="nw">Foreman ${t12(ax.attest.attestedAt)}</span><span class="sub">${ax.early} min before end</span>` : s ? `<span>${t12(s.verifiedAt)}</span><span class="sub">hours only</span>` : '<span class="muted">—</span>';
+      const prem = r.fid === 'B1' ? `<span class="diff-bad">Not paid</span><span class="sub">noted on ${r.evidence.filter(e => e.src === 'QuickBooks').length} pay lines</span>` : r.premium ? `<span>${esc(r.premium)}</span>` : '<span class="muted">—</span>';
+      return `<td>${empCell(R, r)}</td><td>${dateCell(r)}</td><td>${shift}</td><td>${meal}</td><td>${rest}</td><td>${att}</td><td>${prem}</td><td>${findingCell(r)}</td>`;
+    };
+    const b2 = R.findings.find(f => f.id === 'B2');
+    return `${topApp('breaks')}<main class="view">
+      <a class="back" href="#/overview">${ic('left', 'sm')}Dashboard</a>
+      <div class="head"><div><h1>Meal &amp; Rest Breaks</h1><p>Check meal timestamps, attestations and premium-pay entries.</p></div>${sev(B.sev)}</div>
+      <dl class="d-stats">
+        <div><dt>Exceptions</dt><dd>${B.exceptions}<small> in ${mergedB.length} records</small></dd></div>
+        <div><dt>Employees</dt><dd>${B.people.size}</dd></div>
+        <div><dt>Premiums noted, not paid</dt><dd>${B.premiumsNoted - B.premiumsPaid}<small> of ${B.premiumsNoted}</small></dd></div>
+        <div><dt>Rest breaks recorded</dt><dd>0<small> of ${B.restNeeded} required</small></dd></div></dl>
+      <h2 class="sr">Findings</h2>
+      <div class="fl">${B.findings.map(f => fcard('fB', f)).join('')}
+        ${okRows.length ? passCard('fB', 'ok', 'Pass', 'Recorded meals on time', `${okRows.length} of ${okRows.length + (b2 ? b2.rows.length : 0)} recorded meals start before the 5th hour and last 30 minutes.`, plural(okRows.length, 'meal')) : ''}</div>
+      <div class="tbl-bar"><h2>Records</h2>${segBtns('fB', opts)}</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Employee</th><th>Date</th><th>Shift</th><th>Meal</th><th>Rest breaks</th><th>Attestation</th><th>Premium pay</th><th>Finding</th><th><span class="sr">Details</span></th></tr></thead>
+        <tbody>${rows.length ? rows.map(r => rowHtml(R, r, cells(r), r.finding || null, 9)).join('') : '<tr><td colspan="9" class="empty">No records in this view.</td></tr>'}</tbody></table></div>
+      <p class="note">${ic('info', 'sm')}<span>Not in the source data: rest-break punches, and the Yes/No mark on the activity report's break question. ${R.useQB ? `Meal times exist for ${cov.withMeal} of ${cov.paidLong} paid shifts over 5 hours, including none of the ${cov.tenHour} shifts of 10 hours or more.` : ''}</span></p>
+    </main>`;
+  }
+
+  /* ---------- router ---------- */
+  const VIEWS = {login: vLogin, org: vOrg, connect: vConnect, run: vRun, overview: vOverview, hours: vHours, breaks: vBreaks};
+  const TITLES = {login: 'Sign in', org: 'Organization', connect: 'Connect data', run: 'Analyzing', overview: 'Insights', hours: 'Hours & Pay', breaks: 'Meal & Rest'};
+  function resolve(want) {
+    if (!S.user) return 'login';
+    if (!S.org) return 'org';
+    if (want === 'login') return S.analysed ? 'overview' : 'connect';
+    if (want === 'run') return readiness().ok ? 'run' : 'connect';
+    if (['overview', 'hours', 'breaks'].includes(want) && !(S.analysed && readiness().ok)) return 'connect';
+    if (VIEWS[want]) return want;
+    return S.analysed ? 'overview' : 'connect';
+  }
+  let current = null;
+  function render(keepScroll) {
+    const want = location.hash.replace(/^#\/?/, '').split('?')[0];
+    const v = resolve(want);
+    if (v !== want) { history.replaceState(null, '', `#/${v}`); }
+    const changed = v !== current;
+    current = v;
+    app.innerHTML = VIEWS[v]();
+    document.title = `${TITLES[v]} · PREMPTA AI`;
+    if (changed && !keepScroll) window.scrollTo(0, 0);
+    if (v === 'run' && changed) animateRun();
+    if (changed) { const h = app.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); if (v !== 'login') h.focus({preventScroll: true}); } }
+  }
+  const go = v => { U.menu = false; if (location.hash === `#/${v}`) render(); else location.hash = `#/${v}`; };
+  window.addEventListener('hashchange', () => { U.menu = false; render(); });
+
+  /* ---------- actions ---------- */
+  function connect(src) {
+    U.busy[src] = true; render(true);
+    setTimeout(() => {
+      U.busy[src] = false; S.conn[src] = true;
+      if (!S.sel[src] || !S.sel[src].length) S.sel[src] = defaults(src);
+      S.analysed = false; save(); render(true);
+    }, 650);
+  }
+  app.addEventListener('click', e => {
+    const t = e.target.closest('[data-act]');
+    if (!t) { if (U.menu && !e.target.closest('.menu')) { U.menu = false; render(true); } return; }
+    const a = t.dataset.act;
+    if (a !== 'menu' && U.menu && !t.closest('.menu')) U.menu = false;
+    if (a === 'theme') {
+      const n = theme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', n);
+      try { localStorage.setItem(THEME, n); } catch (err) { /* keep for this visit */ }
+      render(true);
+    } else if (a === 'menu') { U.menu = !U.menu; render(true); }
+    else if (a === 'connect') connect(t.dataset.src);
+    else if (a === 'connect-all') Object.keys(SRC).filter(k => !S.conn[k]).forEach(connect);
+    else if (a === 'browse') { U.open[t.dataset.src] = !U.open[t.dataset.src]; render(true); }
+    else if (a === 'run' || a === 'rerun') { S.analysed = false; save(); go('run'); }
+    else if (a === 'go') go(t.dataset.to);
+    else if (a === 'signout') { delete S.user; save(); U.menu = false; go('login'); }
+    else if (a === 'reset') { S = {conn: {}, sel: {}}; save(); U.open = {}; U.exp.clear(); U.fA = U.fB = 'ex'; go('login'); }
+    else if (a === 'filter') { U[t.dataset.key] = U[t.dataset.key] === t.dataset.f && t.dataset.f !== 'ex' ? 'ex' : t.dataset.f; render(true); }
+    else if (a === 'focus') { U[t.dataset.f[0] === 'A' ? 'fA' : 'fB'] = t.dataset.f; }
+    else if (a === 'row') { const id = t.dataset.id; U.exp.has(id) ? U.exp.delete(id) : U.exp.add(id); render(true); const r = app.querySelector(`tr.row[data-id="${CSS.escape(id)}"]`); if (r) r.focus({preventScroll: true}); }
+  });
+  app.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && U.menu) { U.menu = false; render(true); return; }
+    const r = e.target.closest && e.target.closest('tr.row');
+    if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); r.click(); }
+  });
+  app.addEventListener('change', e => {
+    const t = e.target;
+    if (t.name === 'org') { const n = document.getElementById('newOrg'); n.hidden = t.value !== 'new'; if (!n.hidden) document.getElementById('on').focus(); }
+    if (t.dataset.file) {
+      const list = new Set(S.sel[t.dataset.src] || []);
+      t.checked ? list.add(t.dataset.file) : list.delete(t.dataset.file);
+      S.sel[t.dataset.src] = [...list]; S.analysed = false; save(); render(true);
+    }
+  });
+  app.addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target.dataset.form;
+    if (f === 'login') {
+      const em = document.getElementById('em').value.trim(), pw = document.getElementById('pw').value;
+      const err = document.getElementById('lerr');
+      if (!/^\S+@\S+\.\S+$/.test(em) || !pw) { err.textContent = 'Enter a work email and password.'; err.hidden = false; return; }
+      const local = em.split('@')[0].replace(/[._-]+/g, ' ');
+      S.user = {email: em, name: local === 'demo' ? 'Demo reviewer' : local.replace(/\b\w/g, c => c.toUpperCase())};
+      save(); go(S.org ? (S.analysed ? 'overview' : 'connect') : 'org');
+    } else if (f === 'org') {
+      const pick = e.target.querySelector('input[name="org"]:checked').value;
+      const name = pick === 'new' ? document.getElementById('on').value.trim() : D.org.name;
+      if (!name) { document.getElementById('on').focus(); return; }
+      S.org = {name, address: pick === 'new' ? '' : D.org.address, rules: 'California'};
+      save(); go('connect');
+    }
+  });
+  render();
+})();
+
+</script>
+</body>
+</html>
