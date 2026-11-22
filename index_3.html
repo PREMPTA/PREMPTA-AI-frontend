@@ -393,6 +393,91 @@ tr.ev td{background:var(--subtle);padding:0 14px 16px}
   .hero b{font-size:var(--fs-4xl)}
 }
 
+/* ---------- onboarding v2: sign up, organization profile, connections, agents ---------- */
+.field{align-content:start}
+::placeholder{color:var(--muted);opacity:1}
+.conn-sum dd.mono,.agent-kv dd.mono{font-size:13px}
+.agent-h>div:nth-child(2){flex:1 1 220px;min-width:0}
+.field label.check{font-weight:400;color:var(--ink)}
+.still .view{animation:none}
+.auth.wide{width:min(720px,100%)}
+.auth-steps{display:flex;justify-content:center;overflow-x:auto}
+.narrow{max-width:900px;margin:0 auto}
+.card-form{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl)}
+.form-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line-2)}
+.form-head h1{font-size:var(--fs-2xl)}
+.form-head h2{font-size:var(--fs-xl)}
+.form-head p{color:var(--ink-2);margin-top:4px;font-size:var(--fs-sm)}
+.form-sec{padding:20px 24px}
+.form-sec+.form-sec{border-top:1px solid var(--line-2)}
+.form-sec>h2{font-size:var(--fs-md);margin-bottom:14px}
+.form-sec .rules-line{margin-top:14px}
+.form-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 24px;border-top:1px solid var(--line-2);font-size:var(--fs-sm)}
+.form-foot a,.panel a{color:var(--accent);font-weight:600}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}
+.fgrid .span{grid-column:1/-1}
+.field .lab{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:24px;font-size:var(--fs-sm);font-weight:600;color:var(--ink-2)}
+.field .lab label{font-size:inherit;font-weight:inherit;color:inherit}
+.req{color:var(--crit)}
+fieldset.field{border:0;margin:0;padding:0;min-width:0}
+legend.lab{padding:0;margin-bottom:6px}
+.hint{font-size:var(--fs-xs);color:var(--muted)}
+.err{font-size:var(--fs-xs);color:var(--crit);font-weight:500}
+.field.bad .input{border-color:var(--crit)}
+.legend-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 24px;border-bottom:1px solid var(--line-2);font-size:var(--fs-xs);color:var(--muted)}
+.chip{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-sm);font-size:11.5px;font-weight:600;white-space:nowrap}
+.chip.c-signup{background:var(--accent-soft);color:var(--accent)}
+.chip.c-record{background:var(--good-soft);color:var(--good)}
+.chip.c-reference{background:var(--low-soft);color:var(--low)}
+.chip.c-entered{background:var(--warn-soft);color:var(--warn)}
+.chip.c-missing{color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.input.sm{min-height:34px;padding:5px 10px;font-size:var(--fs-sm)}
+select.input{appearance:auto}
+/* connections */
+.sources.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.src form{display:grid;gap:14px}
+.checks-v{display:grid;gap:6px}
+.check{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:var(--r-md);background:var(--subtle);cursor:pointer;font-size:var(--fs-sm)}
+.check input{margin:2px 0 0;width:16px;height:16px;flex:none}
+.check b{display:block;font-weight:600}
+.check small{display:block;color:var(--muted);font-size:var(--fs-xs)}
+.conn-sum{display:grid;gap:6px;margin:0;font-size:var(--fs-sm)}
+.conn-sum div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px}
+.conn-sum dt{color:var(--muted)}
+.conn-sum dd{margin:0;overflow-wrap:anywhere}
+.src.case{margin-top:16px}
+.src.case .src-actions{margin-top:0}
+/* agents */
+.sim-note{display:flex;gap:10px;align-items:flex-start;margin:0 0 18px;padding:11px 14px;border-radius:var(--r-md);border:1px dashed var(--input-line);font-size:var(--fs-sm);color:var(--ink-2)}
+.sim-note svg{color:var(--muted);margin-top:2px}
+.agents{display:grid;gap:20px}
+.agent{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.agent-h{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 22px;border-bottom:1px solid var(--line-2)}
+.agent-h h2{font-size:var(--fs-lg)}
+.agent-h p{font-size:var(--fs-sm);color:var(--muted)}
+.agent-h .hgap{display:none}
+.tag.sim{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--input-line)}
+.agent-b{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;padding:20px 22px}
+.agent-kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px;align-items:center;margin:0;font-size:var(--fs-sm)}
+.agent-kv dt{color:var(--muted)}
+.agent-kv dd{margin:0;overflow-wrap:anywhere}
+.agent-kv .input{max-width:260px}
+.agent-chk{background:var(--subtle);border-radius:var(--r-lg);padding:16px}
+.chk-h{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:var(--fs-sm)}
+.chk-h span{color:var(--muted)}
+.agent-chk ol{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:10px}
+.agent-chk li{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}
+.agent-chk li .ic{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);flex:none;background:var(--card)}
+.agent-chk li.done{color:var(--ink-2)}
+.agent-chk li.done .ic{background:var(--good-soft);border-color:var(--good-line);color:var(--good)}
+.agent-chk li.done .ic svg{width:12px;height:12px;stroke-width:2.6}
+.agent-chk li.now{color:var(--ink)}
+.agent-chk li.now .ic{border-color:var(--accent);border-top-color:transparent;animation:spin 800ms linear infinite}
+.agent-chk li b{display:block;font-size:var(--fs-sm);font-weight:600}
+.agent-chk li small{display:block;font-size:var(--fs-xs);color:var(--muted);overflow-wrap:anywhere}
+@media (max-width:1020px){.sources.two,.agent-b{grid-template-columns:1fr}}
+@media (max-width:760px){.top-in>.steps{order:5;width:100%;justify-content:center;padding-bottom:4px}.agent-kv{grid-template-columns:1fr;gap:2px}.agent-kv dt{margin-top:8px;font-size:var(--fs-xs)}.fgrid{grid-template-columns:1fr}.form-head,.form-sec,.form-foot,.legend-row{padding-left:16px;padding-right:16px}.conn-sum div{grid-template-columns:1fr;gap:0}.agent-h,.agent-b{padding:16px}}
+
 </style>
 </head>
 <body>
@@ -746,7 +831,7 @@ const Engine = (() => {
         reviewed: lines.length + shifts.length + activity.length, payLines: lines.length, shifts: shifts.length, reports: activity.length,
         exceptions: A.exceptions + B.exceptions, high: A.high + B.high, people: allPeople.size,
         employees: new Set([...qbNames, ...shifts.map(s => s.emp)]).size, matchedNames: shifts.filter(s => s.matched).length,
-        jobs: new Set(lines.map(l => l.job)).size, days: new Set(lines.map(l => l.date)).size,
+        jobs: new Set(lines.map(l => parseJob(l.job).no).filter(Boolean)).size, days: new Set(lines.map(l => l.date)).size,
       },
     };
   }
@@ -759,7 +844,7 @@ const Engine = (() => {
 (() => {
   'use strict';
   const D = window.__PREMPTA_DATA__;
-  const KEY = 'prempta3-state', THEME = 'prempta-theme';
+  const KEY = 'prempta3-v2', THEME = 'prempta-theme';
   const app = document.getElementById('app');
   const {t12, md} = Engine;
 
@@ -793,6 +878,9 @@ const Engine = (() => {
     plug: '<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/>',
     reset: '<path d="M4 11a8 8 0 1 1 2.3 5.7M4 4v7h7"/>',
     file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
+    building: '<path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M3 21h18M8 7h4M8 11h4M8 15h4"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
   };
   const ic = (n, cls = '') => `<svg class="i ${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
   const LOGO = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z" fill="oklch(50.5% 0.16 258)"/><path d="M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/></svg>';
@@ -804,7 +892,7 @@ const Engine = (() => {
     const covered = [...new Set(ins.map(s => s.date))].sort();
     const all = [...new Set(R.lines.map(l => l.date))].sort();
     const miss = all.filter(d => !covered.includes(d));
-    const jobsOn = d => new Set(R.lines.filter(l => l.date === d).map(l => l.job)).size;
+    const jobsOn = d => new Set(R.lines.filter(l => l.date === d).map(l => Engine.parseJob(l.job).no).filter(Boolean)).size;
     const parts = [];
     if (miss.length) parts.push(`${MON[dt(miss[0]).getMonth()]} ${miss.map(d => dt(d).getDate()).join(', ')}`);
     for (const d of covered) {
@@ -836,14 +924,44 @@ const Engine = (() => {
   let S = {};
   try { S = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { S = {}; }
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable: state lives for this visit */ } };
-  const U = {open: {}, exp: new Set(), fA: 'ex', fB: 'ex', menu: false, busy: {}, runTimer: null};
-  S.conn = S.conn || {}; S.sel = S.sel || {};
+  const U = {open: {}, exp: new Set(), fA: 'ex', fB: 'ex', menu: false, busy: {}, edit: {}, errs: {}, runTimer: null, agentTimer: null, agentStep: {}};
+  const fresh = () => ({conn: {}, sel: {}, cfg: {}, agents: {}});
+  S = Object.assign(fresh(), S);
   const defaults = src => D.sources[src].files.filter(f => f.use).map(f => f.name);
   const SRC = {
     fieldflow: {name: 'FieldFlow', icon: 'clock', cls: 'ff', blurb: 'Timecards, shifts, meal times'},
     quickbooks: {name: 'QuickBooks', icon: 'receipt', cls: 'qb', blurb: 'Payroll pay lines'},
-    cases: {name: 'Case files', icon: 'folder', cls: 'cf', blurb: 'Complaint and evidence'},
+    cases: {name: 'Case files', icon: 'folder', cls: 'cf', blurb: 'Complaint and supporting documents'},
   };
+  const AGENT_SRCS = ['fieldflow', 'quickbooks'];
+  /* Connection details for each integration agent, modelled on index_2's Integration Agents */
+  const AGENT = {
+    fieldflow: {purpose: 'Receives FieldFlow timesheets and daily activity reports.', schedule: 'Hourly batch',
+      route: 'Point FieldFlow’s scheduled exports to this address.',
+      reports: [{k: 'timesheet', l: 'Daily timesheet', sub: 'Shifts, meal times and verifications', kind: 'Daily timesheet'},
+                {k: 'activity', l: 'Daily activity report', sub: 'Foreman’s break attestation and crew', kind: 'Daily activity report'}]},
+    quickbooks: {purpose: 'Receives QuickBooks payroll reports.', schedule: 'After payroll close',
+      route: 'Schedule the QuickBooks report to email this address after each payroll.',
+      reports: [{k: 'timebyname', l: 'Time by Name Detail', sub: 'Hours by employee, job and payroll item', kind: 'Payroll time detail'}]},
+  };
+  const AUTH = ['OAuth 2.0 mailbox delegation', 'App password (IMAP)', 'Service account'];
+  const FREQ = ['Every 15 minutes', 'Every 30 minutes', 'Hourly', 'Daily'];
+  const SCHED = ['On receipt', 'Hourly batch', 'Nightly at 2:00 AM', 'After payroll close'];
+  const isEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || '').trim());
+  const domainOf = email => (String(email || '').split('@')[1] || 'yourcompany.example').toLowerCase();
+  const slug = s => (String(s || 'org').toLowerCase().match(/[a-z0-9]+/) || ['org'])[0];
+  const hex6 = () => Math.random().toString(16).slice(2, 8).padEnd(6, '0');
+  const stamp = () => new Date().toISOString();
+  const when = iso => new Date(iso).toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'});
+  const filesFor = (src, reports) => {
+    const kinds = AGENT[src].reports.filter(r => reports.includes(r.k)).map(r => r.kind);
+    return D.sources[src].files.filter(f => f.use && kinds.includes(f.kind)).map(f => f.name);
+  };
+  const agentOk = k => !!(S.conn[k] && S.agents[k] && S.agents[k].status === 'Connected');
+  const agentsReady = () => AGENT_SRCS.every(agentOk);
+  // state from an earlier version: a connection without stored details is not a connection
+  for (const k of AGENT_SRCS) if (S.conn[k] && !S.cfg[k]) { S.conn[k] = false; delete S.agents[k]; }
+  if (S.org && !S.org.complete) S.org = null;
 
   let memo = {key: null, R: null};
   const result = () => {
@@ -873,19 +991,55 @@ const Engine = (() => {
     return {ff, qb, cf, overlap, ok: ff.shifts > 0 && qb.on};
   };
 
+  /* ---------- organization profile: fields and where prefilled values come from ---------- */
+  const ORG_FIELDS = [
+    {k: 'name', l: 'Organization / business name', req: 1},
+    {k: 'legal', l: 'Legal business name', req: 1},
+    {k: 'industry', l: 'Industry', req: 1, span: 1},
+    {k: 'address', l: 'Business address', req: 1, span: 1},
+    {k: 'contactName', l: 'Primary contact name', req: 1},
+    {k: 'contactEmail', l: 'Primary contact email', req: 1, type: 'email'},
+    {k: 'employees', l: 'Number of employees', type: 'number'},
+    {k: 'jobs', l: 'Active jobs', type: 'number'},
+  ];
+  const PROV = {signup: 'From sign-up', record: 'From records', reference: 'Client reference', entered: 'Entered', missing: 'Not provided'};
+  const recordValues = () => {
+    const jobs = new Set(D.qb.lines.map(l => Engine.parseJob(l.job).no).filter(Boolean)).size;
+    return {
+      legal: [D.qb.meta.company, 'record', 'QuickBooks report header'],
+      address: [D.org.address, 'record', 'FieldFlow timesheet header'],
+      industry: ['Environmental remediation · asbestos & lead abatement', 'reference', 'Client reference documents'],
+      employees: [new Set(D.qb.lines.map(l => l.emp)).size, 'record', 'Employees paid in the QuickBooks export'],
+      jobs: [jobs, 'record', 'Job numbers in the QuickBooks export'],
+    };
+  };
+  const orgInitial = () => {
+    if (S.org) return {vals: {...S.org}, prov: {...(S.org.prov || {})}, tips: S.org.tips || {}};
+    const a = S.account || {}, vals = {}, prov = {}, tips = {};
+    const put = (k, v, p, tip) => { if (v == null || v === '') return; vals[k] = v; prov[k] = p; if (tip) tips[k] = tip; };
+    put('name', a.org, 'signup'); put('legal', a.legal, 'signup');
+    put('contactName', a.name, 'signup'); put('contactEmail', a.email, 'signup');
+    // the sample records are Watkins Environmental's; offer them only to that organization
+    if (/watkins/i.test(a.org || '')) for (const [k, [v, p, tip]] of Object.entries(recordValues())) if (vals[k] == null) put(k, v, p, tip);
+    return {vals, prov, tips};
+  };
+
   /* ---------- theme ---------- */
   const theme = () => document.documentElement.getAttribute('data-theme') || 'light';
   const themeBtn = () => `<button class="icon-btn" data-act="theme" aria-label="Switch to ${theme() === 'dark' ? 'light' : 'dark'} theme">${ic(theme() === 'dark' ? 'sun' : 'moon')}</button>`;
 
   /* ---------- chrome ---------- */
-  const STEPS = [['org', 'Organization'], ['connect', 'Connect data'], ['run', 'Analyze'], ['overview', 'Insights']];
+  const STEPS = ['Sign up', 'Organization', 'Connect data', 'Agents', 'Insights'];
+  const STEP_OF = {signup: 0, login: 0, org: 1, connect: 2, agents: 3, run: 4, overview: 4};
   const stepper = cur => {
-    const ix = STEPS.findIndex(s => s[0] === cur);
-    return `<ol class="steps" aria-label="Setup progress">${STEPS.map(([k, l], i) => `<li class="${i < ix ? 'done' : i === ix ? 'on' : ''}"${i === ix ? ' aria-current="step"' : ''}><span class="n">${i < ix ? ic('check', 'sm') : i + 1}</span><span class="lbl">${l}</span></li>`).join('')}</ol>`;
+    const ix = STEP_OF[cur] ?? -1;
+    return `<ol class="steps" aria-label="Setup progress">${STEPS.map((l, i) => `<li class="${i < ix ? 'done' : i === ix ? 'on' : ''}"${i === ix ? ' aria-current="step"' : ''}><span class="n">${i < ix ? ic('check', 'sm') : i + 1}</span><span class="lbl">${l}</span></li>`).join('')}</ol>`;
   };
   const userMenu = () => `<div class="user"><button class="avatar" data-act="menu" aria-haspopup="menu" aria-expanded="${U.menu}" aria-label="Account menu">${esc(initials(S.user.name))}</button>${U.menu ? `
     <div class="menu" role="menu"><div class="who"><b>${esc(S.user.name)}</b><span class="muted">${esc(S.user.email)}</span></div>
-      <button role="menuitem" data-act="go" data-to="connect">${ic('plug', 'sm')}Data sources</button>
+      ${S.org ? `<button role="menuitem" data-act="go" data-to="org">${ic('building', 'sm')}Organization profile</button>` : ''}
+      ${S.org ? `<button role="menuitem" data-act="go" data-to="connect">${ic('plug', 'sm')}Data connections</button>` : ''}
+      ${AGENT_SRCS.every(k => S.conn[k]) ? `<button role="menuitem" data-act="go" data-to="agents">${ic('mail', 'sm')}Integration agents</button>` : ''}
       ${S.analysed ? `<button role="menuitem" data-act="rerun">${ic('refresh', 'sm')}Run analysis again</button>` : ''}
       <button role="menuitem" data-act="reset">${ic('reset', 'sm')}Start the demo over</button>
       <button role="menuitem" data-act="signout">${ic('out', 'sm')}Sign out</button></div>` : ''}</div>`;
@@ -899,63 +1053,128 @@ const Engine = (() => {
       <div class="spacer"></div><span class="status">Analysis complete · ${range(R.period)}</span>${themeBtn()}${userMenu()}</div></header>`;
   };
 
-  /* ---------- screens ---------- */
+  /* ---------- form helpers ---------- */
+  const err = (form, k) => (U.errs[form] || {})[k];
+  const field = (form, o) => {
+    const id = `${form}-${o.k}`, e = err(form, o.k), v = o.value ?? '';
+    const ctl = o.type === 'select'
+      ? `<select class="input" id="${id}" name="${o.k}"${o.attrs || ''}>${o.options.map(x => `<option${x === v ? ' selected' : ''}>${esc(x)}</option>`).join('')}</select>`
+      : `<input class="input" id="${id}" name="${o.k}" type="${o.type || 'text'}" value="${esc(v)}"${o.ph ? ` placeholder="${esc(o.ph)}"` : ''}${o.ac ? ` autocomplete="${o.ac}"` : ''}${o.type === 'number' ? ' min="0" step="1" inputmode="numeric"' : ''}${o.attrs || ''}${e ? ` aria-invalid="true" aria-describedby="${id}-e"` : ''}>`;
+    return `<div class="field${o.span ? ' span' : ''}${e ? ' bad' : ''}"><div class="lab"><label for="${id}">${esc(o.l)}${o.req ? ' <span class="req" aria-hidden="true">*</span>' : ''}</label>${o.chip || ''}</div>${ctl}${e ? `<span class="err" id="${id}-e">${esc(e)}</span>` : o.hint ? `<span class="hint">${o.hint}</span>` : ''}</div>`;
+  };
+  const chip = (p, tip) => `<span class="chip c-${p}"${tip ? ` title="${esc(tip)}"` : ''}>${PROV[p]}</span>`;
+
+  /* ---------- sign up / sign in ---------- */
+  function vSignup() {
+    const v = U.signup || {};
+    return `<div class="center"><div class="auth wide view">${brand()}
+      <div class="auth-steps">${stepper('signup')}</div>
+      <form class="card-form" data-form="signup" novalidate>
+        <div class="form-head"><div><h1>Create your account</h1><p>Start with you and your organization. The rest comes from your data.</p></div>
+          <button class="btn btn-secondary btn-sm" type="button" data-act="demo-signup">${ic('spark', 'sm')}Use demo details</button></div>
+        <div class="form-sec"><h2>About you</h2><div class="fgrid">
+          ${field('su', {k: 'name', l: 'Full name', req: 1, value: v.name, ac: 'name'})}
+          ${field('su', {k: 'email', l: 'Work email', req: 1, type: 'email', value: v.email, ac: 'email', hint: 'You become the primary contact and first administrator.'})}
+          ${field('su', {k: 'password', l: 'Password', req: 1, type: 'password', value: v.password, ac: 'new-password', span: 1, hint: 'At least 8 characters. This demo does not store it.'})}
+        </div></div>
+        <div class="form-sec"><h2>Your organization</h2><div class="fgrid">
+          ${field('su', {k: 'org', l: 'Organization name', req: 1, value: v.org, ac: 'organization', hint: 'Shown in the header and on reports.'})}
+          ${field('su', {k: 'legal', l: 'Legal business name', req: 1, value: v.legal, hint: 'As it appears on payroll.'})}
+        </div><p class="rules-line">${ic('shield', 'sm')}California wage-and-hour rules · ${num(D.ruleCatalogSize)} in the catalog</p></div>
+        <div class="form-foot"><span class="muted">Already have an account? <a href="#/login">Sign in</a></span><button class="btn btn-primary btn-lg" type="submit">Create account ${ic('right', 'sm')}</button></div>
+      </form>
+      <p class="auth-foot">Read-only access. Your source systems are never changed.</p>
+      <div style="justify-self:center">${themeBtn()}</div></div></div>`;
+  }
   function vLogin() {
+    const em = S.account ? S.account.email : 'demo@prempta.ai';
     return `<div class="center"><div class="auth view">${brand()}
       <form class="panel" data-form="login" novalidate>
         <div><h1>Sign in</h1><p class="muted">PAGA compliance insights</p></div>
-        <div class="field"><label for="em">Work email</label><input class="input" id="em" type="email" value="demo@prempta.ai" autocomplete="username" required></div>
+        <div class="field"><label for="em">Work email</label><input class="input" id="em" type="email" value="${esc(em)}" autocomplete="username" required></div>
         <div class="field"><label for="pw">Password</label><input class="input" id="pw" type="password" value="prempta-demo" autocomplete="current-password" required></div>
-        <p class="muted" id="lerr" role="alert" hidden></p>
+        <p class="err" id="lerr" role="alert" hidden></p>
         <button class="btn btn-primary btn-lg btn-block" type="submit">Sign in</button>
+        <p class="muted" style="text-align:center;font-size:13px">New to PREMPTA? <a href="#/signup">Create an account</a></p>
       </form>
       <p class="auth-foot">Read-only access. Your source systems are never changed.</p>
       <div style="justify-self:center">${themeBtn()}</div></div></div>`;
   }
 
+  /* ---------- organization profile ---------- */
   function vOrg() {
-    const o = S.org || {};
-    const isNew = o.name && o.name !== D.org.name;
-    return `${topSetup('org')}<main><div class="center" style="min-height:auto;padding-top:24px"><form class="setup view" data-form="org">
-      <div><h1>Your organization</h1><p class="muted" style="margin-top:6px">Choose who this analysis is for.</p></div>
-      <label class="org-opt"><input type="radio" name="org" value="known"${isNew ? '' : ' checked'}><span class="org-logo">${esc(initials(D.org.name))}</span><span><b>${esc(D.org.name)}</b><small>${esc(D.org.address)}</small></span></label>
-      <label class="org-opt"><input type="radio" name="org" value="new"${isNew ? ' checked' : ''}><span class="org-logo">+</span><span><b>Add another organization</b><small>Name only. You can add details later.</small></span></label>
-      <div class="field" id="newOrg"${isNew ? '' : ' hidden'}><label for="on">Organization name</label><input class="input" id="on" value="${isNew ? esc(o.name) : ''}" autocomplete="organization"></div>
-      <p class="rules-line">${ic('shield', 'sm')}California wage-and-hour rules · ${num(D.ruleCatalogSize)} in the catalog</p>
-      <div><button class="btn btn-primary btn-lg" type="submit">Continue ${ic('right', 'sm')}</button></div>
-    </form></div></main>`;
+    const init = orgInitial(), d = U.orgDraft || init;
+    const fieldsHtml = ORG_FIELDS.map(f => {
+      const v = d.vals[f.k] ?? '', p0 = init.prov[f.k] || 'missing', p = d.prov[f.k] || (v === '' ? 'missing' : 'entered');
+      const hint = f.k === 'employees' && init.prov.employees === 'record' ? 'From the payroll export; change it if it differs.' : f.k === 'jobs' && init.prov.jobs === 'record' ? 'Job numbers with hours in the payroll export.' : '';
+      return field('org', {...f, value: v, hint, chip: chip(p, (d.tips || init.tips)[f.k]),
+        attrs: ` data-init="${esc(init.vals[f.k] ?? '')}" data-initp="${p0}" data-orgf="1"`});
+    }).join('');
+    return `${topSetup('org')}<main class="view"><div class="narrow">
+      <div class="head"><div><h1>Set up ${esc(d.vals.name || 'your organization')}</h1><p>Confirm the organization profile. Known values are prefilled from sign-up and your records.</p></div></div>
+      <form class="card-form" data-form="org" novalidate>
+        <div class="form-head"><div><h2>Organization profile</h2><p>Each field shows where its value came from.</p></div></div>
+        <div class="legend-row"><span>Value source</span>${['signup', 'record', 'reference', 'entered'].map(p => chip(p)).join('')}</div>
+        <div class="form-sec"><div class="fgrid">${fieldsHtml}</div></div>
+        <div class="form-foot"><span class="muted">You can change these later from the account menu.</span><button class="btn btn-primary btn-lg" type="submit">Save and continue ${ic('right', 'sm')}</button></div>
+      </form></div></main>`;
   }
 
-  function srcCard(src) {
-    const s = SRC[src], on = !!S.conn[src], busy = U.busy[src], st = srcStats(src);
+  /* ---------- connect FieldFlow and QuickBooks ---------- */
+  const cfgDefaults = src => ({mailbox: `prempta.${src}@${domainOf((S.account || S.user || {}).email)}`, auth: AUTH[0],
+    reports: AGENT[src].reports.map(r => r.k), company: src === 'quickbooks' ? (S.org && S.org.legal) || '' : undefined});
+  const reportNames = (src, ks) => AGENT[src].reports.filter(r => ks.includes(r.k)).map(r => r.l).join(', ');
+  function fileList(src) {
     const files = D.sources[src].files, sel = S.sel[src] || [];
-    let stats = '';
-    if (on && src === 'fieldflow') stats = `<div class="src-stat"><span><b class="num">${st.shifts}</b>shifts</span><span><b class="num">${st.days}</b>${st.days === 1 ? 'day' : 'days'}</span><span><b class="num">${st.reports}</b>${st.reports === 1 ? 'report' : 'reports'}</span></div>`;
-    if (on && src === 'quickbooks') stats = `<div class="src-stat"><span><b class="num">${num(st.lines)}</b>pay lines</span><span><b class="num">${st.employees}</b>employees</span></div>`;
-    if (on && src === 'cases') stats = `<div class="src-stat"><span><b class="num">${st.complaint ? 1 : 0}</b>complaint</span><span><b class="num">${st.counts}</b>counts</span></div>`;
-    const pill = busy ? '<span class="pill busy">Connecting</span>' : on ? `<span class="pill on">Connected</span>` : '<span class="pill off">Not connected</span>';
-    const list = on && U.open[src] ? `<div class="files" role="group" aria-label="${s.name} files">${files.map(f => {
-      const id = `f-${src}-${files.indexOf(f)}`;
+    return `<div class="files" role="group" aria-label="${SRC[src].name} files">${files.map((f, i) => {
+      const id = `f-${src}-${i}`;
       const meta = [f.kind, f.records != null ? plural(f.records, f.unit.replace(/s$/, ''), f.unit) : null, size(f.size)].filter(Boolean).join(' · ');
       return `<label class="file${f.use ? '' : ' off'}" for="${id}"><input type="checkbox" id="${id}" data-file="${esc(f.name)}" data-src="${src}"${sel.includes(f.name) ? ' checked' : ''}${f.use ? '' : ' disabled'}>
         ${ic('file', 'sm')}<span class="fn"><span title="${esc(f.name)}">${esc(f.name)}</span><small>${esc(meta)}</small></span>${f.use ? '' : `<span class="tag">${esc(f.note)}</span>`}</label>`;
-    }).join('')}</div>` : '';
-    return `<section class="src${on ? ' is-on' : ''}" aria-labelledby="h-${src}">
-      <div class="src-top"><span class="src-ic ${s.cls}">${ic(s.icon, 'lg')}</span><div style="flex:1;min-width:0"><h2 id="h-${src}">${s.name}</h2><p>${s.blurb}</p></div>${pill}</div>
-      ${stats}${list}
-      <div class="src-actions">${on
-        ? `<button class="btn btn-secondary" data-act="browse" data-src="${src}" aria-expanded="${!!U.open[src]}">${U.open[src] ? 'Hide files' : `Browse files (${files.length})`}</button>`
-        : `<button class="btn btn-primary" data-act="connect" data-src="${src}"${busy ? ' disabled' : ''}>${ic('plug', 'sm')}Connect</button>`}</div></section>`;
+    }).join('')}</div>`;
   }
-
+  const srcHead = (src, pill) => `<div class="src-top"><span class="src-ic ${SRC[src].cls}">${ic(SRC[src].icon, 'lg')}</span><div style="flex:1;min-width:0"><h2 id="h-${src}">${SRC[src].name}</h2><p>${SRC[src].blurb}</p></div>${pill}</div>`;
+  const pillFor = src => U.busy[src] ? '<span class="pill busy">Connecting</span>' : S.conn[src] && !U.edit[src] ? '<span class="pill on">Connected</span>' : '<span class="pill off">Not connected</span>';
+  function connCard(src) {
+    const on = S.conn[src] && !U.edit[src], c = S.cfg[src] || cfgDefaults(src), st = srcStats(src), A = AGENT[src];
+    if (on) {
+      const stats = src === 'fieldflow'
+        ? `<div class="src-stat"><span><b class="num">${st.shifts}</b>shifts</span><span><b class="num">${st.days}</b>${st.days === 1 ? 'day' : 'days'}</span><span><b class="num">${st.reports}</b>${st.reports === 1 ? 'report' : 'reports'}</span></div>`
+        : `<div class="src-stat"><span><b class="num">${num(st.lines)}</b>pay lines</span><span><b class="num">${st.employees}</b>employees</span></div>`;
+      return `<section class="src is-on" aria-labelledby="h-${src}">${srcHead(src, pillFor(src))}
+        <dl class="conn-sum"><div><dt>Agent mailbox</dt><dd class="mono">${esc(c.mailbox)}</dd></div>${c.company ? `<div><dt>Company</dt><dd>${esc(c.company)}</dd></div>` : ''}
+          <div><dt>Reports</dt><dd>${esc(reportNames(src, c.reports))}</dd></div><div><dt>Mailbox sign-in</dt><dd>${esc(c.auth)}</dd></div><div><dt>Credential</dt><dd class="mono">${esc(c.credRef)}</dd></div></dl>
+        ${stats}${U.open[src] ? fileList(src) : ''}
+        <div class="src-actions"><button class="btn btn-secondary" data-act="browse" data-src="${src}" aria-expanded="${!!U.open[src]}">${U.open[src] ? 'Hide files' : `Received files (${D.sources[src].files.length})`}</button><button class="btn btn-ghost" data-act="edit-conn" data-src="${src}">Edit connection</button></div></section>`;
+    }
+    const f = `cf-${src}`, busy = U.busy[src], stored = S.cfg[src] && S.cfg[src].credRef;
+    const reps = A.reports.map(r => `<label class="check"><input type="checkbox" name="reports" value="${r.k}"${c.reports.includes(r.k) ? ' checked' : ''}><span><b>${esc(r.l)}</b><small>${esc(r.sub)}</small></span></label>`).join('');
+    return `<section class="src cfg" aria-labelledby="h-${src}">${srcHead(src, pillFor(src))}
+      <form data-form="conn" data-src="${src}" novalidate>
+        ${field(f, {k: 'mailbox', l: 'Agent mailbox', req: 1, type: 'email', value: c.mailbox, hint: esc(A.route)})}
+        ${src === 'quickbooks' ? field(f, {k: 'company', l: 'QuickBooks company', req: 1, value: c.company, hint: 'The company file that runs payroll.'}) : ''}
+        <fieldset class="field${err(f, 'reports') ? ' bad' : ''}"><legend class="lab"><span>Reports to collect <span class="req" aria-hidden="true">*</span></span></legend><div class="checks-v">${reps}</div>${err(f, 'reports') ? `<span class="err">${esc(err(f, 'reports'))}</span>` : ''}</fieldset>
+        <div class="fgrid">
+          ${field(f, {k: 'auth', l: 'Mailbox sign-in', type: 'select', value: c.auth, options: AUTH})}
+          ${field(f, {k: 'secret', l: 'Credential', req: !stored, type: 'password', ac: 'new-password', ph: stored ? 'Stored · enter to replace' : 'App password, client secret or token', hint: stored ? `Stored as <span class="mono">${esc(stored)}</span>` : 'Kept only as a vault reference. What you type is discarded.'})}
+        </div>
+        <div class="src-actions"><button class="btn btn-primary" type="submit"${busy ? ' disabled' : ''}>${ic('plug', 'sm')}${busy ? 'Connecting…' : `Connect ${SRC[src].name}`}</button>${U.edit[src] ? `<button class="btn btn-ghost" type="button" data-act="cancel-edit" data-src="${src}">Cancel</button>` : ''}</div>
+      </form></section>`;
+  }
+  function caseCard() {
+    const on = !!S.conn.cases, st = srcStats('cases'), busy = U.busy.cases;
+    return `<section class="src case${on ? ' is-on' : ''}" aria-labelledby="h-cases">${srcHead('cases', busy ? '<span class="pill busy">Adding</span>' : on ? '<span class="pill on">Added</span>' : '<span class="pill off">Optional</span>')}
+      ${on ? `<div class="src-stat"><span><b class="num">${st.complaint ? 1 : 0}</b>complaint</span><span><b class="num">${st.counts}</b>counts</span></div>${U.open.cases ? fileList('cases') : ''}` : '<p class="muted" style="font-size:13px">Documents are added directly. No agent is needed. Adding the complaint links each finding to the count it relates to.</p>'}
+      <div class="src-actions">${on ? `<button class="btn btn-secondary" data-act="browse" data-src="cases" aria-expanded="${!!U.open.cases}">${U.open.cases ? 'Hide files' : `Browse files (${D.sources.cases.files.length})`}</button>` : `<button class="btn btn-secondary" data-act="add-cases"${busy ? ' disabled' : ''}>${ic('folder', 'sm')}Add case files</button>`}</div></section>`;
+  }
+  const chk = (ok, label, val, opt) => `<li><span class="${ok ? 'ok-dot' : 'no-dot'}">${ic(ok ? 'check' : 'minus')}</span>${label} <b>${val}</b>${opt ? ` <span class="muted">${opt}</span>` : ''}</li>`;
   function vConnect() {
-    const r = readiness();
-    const chk = (ok, label, val, opt) => `<li><span class="${ok ? 'ok-dot' : 'no-dot'}">${ic(ok ? 'check' : 'minus')}</span>${label} <b>${val}</b>${opt ? ` <span class="muted">${opt}</span>` : ''}</li>`;
-    const p = period();
+    const r = readiness(), p = period(), both = AGENT_SRCS.every(k => S.conn[k] && !U.edit[k]);
     return `${topSetup('connect')}<main class="view">
-      <div class="head"><div><h1>Connect your data</h1><p>Read-only. Pick the files to analyse.</p></div>
-        ${Object.keys(SRC).every(k => S.conn[k]) ? '' : `<button class="btn btn-secondary" data-act="connect-all">${ic('plug', 'sm')}Connect all</button>`}</div>
-      <div class="sources">${Object.keys(SRC).map(srcCard).join('')}</div>
+      <div class="head"><div><h1>Connect FieldFlow and QuickBooks</h1><p>Enter each connection once. PREMPTA sets up its integration agents from these details.</p></div>
+        ${both ? '' : `<button class="btn btn-secondary" data-act="demo-creds">${ic('spark', 'sm')}Fill demo values</button>`}</div>
+      <div class="sources two">${AGENT_SRCS.map(connCard).join('')}</div>
+      ${caseCard()}
       <div class="ready" aria-live="polite">
         <ul class="checks">
           ${chk(r.ff.shifts > 0, 'Time records', r.ff.shifts ? plural(r.ff.shifts, 'shift') : 'needed')}
@@ -963,12 +1182,81 @@ const Engine = (() => {
           ${chk(r.cf.complaint, 'Case file', r.cf.complaint ? `${r.cf.counts} counts` : 'optional')}
           ${chk(r.overlap > 0, 'Overlap', r.overlap ? plural(r.overlap, 'day') + ' in both' : (r.ok ? 'none yet' : '—'))}
         </ul>
-        <button class="btn btn-primary btn-lg" data-act="run"${r.ok ? '' : ' disabled'}>${ic('play', 'sm')}Run analysis</button>
+        <button class="btn btn-primary btn-lg" data-act="go" data-to="agents"${both && r.ok ? '' : ' disabled'}>Set up agents ${ic('right', 'sm')}</button>
       </div></main>`;
   }
 
+  /* ---------- integration agents, configured from the connection details ---------- */
+  const agentChecklist = src => {
+    const c = S.cfg[src];
+    return [
+      ['Dedicated mailbox', c.mailbox],
+      ['Mailbox access delegated', c.auth],
+      [`${SRC[src].name} reports routed`, reportNames(src, c.reports)],
+      ['Credential stored', c.credRef],
+      ['Connection test passed', 'Simulated. No mailbox was contacted.'],
+    ];
+  };
+  const agentPill = a => a.status === 'Connected' ? '<span class="pill on">Connected</span>' : a.status === 'Configuring' ? '<span class="pill busy">Configuring</span>' : '<span class="pill off">Pending configuration</span>';
+  function agentCard(src) {
+    const c = S.cfg[src], a = S.agents[src], items = agentChecklist(src);
+    const step = a.status === 'Connected' ? items.length : a.status === 'Configuring' ? (U.agentStep[src] || 0) : 0;
+    const sel = (k, opts) => `<select class="input sm" id="ag-${src}-${k}" data-agent="${src}" data-k="${k}">${opts.map(o => `<option${o === a[k] ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
+    return `<section class="agent" aria-labelledby="ag-${src}">
+      <div class="agent-h"><span class="src-ic ${SRC[src].cls}">${ic('mail')}</span><div><h2 id="ag-${src}">${SRC[src].name} integration agent</h2><p>${esc(AGENT[src].purpose)}</p></div><span class="hgap"></span>${agentPill(a)}<span class="tag sim">Simulated</span></div>
+      <div class="agent-b">
+        <dl class="kv agent-kv">
+          <dt>Integration type</dt><dd>Email agent</dd>
+          <dt>Mailbox</dt><dd class="mono">${esc(c.mailbox)}</dd>
+          <dt>Username</dt><dd class="mono">${esc(c.mailbox.split('@')[0])}</dd>
+          <dt>Sign-in</dt><dd>${esc(c.auth)}</dd>
+          <dt>Credential</dt><dd class="mono">${esc(c.credRef)}</dd>
+          ${c.company ? `<dt>Company</dt><dd>${esc(c.company)}</dd>` : ''}
+          <dt>Reports</dt><dd>${esc(reportNames(src, c.reports))}</dd>
+          <dt><label for="ag-${src}-frequency">Check mailbox</label></dt><dd>${sel('frequency', FREQ)}</dd>
+          <dt><label for="ag-${src}-schedule">Process reports</label></dt><dd>${sel('schedule', SCHED)}</dd>
+          <dt>Last sync</dt><dd>${a.lastSync ? `${when(a.lastSync)} · ${plural(a.received, 'file')} received` : 'Not yet'}</dd>
+        </dl>
+        <div class="agent-chk"><div class="chk-h"><b>Setup checklist</b><span>${Math.min(step, items.length)} of ${items.length} done</span></div>
+          <ol>${items.map(([t, d], i) => { const s = i < step ? 'done' : a.status === 'Configuring' && i === step ? 'now' : ''; return `<li class="${s}"><span class="ic">${s === 'done' ? ic('check') : ''}</span><span><b>${esc(t)}</b><small>${esc(d)}</small></span></li>`; }).join('')}</ol>
+          <p class="hint">Filled in from your connection details. Nothing to enter twice.</p></div>
+      </div></section>`;
+  }
+  function vAgents() {
+    const r = readiness(), ready = agentsReady();
+    const files = AGENT_SRCS.reduce((n, k) => n + (S.agents[k] && S.agents[k].received || 0), 0);
+    return `${topSetup('agents')}<main class="view">
+      <div class="head"><div><h1>Your integration agents</h1><p>Each agent was configured from the connection you entered. PREMPTA checks it and runs a first sync.</p></div><a class="btn btn-secondary" href="#/connect">Edit connections</a></div>
+      <p class="sim-note">${ic('plug', 'sm')}<span><b>Simulated.</b> In this demo the agents don’t contact a real mailbox. Setup, the connection test and the first sync are simulated; the reports are the client’s sample exports.</span></p>
+      <div class="agents">${AGENT_SRCS.map(agentCard).join('')}</div>
+      <div class="ready" aria-live="polite">
+        <ul class="checks">
+          ${AGENT_SRCS.map(k => chk(agentOk(k), `${SRC[k].name} agent`, agentOk(k) ? 'connected' : S.agents[k].status === 'Configuring' ? 'configuring' : 'pending')).join('')}
+          ${chk(ready, 'Reports received', ready ? plural(files, 'file') : '—')}
+          ${chk(r.cf.complaint, 'Case file', r.cf.complaint ? `${r.cf.counts} counts` : 'optional')}
+        </ul>
+        <button class="btn btn-primary btn-lg" data-act="run"${ready && r.ok ? '' : ' disabled'}>${ic('play', 'sm')}Run analysis</button>
+      </div></main>`;
+  }
+  function finishAgent(k) { Object.assign(S.agents[k], {status: 'Connected', testedAt: stamp(), lastSync: stamp(), received: (S.sel[k] || []).length}); U.agentStep[k] = 5; }
+  function animateAgents() {
+    clearTimeout(U.agentTimer);
+    const pending = AGENT_SRCS.filter(k => S.conn[k] && S.agents[k] && S.agents[k].status !== 'Connected');
+    if (!pending.length) return;
+    pending.forEach(k => { S.agents[k].status = 'Configuring'; U.agentStep[k] = 0; });
+    const tick = () => {
+      if (current !== 'agents') { pending.forEach(finishAgent); save(); return; }
+      pending.forEach(k => { if (U.agentStep[k] < 5) { U.agentStep[k]++; if (U.agentStep[k] === 5) finishAgent(k); } });
+      save(); render(true);
+      if (pending.some(k => U.agentStep[k] < 5)) U.agentTimer = setTimeout(tick, 430);
+    };
+    render(true);
+    U.agentTimer = setTimeout(tick, 380);
+  }
+
+  /* ---------- run ---------- */
   const RUN_STEPS = R => [
-    ['Reading files', plural(Object.values(S.sel).reduce((n, a) => n + a.length, 0), 'file')],
+    ['Reading reports from the agents', plural(Object.values(S.sel).reduce((n, a) => n + a.length, 0), 'file')],
     ['Matching people across systems', `${R.totals.matchedNames} of ${R.totals.shifts} timecards`],
     ['Reconciling hours and pay', plural(R.totals.payLines, 'pay line')],
     ['Checking meal and rest breaks', plural(R.totals.shifts, 'shift')],
@@ -1004,6 +1292,8 @@ const Engine = (() => {
     };
     tick();
   }
+
+
 
   /* ----- dashboard ----- */
   const claimHtml = f => [f.claim ? `${esc(f.claim.text)} <span class="cite">Count ${f.claim.count} · ${esc(f.claim.para)}</span>` : (f.rule ? esc(f.rule.why) : ''),
@@ -1073,8 +1363,8 @@ const Engine = (() => {
       <section class="ins">${top.map(insight).join('')}</section>
       <div class="sec-h"><h2>Data analysed</h2></div>
       <section class="data-strip">
-        <div><span class="src-ic ff">${ic('clock')}</span><span><b>FieldFlow</b><small>${plural(R.timesheets.length, 'daily timesheet')} · ${plural(R.activity.length, 'activity report')}</small><small>${T.shifts} shifts · ${R.timesheets.map(t => fmtD(t.date)).join(', ')}</small></span></div>
-        <div><span class="src-ic qb">${ic('receipt')}</span><span><b>QuickBooks</b><small>${esc(D.qb.meta.report)} · ${range(p)}</small><small>${num(T.payLines)} pay lines · ${T.employees} employees · ${T.jobs} jobs</small></span></div>
+        <div><span class="src-ic ff">${ic('clock')}</span><span><b>FieldFlow</b><small>${plural(R.timesheets.length, 'daily timesheet')} · ${plural(R.activity.length, 'activity report')}</small>${agentOk('fieldflow') ? `<small>Agent ${esc(S.cfg.fieldflow.mailbox)} · synced ${when(S.agents.fieldflow.lastSync)}</small>` : ''}<small>${T.shifts} shifts · ${R.timesheets.map(t => fmtD(t.date)).join(', ')}</small></span></div>
+        <div><span class="src-ic qb">${ic('receipt')}</span><span><b>QuickBooks</b><small>${esc(D.qb.meta.report)} · ${range(p)}</small><small>${num(T.payLines)} pay lines · ${T.employees} employees · ${T.jobs} jobs</small>${agentOk('quickbooks') ? `<small>Agent ${esc(S.cfg.quickbooks.mailbox)} · synced ${when(S.agents.quickbooks.lastSync)}</small>` : ''}</span></div>
         <div><span class="src-ic cf">${ic('folder')}</span><span><b>Case files</b><small>${R.complaint ? `${esc(R.complaint.label)}` : 'No complaint selected'}</small><small>${R.complaint ? `Filed ${esc(R.complaint.filed)} · ${R.complaint.counts.length} counts` : 'Findings shown without complaint links'}</small></span></div>
       </section>
       <p class="gaps"><span>${ic('info', 'sm')}Not in the source data:</span><span>timecard edit history</span><span>·</span><span>pay rates</span><span>·</span><span>rest-break punches</span><span>·</span><span>FieldFlow timesheets for ${missingDays(R)}</span></p>
@@ -1182,16 +1472,19 @@ const Engine = (() => {
   }
 
   /* ---------- router ---------- */
-  const VIEWS = {login: vLogin, org: vOrg, connect: vConnect, run: vRun, overview: vOverview, hours: vHours, breaks: vBreaks};
-  const TITLES = {login: 'Sign in', org: 'Organization', connect: 'Connect data', run: 'Analyzing', overview: 'Insights', hours: 'Hours & Pay', breaks: 'Meal & Rest'};
+  const VIEWS = {signup: vSignup, login: vLogin, org: vOrg, connect: vConnect, agents: vAgents, run: vRun, overview: vOverview, hours: vHours, breaks: vBreaks};
+  const TITLES = {signup: 'Create your account', login: 'Sign in', org: 'Organization profile', connect: 'Connect data', agents: 'Integration agents', run: 'Analyzing', overview: 'Insights', hours: 'Hours & Pay', breaks: 'Meal & Rest'};
+  const bothConnected = () => AGENT_SRCS.every(k => S.conn[k]);
+  const home = () => S.analysed && readiness().ok && agentsReady() ? 'overview' : bothConnected() ? 'agents' : 'connect';
   function resolve(want) {
-    if (!S.user) return 'login';
+    if (!S.user) return want === 'login' || want === 'signup' ? want : (S.account ? 'login' : 'signup');
     if (!S.org) return 'org';
-    if (want === 'login') return S.analysed ? 'overview' : 'connect';
-    if (want === 'run') return readiness().ok ? 'run' : 'connect';
-    if (['overview', 'hours', 'breaks'].includes(want) && !(S.analysed && readiness().ok)) return 'connect';
+    if (want === 'login' || want === 'signup') return home();
+    if (want === 'agents') return bothConnected() ? 'agents' : 'connect';
+    if (want === 'run') return readiness().ok && agentsReady() ? 'run' : home();
+    if (['overview', 'hours', 'breaks'].includes(want) && !(S.analysed && readiness().ok && agentsReady())) return home();
     if (VIEWS[want]) return want;
-    return S.analysed ? 'overview' : 'connect';
+    return home();
   }
   let current = null;
   function render(keepScroll) {
@@ -1200,23 +1493,58 @@ const Engine = (() => {
     if (v !== want) { history.replaceState(null, '', `#/${v}`); }
     const changed = v !== current;
     current = v;
+    if (changed) { U.errs = {}; if (v !== 'org') U.orgDraft = null; }
+    // keep what the user has typed in connection forms when the same screen re-renders
+    const snap = {};
+    if (!changed) app.querySelectorAll('form[data-form="conn"]').forEach(f => { const o = {}; for (const el of f.elements) if (el.name) { if (el.type === 'checkbox') (o[el.name] = o[el.name] || {})[el.value] = el.checked; else o[el.name] = el.value; } snap[f.dataset.src] = o; });
+    app.classList.toggle('still', !changed);
     app.innerHTML = VIEWS[v]();
+    for (const [src, o] of Object.entries(snap)) { const f = app.querySelector(`form[data-form="conn"][data-src="${src}"]`); if (f) for (const el of f.elements) if (el.name && el.name in o) { if (el.type === 'checkbox') el.checked = !!o[el.name][el.value]; else el.value = o[el.name]; } }
     document.title = `${TITLES[v]} · PREMPTA AI`;
     if (changed && !keepScroll) window.scrollTo(0, 0);
     if (v === 'run' && changed) animateRun();
-    if (changed) { const h = app.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); if (v !== 'login') h.focus({preventScroll: true}); } }
+    if (v === 'agents' && changed) animateAgents();
+    if (changed) { const h = app.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); if (v !== 'login' && v !== 'signup') h.focus({preventScroll: true}); } }
   }
   const go = v => { U.menu = false; if (location.hash === `#/${v}`) render(); else location.hash = `#/${v}`; };
   window.addEventListener('hashchange', () => { U.menu = false; render(); });
+  const focusFirstError = () => { const b = app.querySelector('.field.bad input, .field.bad select, .field.bad'); if (b) { (b.matches('input,select') ? b : b.querySelector('input')).focus(); } };
+  const clearErrors = form => { form.querySelectorAll('.field.bad').forEach(f => { f.classList.remove('bad'); const m = f.querySelector('.err'); if (m) m.remove(); }); form.querySelectorAll('[aria-invalid]').forEach(x => x.removeAttribute('aria-invalid')); U.errs = {}; };
+  const formVals = form => { const v = {}; for (const el of form.elements) if (el.name && el.type !== 'checkbox') v[el.name] = el.value; return v; };
 
   /* ---------- actions ---------- */
-  function connect(src) {
-    U.busy[src] = true; render(true);
+  function addCases() {
+    U.busy.cases = true; render(true);
+    setTimeout(() => { U.busy.cases = false; S.conn.cases = true; if (!(S.sel.cases || []).length) S.sel.cases = defaults('cases'); S.analysed = false; save(); render(true); }, 500);
+  }
+  function connectSource(src, form) {
+    const v = formVals(form), f = `cf-${src}`, e = {};
+    const reports = [...form.querySelectorAll('input[name="reports"]:checked')].map(x => x.value);
+    const mailbox = String(v.mailbox || '').trim().toLowerCase(), secret = String(v.secret || '');
+    form.elements.secret.value = ''; // the typed credential goes no further than this line
+    const stored = S.cfg[src] && S.cfg[src].credRef;
+    if (!isEmail(mailbox)) e.mailbox = 'Enter a valid mailbox address.';
+    else if (AGENT_SRCS.some(k => k !== src && S.cfg[k] && S.cfg[k].mailbox === mailbox)) e.mailbox = 'Each agent needs its own mailbox.';
+    if (src === 'quickbooks' && !String(v.company || '').trim()) e.company = 'Enter the QuickBooks company.';
+    if (!reports.length) e.reports = 'Choose at least one report.';
+    if (!secret && !stored) e.secret = 'Enter the credential for this mailbox.';
+    if (Object.keys(e).length) {
+      if (secret && !e.secret) e.secret = 'For safety the value was cleared. Enter it again.';
+      U.errs[f] = e; render(true); focusFirstError(); return;
+    }
+    U.errs[f] = {}; U.busy[src] = true; render(true);
     setTimeout(() => {
-      U.busy[src] = false; S.conn[src] = true;
-      if (!S.sel[src] || !S.sel[src].length) S.sel[src] = defaults(src);
-      S.analysed = false; save(); render(true);
-    }, 650);
+      const prev = S.cfg[src], cfg = {mailbox, auth: v.auth, reports, company: src === 'quickbooks' ? String(v.company).trim() : undefined,
+        credRef: secret ? `vault://${slug(S.org.name)}/${src}/${hex6()}` : stored};
+      const changed = !prev || secret || ['mailbox', 'auth', 'company'].some(k => prev[k] !== cfg[k]) || prev.reports.join() !== reports.join();
+      S.cfg[src] = cfg; S.conn[src] = true; U.busy[src] = false; U.edit[src] = false;
+      S.sel[src] = filesFor(src, reports);
+      const a = S.agents[src] || {frequency: FREQ[0], schedule: AGENT[src].schedule};
+      // the agent is configured from these details; any change means it is tested again
+      S.agents[src] = changed ? {...a, status: 'Pending configuration', configuredAt: stamp(), lastSync: null, received: 0} : a;
+      if (changed) S.analysed = false;
+      save(); render(true);
+    }, 700);
   }
   app.addEventListener('click', e => {
     const t = e.target.closest('[data-act]');
@@ -1229,13 +1557,23 @@ const Engine = (() => {
       try { localStorage.setItem(THEME, n); } catch (err) { /* keep for this visit */ }
       render(true);
     } else if (a === 'menu') { U.menu = !U.menu; render(true); }
-    else if (a === 'connect') connect(t.dataset.src);
-    else if (a === 'connect-all') Object.keys(SRC).filter(k => !S.conn[k]).forEach(connect);
+    else if (a === 'demo-signup') {
+      const form = app.querySelector('form[data-form="signup"]');
+      const demo = {name: 'Alex Morgan', email: 'alex.morgan@watkins.example', password: 'demo-password-2026', org: 'Watkins Environmental', legal: D.qb.meta.company};
+      for (const [k, v] of Object.entries(demo)) if (!form.elements[k].value) form.elements[k].value = v;
+      clearErrors(form);
+    }
+    else if (a === 'demo-creds') {
+      app.querySelectorAll('form[data-form="conn"] input[name="secret"]').forEach(x => { if (!x.value) x.value = 'demo-app-password'; clearErrors(x.form); });
+    }
+    else if (a === 'edit-conn') { U.edit[t.dataset.src] = true; U.open[t.dataset.src] = false; render(true); }
+    else if (a === 'cancel-edit') { U.edit[t.dataset.src] = false; U.errs[`cf-${t.dataset.src}`] = {}; render(true); }
+    else if (a === 'add-cases') addCases();
     else if (a === 'browse') { U.open[t.dataset.src] = !U.open[t.dataset.src]; render(true); }
     else if (a === 'run' || a === 'rerun') { S.analysed = false; save(); go('run'); }
     else if (a === 'go') go(t.dataset.to);
     else if (a === 'signout') { delete S.user; save(); U.menu = false; go('login'); }
-    else if (a === 'reset') { S = {conn: {}, sel: {}}; save(); U.open = {}; U.exp.clear(); U.fA = U.fB = 'ex'; go('login'); }
+    else if (a === 'reset') { S = fresh(); save(); U.open = {}; U.edit = {}; U.exp.clear(); U.fA = U.fB = 'ex'; go('signup'); }
     else if (a === 'filter') { U[t.dataset.key] = U[t.dataset.key] === t.dataset.f && t.dataset.f !== 'ex' ? 'ex' : t.dataset.f; render(true); }
     else if (a === 'focus') { U[t.dataset.f[0] === 'A' ? 'fA' : 'fB'] = t.dataset.f; }
     else if (a === 'row') { const id = t.dataset.id; U.exp.has(id) ? U.exp.delete(id) : U.exp.add(id); render(true); const r = app.querySelector(`tr.row[data-id="${CSS.escape(id)}"]`); if (r) r.focus({preventScroll: true}); }
@@ -1245,32 +1583,62 @@ const Engine = (() => {
     const r = e.target.closest && e.target.closest('tr.row');
     if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); r.click(); }
   });
+  app.addEventListener('input', e => {
+    const t = e.target;
+    if (t.dataset.orgf) { // the value-source chip follows the edit, as in the organization profile
+      const v = String(t.value).trim(), p = !v ? 'missing' : v === String(t.dataset.init).trim() ? t.dataset.initp : 'entered';
+      const box = t.closest('.field').querySelector('.chip'); if (box) { box.className = `chip c-${p}`; box.textContent = PROV[p]; }
+    }
+    const f = t.closest('.field.bad'); if (f) { f.classList.remove('bad'); const m = f.querySelector('.err'); if (m) m.remove(); t.removeAttribute('aria-invalid'); }
+  });
   app.addEventListener('change', e => {
     const t = e.target;
-    if (t.name === 'org') { const n = document.getElementById('newOrg'); n.hidden = t.value !== 'new'; if (!n.hidden) document.getElementById('on').focus(); }
+    if (t.dataset.agent) { S.agents[t.dataset.agent][t.dataset.k] = t.value; save(); return; }
     if (t.dataset.file) {
       const list = new Set(S.sel[t.dataset.src] || []);
       t.checked ? list.add(t.dataset.file) : list.delete(t.dataset.file);
-      S.sel[t.dataset.src] = [...list]; S.analysed = false; save(); render(true);
+      S.sel[t.dataset.src] = [...list]; S.analysed = false;
+      if (S.agents[t.dataset.src]) S.agents[t.dataset.src].received = S.sel[t.dataset.src].length;
+      save(); render(true);
     }
   });
   app.addEventListener('submit', e => {
     e.preventDefault();
-    const f = e.target.dataset.form;
+    const form = e.target, f = form.dataset.form;
     if (f === 'login') {
       const em = document.getElementById('em').value.trim(), pw = document.getElementById('pw').value;
-      const err = document.getElementById('lerr');
-      if (!/^\S+@\S+\.\S+$/.test(em) || !pw) { err.textContent = 'Enter a work email and password.'; err.hidden = false; return; }
-      const local = em.split('@')[0].replace(/[._-]+/g, ' ');
-      S.user = {email: em, name: local === 'demo' ? 'Demo reviewer' : local.replace(/\b\w/g, c => c.toUpperCase())};
-      save(); go(S.org ? (S.analysed ? 'overview' : 'connect') : 'org');
+      const errEl = document.getElementById('lerr');
+      if (!isEmail(em) || !pw) { errEl.textContent = 'Enter a work email and password.'; errEl.hidden = false; return; }
+      if (S.account && S.account.email.toLowerCase() === em.toLowerCase()) S.user = {name: S.account.name, email: S.account.email};
+      else { const local = em.split('@')[0].replace(/[._-]+/g, ' '); S.user = {email: em, name: local === 'demo' ? 'Demo reviewer' : local.replace(/\b\w/g, c => c.toUpperCase())}; }
+      save(); go(S.org ? home() : 'org');
+    } else if (f === 'signup') {
+      const v = formVals(form), er = {};
+      if (!v.name.trim()) er.name = 'Enter your name.';
+      if (!isEmail(v.email)) er.email = 'Enter a valid work email.';
+      if (v.password.length < 8) er.password = 'Use at least 8 characters.';
+      if (!v.org.trim()) er.org = 'Enter the organization name.';
+      if (!v.legal.trim()) er.legal = 'Enter the legal business name.';
+      if (Object.keys(er).length) { U.errs.su = er; U.signup = {...v, password: ''}; render(true); focusFirstError(); return; }
+      S = fresh();
+      S.account = {name: v.name.trim(), email: v.email.trim().toLowerCase(), org: v.org.trim(), legal: v.legal.trim(), createdAt: stamp()};
+      S.user = {name: S.account.name, email: S.account.email};
+      U.signup = null; save(); go('org');
     } else if (f === 'org') {
-      const pick = e.target.querySelector('input[name="org"]:checked').value;
-      const name = pick === 'new' ? document.getElementById('on').value.trim() : D.org.name;
-      if (!name) { document.getElementById('on').focus(); return; }
-      S.org = {name, address: pick === 'new' ? '' : D.org.address, rules: 'California'};
-      save(); go('connect');
-    }
+      const v = formVals(form), er = {}, prov = {}, tips = orgInitial().tips;
+      for (const fd of ORG_FIELDS) {
+        const el = form.elements[fd.k], val = String(v[fd.k] || '').trim();
+        if (fd.req && !val) er[fd.k] = `Enter the ${fd.l.toLowerCase().replace('organization / ', '')}.`;
+        if (fd.type === 'number' && val && !/^\d+$/.test(val)) er[fd.k] = 'Enter a whole number, or leave it blank.';
+        prov[fd.k] = el.closest('.field').querySelector('.chip').className.replace('chip c-', '');
+      }
+      if (v.contactEmail && !isEmail(v.contactEmail)) er.contactEmail = 'Enter a valid email address.';
+      if (Object.keys(er).length) { U.errs.org = er; U.orgDraft = {vals: v, prov, tips}; render(true); focusFirstError(); return; }
+      const vals = {}; for (const fd of ORG_FIELDS) vals[fd.k] = fd.type === 'number' ? (v[fd.k] ? Number(v[fd.k]) : null) : String(v[fd.k]).trim();
+      S.org = {...vals, prov, tips, rules: 'California', complete: true};
+      if (S.cfg.quickbooks && !S.cfg.quickbooks.company) S.cfg.quickbooks.company = S.org.legal;
+      U.orgDraft = null; save(); go(bothConnected() ? home() : 'connect');
+    } else if (f === 'conn') connectSource(form.dataset.src, form);
   });
   render();
 })();
