@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>PREMPTA AI · Video Tour</title>
+<meta name="description" content="A narrated, self-playing tour of PREMPTA AI: every screen from sign-up to review, with voice, captions, highlights and pop-up notes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z' fill='%231d5fbf'/%3E%3Cpath d='M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+/* vdemo.html: narrated video tour of index.html. Screens live in assets/vdemo (captured Nov 23, 2026). */
+:root{color-scheme:dark;--bg:#060b15;--panel:#0c1524;--panel2:#111d31;--line:#1f2d45;--ink:#e8eef8;--ink2:#b9c6d9;--muted:#8494ab;--accent:#6ea3ff;--teal:#35c4b0;--ring:#2fd3bd;--navy:#0b2546;--cam:1.15s;--ease:cubic-bezier(.65,0,.3,1)}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;padding:0 16px 28px;font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+button,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:3px solid #8fb6ee;outline-offset:2px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:14px;max-width:1280px;margin:0 auto;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.1em;font-size:14px;color:inherit;text-decoration:none;white-space:nowrap}
+.brand b{color:var(--teal)}
+.badge{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8fd9cd;border:1px solid rgba(143,217,205,.35);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.now{flex:1;min-width:0;font-size:13.5px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now b{color:var(--ink);font-weight:600}
+.lnk{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;border:1px solid var(--line);color:var(--ink2);background:var(--panel)}
+.lnk:hover{background:var(--panel2);color:var(--ink)}
+.lnk.p{background:#1d5fbf;border-color:#1d5fbf;color:#fff}
+.lnk.p:hover{background:#2a6fd3}
+
+/* player */
+.player{max-width:1280px;margin:0 auto;background:#02060d;border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.player:fullscreen{max-width:none;border:0;border-radius:0;display:flex;flex-direction:column;justify-content:center;background:#000}
+.stage{position:relative;overflow:hidden;margin:0 auto;background:radial-gradient(1100px 600px at 80% 0,rgba(47,179,161,.16),transparent 60%),linear-gradient(140deg,#0a1628,#0d2240 60%,#0f2c52);container-type:inline-size;user-select:none;-webkit-user-select:none}
+.layer{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform,opacity;transition:transform var(--cam) var(--ease),opacity .7s ease;opacity:0}
+.layer img{display:block;width:100%;height:100%;max-width:none}
+.layer.phone img{border-radius:22px;box-shadow:0 0 0 7px #1b2638,0 0 0 8px #33435e,0 18px 50px rgba(0,0,0,.55)}
+.instant .layer,.instant .spot,.instant .cur{transition:none!important}
+
+/* spotlight */
+.spot{position:absolute;left:0;top:0;width:0;height:0;border-radius:10px;pointer-events:none;
+  box-shadow:0 0 0 2px var(--ring),0 0 0 7px rgba(47,211,189,.22),0 0 0 200vmax rgba(4,10,22,.5);
+  transition:left var(--cam) var(--ease),top var(--cam) var(--ease),width var(--cam) var(--ease),height var(--cam) var(--ease),box-shadow .55s ease}
+.spot.off{box-shadow:0 0 0 2px rgba(47,211,189,0),0 0 0 7px rgba(47,211,189,0),0 0 0 200vmax rgba(4,10,22,0)}
+.spot::after{content:"";position:absolute;inset:-2px;border-radius:12px;border:2px solid var(--ring);opacity:0}
+.spot.on::after{animation:ring 2.2s ease-out .9s infinite}
+.spot.press::after{animation:press .55s ease-out 1}
+@keyframes ring{0%{opacity:.75;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.06)}}
+@keyframes press{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.12)}}
+
+/* pop-up note */
+.pop{position:absolute;left:0;top:0;max-width:min(400px,42cqw);min-width:min(210px,40cqw);padding:11px 15px 12px;border-radius:12px;background:rgba(11,37,70,.97);color:#fff;border:1px solid rgba(143,217,205,.32);box-shadow:0 14px 36px rgba(0,0,0,.45);opacity:0;transform:translateY(8px) scale(.94);transform-origin:20% 0;transition:opacity .3s ease,transform .5s cubic-bezier(.2,1.5,.4,1);pointer-events:none}
+.pop.show{opacity:1;transform:none}
+.pop::before{content:"";position:absolute;left:15px;top:-1px;width:38px;height:3px;border-radius:0 0 3px 3px;background:var(--teal)}
+.pop b{display:block;font-size:clamp(12.5px,1.5cqw,18px);line-height:1.3;font-weight:650;text-wrap:balance}
+.pop span{display:block;margin-top:4px;font-size:clamp(11px,1.2cqw,14.5px);line-height:1.4;color:#c6d6ec;text-wrap:pretty}
+
+/* cursor */
+.cur{position:absolute;left:0;top:0;width:26px;height:26px;pointer-events:none;opacity:0;transition:transform .85s cubic-bezier(.45,0,.2,1),opacity .35s ease;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45))}
+.cur.show{opacity:1}
+.cur i{position:absolute;left:-14px;top:-14px;width:28px;height:28px;border-radius:50%;background:rgba(47,211,189,.55);opacity:0;transform:scale(.3)}
+.cur.tap i{animation:tap .6s ease-out}
+@keyframes tap{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(2.1)}}
+
+/* cards inside the stage: intro, chapter, outro, poster */
+.card{position:absolute;inset:0;display:grid;place-items:center;padding:4cqw;text-align:center;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s linear .6s}
+.card.on{opacity:1;visibility:visible;transition:opacity .6s ease}
+.card .in{max-width:880px}
+.kick{font-size:clamp(10.5px,1.15cqw,13px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8fd9cd}
+.card h1,.card h2{margin:.35em 0 .3em;font-size:clamp(24px,5.2cqw,60px);line-height:1.05;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
+.card p{margin:0 auto;max-width:44em;font-size:clamp(13px,1.75cqw,20px);color:#cfdcee;text-wrap:pretty}
+.intro,.outro,.poster{background:radial-gradient(900px 420px at 88% 0,rgba(47,179,161,.3),transparent 62%),linear-gradient(125deg,#0b2546,#123a6c 58%,#16508a)}
+.chap{background:radial-gradient(70% 70% at 50% 50%,rgba(5,12,26,.93),rgba(5,12,26,.8))}
+.chap .num{display:inline-grid;place-items:center;width:clamp(40px,6cqw,72px);height:clamp(40px,6cqw,72px);border-radius:50%;background:rgba(110,163,255,.16);border:1px solid rgba(110,163,255,.45);color:#cfe0ff;font-size:clamp(18px,2.8cqw,32px);font-weight:700;margin-bottom:.5em}
+.chap.on .in{animation:rise .8s cubic-bezier(.2,.9,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5em .4em;margin-top:1.4em;padding:0;list-style:none;font-size:clamp(10.5px,1.3cqw,15px)}
+.chips li{padding:.35em .85em;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);font-weight:600;white-space:nowrap}
+.intro.on .chips li{animation:rise .6s cubic-bezier(.2,.9,.3,1) both}
+.chips li:nth-child(1){animation-delay:.5s!important}.chips li:nth-child(2){animation-delay:.75s!important}.chips li:nth-child(3){animation-delay:1s!important}.chips li:nth-child(4){animation-delay:1.25s!important}.chips li:nth-child(5){animation-delay:1.5s!important}.chips li:nth-child(6){animation-delay:1.75s!important}.chips li:nth-child(7){animation-delay:2s!important}
+.mark{display:inline-flex;align-items:center;gap:.5em;font-weight:800;letter-spacing:.12em;font-size:clamp(12px,1.5cqw,17px)}
+.mark b{color:#5ee0cc}
+.play-big{display:inline-flex;align-items:center;gap:.6em;margin-top:1.4em;padding:.75em 1.5em .75em 1.2em;border-radius:999px;background:#fff;color:#0d2a4f;font-weight:700;font-size:clamp(14px,1.8cqw,20px);box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .2s ease}
+.play-big:hover{transform:scale(1.04)}
+.play-big svg{width:1.3em;height:1.3em}
+.hint{margin-top:1em!important;font-size:clamp(11.5px,1.3cqw,14.5px)!important;color:#a9bdd8!important}
+.acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:1.5em}
+.acts .lnk{font-size:clamp(12.5px,1.4cqw,15px);min-height:40px;padding:8px 16px}
+.outro .lnk{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.outro .lnk.p{background:#fff;color:#0d2a4f;border-color:#fff}
+
+/* captions */
+.cap{display:flex;align-items:center;justify-content:center;min-height:4.4em;padding:10px 22px;background:#08101d;border-top:1px solid var(--line);text-align:center}
+.cap p{margin:0;max-width:62em;font-size:clamp(15px,1.55vw,19.5px);line-height:1.45;color:#f2f6fc;text-wrap:balance}
+.cap p.kara span{opacity:.5;transition:opacity .15s}
+.cap p.kara span.on{opacity:1}
+.nocc .cap{display:none}
+
+/* controls */
+.ctl{display:flex;align-items:center;gap:4px;padding:6px 10px;background:var(--panel);border-top:1px solid var(--line);position:relative}
+.ib{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:8px;color:var(--ink)}
+.ib:hover{background:var(--panel2)}
+.ib svg{width:20px;height:20px}
+.ib[aria-pressed="false"]{color:var(--muted)}
+.ib.cc{font-size:11.5px;font-weight:800;letter-spacing:.04em}
+.ib.cc span{border:1.6px solid currentColor;border-radius:4px;padding:1px 4px}
+.time{flex:none;font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;padding:0 6px;white-space:nowrap}
+.tl{flex:1;min-width:80px;height:34px;display:flex;align-items:center;cursor:pointer;touch-action:none}
+.segs{display:flex;gap:3px;width:100%;height:6px}
+.seg{position:relative;height:100%;border-radius:3px;background:#27364f;overflow:hidden;min-width:4px}
+.seg i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#2fb3a1,#6ea3ff)}
+.tl:hover .segs{height:8px}
+.menu{position:absolute;right:10px;bottom:calc(100% + 8px);width:min(320px,calc(100vw - 32px));background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.5);z-index:5}
+.menu label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 4px}
+.menu select{width:100%;min-height:36px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);margin-bottom:12px}
+.menu .row{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink2);margin-bottom:8px}
+.menu .row input{width:16px;height:16px;accent-color:var(--teal)}
+.menu .keys{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin:4px 0 0}
+.menu kbd{font:600 11px/1 ui-monospace,Consolas,monospace;padding:2px 5px;border-radius:4px;border:1px solid var(--line);background:var(--panel);color:var(--ink2)}
+.menu .note{font-size:12px;color:var(--muted);margin:0 0 10px}
+
+/* chapters list */
+.chapters{max-width:1280px;margin:22px auto 0}
+.chapters h2{font-size:15px;margin:0 0 10px;color:var(--ink2);font-weight:600}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.ch-g{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 10px 8px}
+.ch-g>button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font-weight:700;font-size:13.5px;padding:4px 6px;border-radius:6px}
+.ch-g>button span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(110,163,255,.15);color:#cfe0ff;font-size:12px}
+.ch-g ol{list-style:none;margin:4px 0 0;padding:0}
+.ch-g li button{display:flex;gap:8px;width:100%;text-align:left;font-size:13px;color:var(--ink2);padding:5px 6px;border-radius:6px;line-height:1.35}
+.ch-g li button em{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums;min-width:1.6em}
+.ch-g button:hover{background:var(--panel2);color:var(--ink)}
+.ch-g li button.cur-s{background:rgba(47,179,161,.14);color:#fff}
+.ch-g li button.cur-s em{color:#8fd9cd}
+.foot{max-width:1280px;margin:20px auto 0;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 18px}
+
+@media (max-width:760px){
+  .top .lnk:not(.p){display:none}
+  .time,.ib.hide-sm{display:none}
+  .cap{min-height:3.6em;padding:8px 12px}
+  .pop{max-width:56cqw;padding:8px 10px}
+  .menu .keys,.menu .note{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  :root{--cam:.25s}
+  .chap.on .in,.intro.on .chips li{animation:none}
+  .spot.on::after{animation:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html" aria-label="PREMPTA AI, open the application"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><defs><linearGradient id="g24" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d3bd"/><stop offset="1" stop-color="#1d5fbf"/></linearGradient></defs><path d="M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z" fill="url(#g24)"/><path d="M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></svg><span>PREMPTA <b>AI</b></span></a>
+  <span class="badge">Video tour</span>
+  <span class="now" id="now" aria-live="polite"></span>
+  <a class="lnk" href="demo.html">Step-by-step guide</a>
+  <a class="lnk p" href="index.html">Open the application</a>
+</header>
+
+<main>
+<section class="player" id="player" aria-label="Video tour player">
+  <div class="stage" id="stage">
+    <div class="layer" id="la"><img alt=""></div>
+    <div class="layer" id="lb"><img alt=""></div>
+    <div class="spot off" id="spot"></div>
+    <div class="pop" id="pop" role="note"><b></b><span></span></div>
+    <div class="cur" id="cur" aria-hidden="true"><i></i><svg viewBox="0 0 26 26" width="26" height="26"><path d="M4 2.5 21 13.2l-7.4 1.6 4.3 7.7-3.1 1.7-4.3-7.8L5 21.6z" fill="#fff" stroke="#0b1a30" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+
+    <div class="card intro" id="intro"><div class="in">
+      <div class="mark"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z" fill="url(#g24)"/><path d="M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></svg>PREMPTA <b>AI</b></div>
+      <h1>From sign-up to insights</h1>
+      <p>A narrated tour of the PREMPTA AI agent ecosystem for Watkins Environmental.</p>
+      <ol class="chips"><li>1 Sign up</li><li>2 Organization</li><li>3 Agents</li><li>4 Readiness</li><li>5 Analyze</li><li>6 Insights</li><li>7 Review</li></ol>
+    </div></div>
+
+    <div class="card chap" id="chap"><div class="in">
+      <div class="num" id="chap-n">1</div>
+      <div class="kick" id="chap-k">Stage 1 of 7</div>
+      <h2 id="chap-t">Sign up</h2>
+      <p id="chap-d"></p>
+    </div></div>
+
+    <div class="card outro" id="outro"><div class="in">
+      <div class="kick">End of the tour</div>
+      <h2>From sign-up to decisions counsel can act on</h2>
+      <p>Every finding traces back to a file, a rule and a decision.</p>
+      <div class="acts"><a class="lnk p" href="index.html">Open the application</a><button class="lnk" type="button" id="again">Watch again</button><a class="lnk" href="demo.html">Step-by-step guide</a></div>
+    </div></div>
+
+    <div class="card poster on" id="poster"><div class="in">
+      <div class="mark"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M16 2 4 6.5v8.2C4 22.4 9.2 27.9 16 30c6.8-2.1 12-7.6 12-15.3V6.5z" fill="url(#g24)"/><path d="M12 23V9.5h5.2a4.3 4.3 0 0 1 0 8.6H12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></svg>PREMPTA <b>AI</b></div>
+      <h1>From sign-up to insights</h1>
+      <p id="poster-p">A narrated tour of every screen, with voice, captions and highlights.</p>
+      <button class="play-big" type="button" id="start"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1d5fbf"/><path d="M10 7.8v8.4l6.6-4.2z" fill="#fff"/></svg><span id="start-l">Play the tour</span></button>
+      <p class="hint" id="hint">Turn your sound on. Narration uses your browser’s built-in voice.</p>
+    </div></div>
+  </div>
+
+  <div class="cap" id="cap"><p id="cap-p" aria-live="off"></p></div>
+
+  <div class="ctl" id="ctl">
+    <button class="ib" type="button" id="prev" aria-label="Previous (Left arrow)" title="Previous (←)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM19 5v14l-9.5-7z" fill="currentColor"/></svg></button>
+    <button class="ib" type="button" id="pp" aria-label="Play (Space)" title="Play (Space)"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="pp-i" d="M7 5v14l12-7z" fill="currentColor"/></svg></button>
+    <button class="ib" type="button" id="next" aria-label="Next (Right arrow)" title="Next (→)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM5 5v14l9.5-7z" fill="currentColor"/></svg></button>
+    <span class="time" id="time">0:00 / 0:00</span>
+    <div class="tl" id="tl" role="slider" tabindex="0" aria-label="Tour position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="segs" id="segs"></div></div>
+    <button class="ib" type="button" id="voice" aria-pressed="true" aria-label="Narration voice (M)" title="Narration voice (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path id="voice-w" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <button class="ib cc" type="button" id="ccb" aria-pressed="true" aria-label="Captions (C)" title="Captions (C)"><span>CC</span></button>
+    <button class="ib" type="button" id="gear" aria-expanded="false" aria-controls="menu" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8zm8.3 4.6-1.8-.3a6.8 6.8 0 0 1-.6 1.5l1 1.5-1.6 1.6-1.5-1a6.8 6.8 0 0 1-1.5.6l-.3 1.8h-2.2l-.3-1.8a6.8 6.8 0 0 1-1.5-.6l-1.5 1-1.6-1.6 1-1.5a6.8 6.8 0 0 1-.6-1.5l-1.8-.3v-2.2l1.8-.3a6.8 6.8 0 0 1 .6-1.5l-1-1.5 1.6-1.6 1.5 1a6.8 6.8 0 0 1 1.5-.6l.3-1.8h2.2l.3 1.8a6.8 6.8 0 0 1 1.5.6l1.5-1 1.6 1.6-1 1.5a6.8 6.8 0 0 1 .6 1.5l1.8.3z" fill="currentColor"/></svg></button>
+    <button class="ib hide-sm" type="button" id="fs" aria-label="Full screen (F)" title="Full screen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="menu" id="menu" hidden>
+      <label for="vsel">Voice</label>
+      <select id="vsel"></select>
+      <p class="note" id="vnote">Voices come from your browser and differ between browsers. Microsoft Edge offers the most natural ones.</p>
+      <label for="rsel">Speed</label>
+      <select id="rsel"><option value="0.85">0.85×</option><option value="1" selected>1×</option><option value="1.15">1.15×</option><option value="1.3">1.3×</option><option value="1.5">1.5×</option></select>
+      <div class="row"><input type="checkbox" id="vchk" checked><label for="vchk" style="margin:0;color:inherit;font-size:inherit;font-weight:400">Narration voice</label></div>
+      <div class="row"><input type="checkbox" id="cchk" checked><label for="cchk" style="margin:0;color:inherit;font-size:inherit;font-weight:400">Captions</label></div>
+      <p class="keys"><kbd>Space</kbd> play or pause · <kbd>←</kbd> <kbd>→</kbd> previous or next · <kbd>Shift</kbd>+<kbd>←</kbd> <kbd>→</kbd> previous or next step · <kbd>M</kbd> voice · <kbd>C</kbd> captions · <kbd>F</kbd> full screen</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapters" aria-labelledby="ch-h">
+  <h2 id="ch-h">Chapters</h2>
+  <div class="ch-grid" id="chg"></div>
+</section>
+</main>
+<footer class="foot"><span>Screens captured from PREMPTA AI (index.html) on November 23, 2026.</span><span>Potential issues only. Not legal advice. Dollar figures are illustrative.</span></footer>
+
+<script>
+(function(){
+'use strict';
+var D=document;
+function $(s){return D.querySelector(s)}
+
+/* ---------- content ---------- */
+var DIR='assets/vdemo/';
+var IM={
+ '01a':['step-01a-sign-up.png',1800,1125],'01b':['step-01b-sign-up-checks.png',1800,1125],
+ '02a':['step-02a-organization-profile.png',1800,1141],
+ '03a':['step-03a-agent-ecosystem.png',1800,2018],'03b':['step-03b-locked-step-tip.png',1800,1125],
+ '04a':['step-04a-quickbooks-authorized.png',1800,1125],'04b':['step-04b-quickbooks-checking.png',1800,1125],'04c':['step-04c-quickbooks-active.png',1800,1125],
+ '05a':['step-05a-fieldflo-missing-credential.png',1800,1125],'05b':['step-05b-fieldflo-active.png',1800,1125],
+ '06a':['step-06a-case-review-setup.png',1800,1125],'06b':['step-06b-case-review-active.png',1800,1125],
+ '07a':['step-07a-paga-notice-folder-missing.png',1800,1125],'07b':['step-07b-paga-notice-folder.png',1800,1125],'07c':['step-07c-paga-notice-review.png',1800,1125],
+ '08a':['step-08a-paga-monitoring.png',1800,1125],'08b':['step-08b-paga-monitoring-sources.png',1800,1125],
+ '09a':['step-09a-expense-travel-agent.png',1800,1125],
+ '10a':['step-10a-readiness-files.png',1800,1125],'10b':['step-10b-readiness-missing.png',1800,1125],'10c':['step-10c-readiness-coverage.png',1800,1125],
+ '11a':['step-11a-analyzing.png',1800,1125],
+ '12a':['step-12a-insights-summary.png',1800,1125],'12b':['step-12b-metric-tooltip.png',1800,1125],
+ '13a':['step-13a-what-to-do-first.png',1800,1125],
+ '14a':['step-14a-by-area.png',1800,1125],'14b':['step-14b-complaint-coverage.png',1800,1125],
+ '15a':['step-15a-paga-watch-and-data.png',1800,1125],'15b':['step-15b-key-terms.png',1800,1125],
+ '16a':['step-16a-hours-overtime.png',1800,1125],'16b':['step-16b-hours-summary.png',1800,1125],'16c':['step-16c-hours-after-pay-period.png',1800,1125],'16d':['step-16d-review-decisions.png',1800,1125],
+ '17a':['step-17a-breaks-premium.png',1800,1125],
+ '18a':['step-18a-insights-dark.png',1800,1125],'18b':['step-18b-phone-insights.png',780,1688],'18c':['step-18c-phone-agents.png',780,1688]
+};
+var STAGES=[null,
+ ['Sign up','Create the account. The journey bar shows all seven steps from the start.'],
+ ['Organization','The organization profile comes prefilled, and every value says where it came from.'],
+ ['Agents','Every agent on one screen, in three groups: Configure, Live and Coming soon.'],
+ ['Readiness','What Prempta can analyze now, what is missing, and which complaint counts each gap affects.'],
+ ['Analyze','One run, seven steps, each showing what it used.'],
+ ['Insights','One plain-English page: what was found, what to do first, and how much of the complaint could be tested.'],
+ ['Review','The records behind every finding, with the source lines, your decisions and an export for counsel.']];
+var NUMW=['zero','one','two','three','four','five','six','seven'];
+var INTRO="Welcome to PREMPTA AI. In a few minutes, we'll follow the whole journey, from sign-up to insights and review.";
+var OUTRO="That's the journey: from sign-up to decisions counsel can act on. Open the application to try it yourself.";
+
+/* Each step: n = step number (as in demo.html), st = stage, img = first screen.
+   Each beat: s = narration and caption, r = highlight [x,y,w,h] in % of the screen, p = pop-up [title, line],
+   k = 1 when the beat clicks the highlighted control, img = switch screen, z = zoom cap. */
+var SCENES=[
+{id:'sign-up',n:1,st:1,t:'Create the account',w:'Sign-up page',img:'01a',b:[
+ {s:"It starts with one short form: you, and your organization."},
+ {s:"Above it, the journey bar shows all seven stages, on every screen.",r:[25,11.09,59.97,4],p:["Journey bar","Current step in blue · done steps get a check · locked steps are dashed"]},
+ {s:"Hover over a locked step, and it says what unlocks it.",r:[31.58,11.09,53.4,4],p:["No guessing","“Agents is locked. Save the organization profile first.”"]},
+ {s:"Leave a field blank, and it's flagged on its own.",img:'01b',r:[25.07,27.5,49.86,53.65],p:["Every field checked","Each missing or invalid field gets its own message"]},
+ {s:"For the demo, select Use demo details, then Create account.",img:'01a',r:[62.1,20.76,11.17,4.22],k:1,p:["Use demo details",null]},
+ {s:"That opens the organization profile.",r:[61.19,76.13,12.08,5.11],k:1}
+]},
+{id:'organization',n:2,st:2,t:'Confirm the organization profile',w:'Organization',img:'02a',b:[
+ {s:"The organization profile arrives filled in. Check eight fields, and save."},
+ {s:"Each field says where its value came from.",r:[18.82,24.4,62.36,6.24],p:["Every value shows its source","From sign-up · From your records · From your documents · Entered"]},
+ {s:"Industry comes from a shared document, so confirm it.",r:[20.49,42.48,59.03,7.89],p:["From your documents","Confirm it before saving"]},
+ {s:"Employees and active jobs come from the payroll export: 47 employees, and 17 jobs.",r:[20.49,71.39,59.06,10.51],p:["47 employees · 17 active jobs","From the QuickBooks export, Nov 8–14, 2026"]},
+ {s:"Select Save and continue, and the Agents stage opens.",r:[65.87,85.96,13.64,5.04],k:1}
+]},
+{id:'agent-portfolio',n:3,st:3,t:'See the agent portfolio',w:'Agents',img:'03a',b:[
+ {s:"Agents bring evidence into Prempta: seven of them, grouped by what they need from you."},
+ {s:"Configure agents need a one-time setup. QuickBooks and FieldFlo are required; the other two are optional.",r:[10,16.31,32.75,40.68],p:["Configure","2 required · 2 optional"]},
+ {s:"The PAGA Monitoring Agent is live: Prempta runs it for you.",r:[10,58.1,32.75,11.68],p:["Live","Always on, nothing to set up"]},
+ {s:"Two more are coming soon: Expense and Travel, and ADP Payroll.",r:[10,70.9,32.75,17.26],p:["Coming soon","On the roadmap"]},
+ {s:"Status follows the setup and its check. There's no on-off toggle anywhere.",r:[10,18.14,32.75,8.64],p:["Status follows setup","Needs setup → Ready to check → Checking → Active"]},
+ {s:"Select a card, and its setup opens beside the list.",r:[44.14,16.31,45.86,55.35]}
+]},
+{id:'locked-steps',n:4,st:3,t:'See why a step is locked',w:'Agents › journey bar',img:'03b',b:[
+ {s:"Readiness stays locked until both required agents are active, and the tooltip says why.",r:[39.72,7.44,22.22,10.53],p:["No dead ends","Every locked step says what to finish"]},
+ {s:"The Check readiness button says the same.",img:'03a',r:[70.04,90.57,18.51,4.21],p:["Locked, with a reason","“Activate the QuickBooks and FieldFlo agents first.”"]}
+]},
+{id:'quickbooks-agent',n:5,st:3,t:'Set up the QuickBooks Agent',w:'Agents › QuickBooks Agent',img:'04a',b:[
+ {s:"First, QuickBooks. It connects through the API, so setup asks for a company and an authorization.",r:[44.21,29.26,45.72,17.5],p:["QuickBooks Agent · required","Connects through the QuickBooks API"]},
+ {s:"Select Authorize QuickBooks. Prempta can read payroll, and never changes it.",r:[45.6,73.2,42.94,5.5],k:1,p:["Read-only access","“Connected. Prempta can read payroll and never changes it.”"]},
+ {s:"Setup now reads four of four complete.",r:[45.6,44.21,42.94,2.17],p:["Setup 4 of 4 complete","Company · access · payroll detail · sync schedule"]},
+ {s:"Then Save and check connection. The check runs step by step.",img:'04b',r:[44.21,69.31,45.72,11.67],p:["Connection check","Each step shown as it runs"]},
+ {s:"QuickBooks is active: 242 pay lines for 47 employees, November 8 to 14.",img:'04c',r:[44.21,52.2,45.72,10.61],p:["Active","242 pay lines · 47 employees"]},
+ {s:"Payroll underpins every hours, overtime and premium check, so this agent is required.",r:[10,82.2,80,11.78],p:["Why it's required","Payroll underpins every check"]}
+]},
+{id:'fieldflo-agent',n:6,st:3,t:'Set up the FieldFlo Agent',w:'Agents › FieldFlo Agent',img:'05a',b:[
+ {s:"FieldFlo emails its exports, so this agent gets its own mailbox and a list of allowed senders.",r:[44.21,12.4,45.72,28.6],p:["FieldFlo Agent · required","Own mailbox · allowed senders only"]},
+ {s:"Without a credential, the check is stopped.",r:[45.6,58.76,42.94,10.67],p:["Check stopped","“Enter the credential for this mailbox.”"]},
+ {s:"Select Fill demo credential, then Save and check connection.",r:[45.6,72.87,12.28,4.22],k:1},
+ {s:"The credential is kept only as a vault reference.",img:'05b',r:[45.6,35.12,42.94,10.67],p:["Stored securely","“Type a new value only to replace it.”"]},
+ {s:"FieldFlo is active, and its timesheets have arrived.",r:[44.21,47.67,45.72,10.61],p:["Active","3 files received"]},
+ {s:"With both required agents active, Readiness and Analyze unlock.",r:[45.27,7.44,17.8,4],p:["Unlocked","Readiness · Analyze"]},
+ {s:"Timecards are the other half of the comparison: hours worked, against hours paid.",r:[10,81.67,80,11.11],p:["Hours worked vs. hours paid",null]}
+]},
+{id:'case-review-agent',n:7,st:3,t:'Set up the Case Review Agent',w:'Agents › Case Review Agent',img:'06a',b:[
+ {s:"The optional Case Review Agent signs in to a secure file server, and only reads the case folder.",r:[44.21,54.65,45.72,45],p:["Secure file server (SFTP)","Prefilled · read-only"]},
+ {s:"Details come prefilled; only the credential is missing.",r:[45.6,46.38,42.94,2.17],p:["Setup 4 of 5 complete",null]},
+ {s:"It retrieves three case files, and uses only the complaint.",img:'06b',r:[44.21,33.3,45.72,23.78],p:["3 retrieved · 1 used","Each file classified, with the reason"]},
+ {s:"The review finds nine causes of action, filed October 14, 2026, and notes what's missing: no PAGA claim, and no deadlines.",r:[45.6,58.85,42.94,40.75],p:["Complaint reviewed","9 counts · no PAGA claim stated"]},
+ {s:"Each finding can now link to the count it relates to.",r:[45.6,58.85,42.94,40.75],p:["Findings linked to counts",null]}
+]},
+{id:'paga-notice-agent',n:8,st:3,t:'Set up the PAGA Notice Agent',w:'Agents › PAGA Notice Agent',img:'07a',b:[
+ {s:"The PAGA Notice Agent is a file agent: it reads every new document saved to a notices folder.",r:[44.21,17.27,45.72,8.05],p:["File agent","Reads dates, violations, actions and deadlines"]},
+ {s:"Without a folder, the check is stopped.",r:[45.6,36.64,42.94,10.67],p:["Check stopped","“Enter the folder where PAGA notices are saved.”"]},
+ {s:"Enter a network share or drive path, or use the demo folder. Prempta never moves, changes or deletes files.",img:'07b',r:[45.6,36.64,42.94,12.67],p:["Notices folder","\\\\fs01.watkins.example\\Legal\\PAGA Notices"]},
+ {s:"Once active, it checks the folder every fifteen minutes.",img:'07c',r:[45.6,24.35,42.94,11.12],p:["Watching the folder","Checked every 15 minutes"]},
+ {s:"This sample cure plan is from another employer, so it's marked Not linked, and no deadlines are added.",r:[45.6,42.36,42.94,45],p:["Not linked to this employer","Reviewed · no deadlines added"]},
+ {s:"Its requests map to Prempta's own checks.",r:[46.71,89.6,40.72,9.8],p:["Mapped to Prempta checks",null]}
+]},
+{id:'paga-monitoring-agent',n:9,st:3,t:'Read the PAGA Monitoring Agent',w:'Agents › PAGA Monitoring Agent',img:'08a',b:[
+ {s:"The PAGA Monitoring Agent is live, with nothing to set up. It watches official California sources.",r:[44.21,25.71,45.72,4.33],p:["Always on","Nothing to set up"]},
+ {s:"Rulemaking: the proposed PAGA regulations. Comments closed August 18, 2026, with no effective date yet.",r:[45.6,35.25,42.94,37.28],p:["Proposed regulations","Comment period closed Aug 18, 2026"]},
+ {s:"And the 2024 reform: penalty caps, a 33-day cure for small employers, and early evaluation.",r:[45.6,72.53,42.94,27],p:["2024 PAGA reform","Penalty caps · 33-day cure · early evaluation"]},
+ {s:"Each summary links to one of six official sources, checked November 23, 2026.",img:'08b',r:[45.6,28.88,42.94,35.22],p:["6 official sources","LWDA · DIR · Labor Code"]},
+ {s:"Legal changes arrive in plain words, tied to your own data.",r:[44.21,75.3,45.72,7.78],p:["Plain words, your data","47 employees, against the 100-employee cure threshold"]}
+]},
+{id:'coming-soon',n:10,st:3,t:"See what’s coming soon",w:'Agents › Coming soon',img:'09a',b:[
+ {s:"Coming-soon agents are visible, but not configurable.",r:[44.14,29.26,45.86,50.86],p:["Planned","A roadmap, not a switch"]},
+ {s:"Expense and Travel will support Count 8, expense reimbursement. ADP Payroll will be an alternative to QuickBooks.",r:[44.21,38.32,45.72,21.27],p:["Supports Count 8",null]}
+]},
+{id:'readiness-files',n:11,st:4,t:'Check what goes into the analysis',w:'Readiness',img:'10a',b:[
+ {s:"Readiness opens with a green note: you can run the analysis now.",r:[10,29.31,80,7],p:["Ready to run",null]},
+ {s:"Every file is sorted by the agent it came from.",r:[10.07,38.42,59.88,27.33],p:["Files by source","4 records · 1 case file · 1 PAGA document"]},
+ {s:"Unused files are listed too, each with its reason.",r:[70.02,38.42,19.91,27.33],p:["3 not used","Each with the reason"]}
+]},
+{id:'readiness-missing',n:12,st:4,t:"See what’s missing",w:'Readiness › What’s missing',img:'10b',b:[
+ {s:"Each gap is tied to the count it affects. Without timecard edit history, Count 1, unpaid wages, can't be fully tested.",r:[10,21.09,39.44,25.25],p:["Can’t test yet","Count 1 · unpaid wages"]},
+ {s:"Without rest-break punches, 19 required rest breaks can't be confirmed.",r:[50.56,21.09,39.44,25.25],p:["Can’t test yet","Count 4 · 19 rest breaks unconfirmed"]},
+ {s:"Other gaps limit accuracy: no pay rates, so dollars use demo rates, and meal times for only 5 of 196 shifts.",r:[10,48.12,80,20.92],p:["Limits accuracy","Demo pay rates · 5 of 196 shifts with meal times"]}
+]},
+{id:'readiness-coverage',n:13,st:4,t:'See what the analysis can test',w:'Readiness › Complaint coverage',img:'10c',b:[
+ {s:"Coverage shows all nine counts before the run: what can be tested, partly tested, or needs data.",r:[10,52.37,80,27.09],p:["Complaint coverage","Known before you run"]},
+ {s:"Counts 5 to 9 each name the data they need.",r:[45.95,57.81,42.73,19.76],p:["Counts 5–9","Each names the data it needs"]},
+ {s:"Select Run analysis.",r:[77.65,84.68,10.89,5.11],k:1}
+]},
+{id:'analyze',n:14,st:5,t:'Run the analysis',w:'Analyze',img:'11a',b:[
+ {s:"The run reads the files, matches people across systems, and runs every check.",r:[31.94,31.98,36.11,36.89],p:["Seven steps","Each shows what it used"]},
+ {s:"All 11 timecards are matched, and 242 pay lines compared.",r:[31.94,42.64,36.11,10.23],p:["11 of 11 timecards matched","242 pay lines compared"]},
+ {s:"Without pay rates, dollar figures use demo rates, labelled as estimates. Then Insights opens.",r:[31.94,58.64,36.11,4.89],p:["Demo pay rates","Every amount labelled as an estimate"]}
+]},
+{id:'insights-summary',n:15,st:6,t:'Read the summary',w:'Insights',img:'12a',b:[
+ {s:"One sentence sums it up: 254 records checked, 71 potential issues, 25 employees affected.",r:[10,28.26,38.67,11.02],p:["The headline","254 checked · 71 potential issues · 25 employees"]},
+ {s:"Four metrics follow, each with a help button.",r:[10.07,41.61,79.86,15.39],p:["Four metrics",null]},
+ {s:"The amount at stake is $2,431: $1,814 likely owed, and $618 at risk, from demo rates.",img:'12b',r:[48.19,33.78,22.22,23.22],p:["$2,431 at stake","$1,814 likely owed · $618 at risk · demo estimate"]},
+ {s:"A red bar states the limits: two missing datasets.",r:[10,59.33,80,7],p:["Limits, up front",null]},
+ {s:"Links jump to each section, and Export for counsel is one click away.",r:[10,17.81,80,9.11],p:["Jump links · Export for counsel",null]}
+]},
+{id:'what-to-do-first',n:16,st:6,t:'Act on what to do first',w:'Insights › What to do first',img:'13a',b:[
+ {s:"What to do first ranks four actions. Top: overtime not paid on long shifts, $1,759 likely owed.",r:[10,19.44,80,27.22],p:["1 · Overtime not paid","34 long shifts · $1,759 likely owed (demo estimate)"]},
+ {s:"Second: a break premium noted in payroll, but never paid.",r:[10,48,80,25.06],p:["2 · Premium not paid","$54 likely owed"]},
+ {s:"Then two items at risk: rest breaks not recorded, and one meal time for the whole crew.",r:[10,74.39,80,22.99],p:["3 and 4 · At risk",null]},
+ {s:"Each action states the rule, the complaint allegation, and the next step. Review records opens the evidence.",r:[78.3,38.1,10.38,4.22],k:1,p:["Rule · allegation · next step",null]}
+]},
+{id:'by-area',n:17,st:6,t:'Compare the two areas',w:'Insights › By area',img:'14a',b:[
+ {s:"By area: in Hours and Pay, only 4 of 38 long shifts were paid overtime.",r:[10,20.04,39.31,43.99],p:["Hours & Pay","4 of 38 long shifts paid overtime"]},
+ {s:"In Meal and Rest, none of the 19 required rest breaks has a record.",r:[50.69,20.04,39.31,43.99],p:["Meal & Rest Breaks","0 of 19 rest breaks recorded"]},
+ {s:"Meal times show in amber: the whole crew has the same time, so they may be scheduled, not actual.",r:[52.43,42.7,35.83,7.94],p:["Amber, not green","Same meal time for the whole crew"]}
+]},
+{id:'complaint-coverage',n:18,st:6,t:'See how much of the complaint was tested',w:'Insights › Complaint coverage',img:'14b',b:[
+ {s:"After the run, coverage shows the issues and amounts behind each count.",r:[10,21.14,80,29.42],p:["What the data can address","Count 2: 34 issues · $1,759"]},
+ {s:"Counts 5 to 9 still name the data they need.",r:[45.95,26.59,42.73,22.09]}
+]},
+{id:'paga-watch',n:19,st:6,t:'Check PAGA watch and the data used',w:'Insights › PAGA watch and Data used',img:'15a',b:[
+ {s:"PAGA watch shows the latest official update, with what it means for you.",r:[10,38.46,39.44,35.94],p:["Latest official update",null]},
+ {s:"Data used lists every source the results rest on.",r:[50.56,38.46,39.44,35.94],p:["Sources and limits, side by side",null]}
+]},
+{id:'key-terms',n:20,st:6,t:'Look up key terms',w:'Insights › Key terms',img:'15b',b:[
+ {s:"Eleven key terms are explained in plain English at the foot of the page.",r:[10,36.62,80,61],p:["11 key terms","Plain English, no legal symbols"]}
+]},
+{id:'hours-review',n:21,st:7,t:'Review overtime records',w:'Review › Hours & Pay',img:'16a',b:[
+ {s:"Review records opens Hours and Pay, filtered to overtime.",r:[38.42,14.42,51.58,4.39],p:["Filtered to Overtime","34 records"]},
+ {s:"The columns are in plain words.",r:[10.49,26.03,79.03,4.44]},
+ {s:"Select a row to see its source: ten hours paid on November 9, two of them overtime paid at straight time.",r:[10.49,30.48,79.03,10.89],k:1,p:["2 h overtime at straight time","$52.10 likely owed (demo rate)"]},
+ {s:"The source is QuickBooks row 339, with the calculation shown. Every dollar traces to a row and a rule.",r:[11.32,41.87,77.36,20.13],p:["Traceable","QuickBooks row 339, and the rule"]}
+]},
+{id:'review-decisions',n:22,st:7,t:'Record your decisions and export for counsel',w:'Review › Your review',img:'16a',b:[
+ {s:"Every flagged record takes a decision, and an optional note.",r:[11.32,64.22,77.36,9.35],p:["Your decision","Saved with the time"]},
+ {s:"Mark the 34 undecided as confirmed settles a whole finding at once.",r:[58.09,19.7,19.21,4.22],k:1},
+ {s:"Progress moves to 34 of 43 reviewed.",img:'16d',r:[10,25.59,80,4.22],p:["34 of 43 reviewed",null]},
+ {s:"Export for counsel creates a spreadsheet: 71 finding lines, with each decision and note.",r:[78.41,25.59,11.59,4.22],k:1,p:["Exported for counsel","71 finding lines"]},
+ {s:"The journey bar tracks review progress too.",r:[71.99,7.44,7.99,4],p:["Review progress","34 of 55 across both areas"]}
+]},
+{id:'hours-matched',n:23,st:7,t:'See what matched, and what waits for payroll',w:'Review › Hours & Pay',img:'16b',b:[
+ {s:"Passes and pending records are shown too, not just problems.",r:[10,35.09,80,9.72]},
+ {s:"All six FieldFlo shifts in the pay period match payroll to the minute.",r:[50.49,74.2,39.51,20.83],p:["Pass","6 of 6 match · 40.0 h on each side"]},
+ {s:"Five later shifts wait for the next payroll export.",img:'16c',r:[10,37.92,39.51,14.72],k:1,p:["Pending","Waits for the next payroll export"]},
+ {s:"A clean result is evidence too: the records were checked, not skipped.",r:[10.49,71.81,79.03,28]}
+]},
+{id:'breaks-review',n:24,st:7,t:'Review the unpaid break premium',w:'Review › Meal & Rest Breaks',img:'17a',b:[
+ {s:"Over in Meal and Rest Breaks, select Premium.",r:[48.86,14.87,6.29,3.5],k:1},
+ {s:"On November 9, a $54.33 premium was noted, but not paid.",r:[10.49,30.48,79.03,9.06],p:["$54.33 noted, not paid",null]},
+ {s:"Four payroll lines carry the memo, but there's no premium pay item.",r:[11.32,40.03,77.36,37.08],p:["Memo, but no premium pay line","QuickBooks rows 9–12"]},
+ {s:"Next step: check other pay runs, and record premiums as their own pay item.",r:[11.32,79.33,77.36,9.35],p:["Next step",null]}
+]},
+{id:'anywhere',n:25,st:7,t:'Use it anywhere',w:'Any screen',img:'18a',b:[
+ {s:"It works anywhere. Dark theme keeps the same layout and colors.",r:[83.75,1.33,2.5,4],k:1,z:1.25,p:["Dark theme",null]},
+ {s:"On a phone, a plain line shows the current step and progress.",img:'18b',r:[0,7.23,100,3.26],p:["Phone layout",null]},
+ {s:"The same flow works in a meeting room, or on site.",img:'18c',r:[4.1,45.71,91.79,40]}
+]}
+];
+
+/* ---------- build the beat list ---------- */
+var BEATS=[{kind:'intro',s:INTRO,st:0,sc:-1}];
+(function(){var last=0;SCENES.forEach(function(sc,si){
+  if(sc.st!==last){BEATS.push({kind:'chap',st:sc.st,sc:si,img:sc.img,s:'Stage '+NUMW[sc.st]+': '+STAGES[sc.st][0]+'.'});last=sc.st}
+  var img=sc.img;sc.first=BEATS.length;
+  sc.b.forEach(function(b){img=b.img||img;BEATS.push({kind:'shot',st:sc.st,sc:si,s:b.s,r:b.r,p:b.p,k:b.k,z:b.z,img:img})});
+})})();
+BEATS.push({kind:'outro',s:OUTRO,st:8,sc:-1});
+function words(t){return (t.match(/\S+/g)||[]).length}
+var EST=BEATS.map(function(b){return Math.max(2.2,words(b.s)/2.7)+(b.kind==='chap'?1.2:0.75)+(b.k?0.8:0)});
+var CUM=[0];EST.forEach(function(e,i){CUM[i+1]=CUM[i]+e});
+var TOTAL=CUM[EST.length];
+
+/* ---------- state ---------- */
+var stage=$('#stage'),player=$('#player'),spot=$('#spot'),pop=$('#pop'),cur=$('#cur'),capP=$('#cap-p');
+var LAYERS=[$('#la'),$('#lb')],front=0,layerKey=['',''];
+var SW=0,SH=0,idx=0,playing=false,started=false,tok=0,timers=[],beatT0=0,curPos=null;
+var synth=('speechSynthesis' in window)?window.speechSynthesis:null,voices=[],voice=null,live=[];
+var PREF={voice:true,cc:true,rate:1,vname:''};
+try{var sp=JSON.parse(localStorage.getItem('prempta-vdemo')||'{}');for(var k in sp)if(k in PREF)PREF[k]=sp[k]}catch(e){}
+function save(){try{localStorage.setItem('prempta-vdemo',JSON.stringify(PREF))}catch(e){}}
+if(!synth)PREF.voice=false;
+var MAXZ=1.75,FAST=1,VOL=1;
+
+/* ---------- geometry ---------- */
+function fit(key){var m=IM[key],phone=m[1]<1000,dw,dh;if(phone){dh=SH;dw=SH*m[1]/m[2]}else{dw=SW;dh=SW*m[2]/m[1]}return {dw:dw,dh:dh,phone:phone}}
+function camera(b){
+  var F=fit(b.img),s=1,tx,ty,T=b.kind==='shot'?b.r:null;
+  if(T){var fx=T[0]/100*F.dw,fy=T[1]/100*F.dh,fw=T[2]/100*F.dw,fh=T[3]/100*F.dh;
+    s=Math.max(1,Math.min(SW*0.86/fw,SH*0.64/fh,b.z||(b.k?1.5:MAXZ)));tx=SW/2-(fx+fw/2)*s;ty=SH/2-(fy+fh/2)*s}
+  else{tx=0;ty=0}
+  var W=F.dw*s,H=F.dh*s;
+  tx=W<=SW?(SW-W)/2:Math.min(0,Math.max(SW-W,tx));
+  ty=H<=SH?(SH-H)/2:Math.min(0,Math.max(SH-H,ty));
+  return {s:s,tx:tx,ty:ty,F:F};
+}
+function project(r,c){var x=c.tx+r[0]/100*c.F.dw*c.s,y=c.ty+r[1]/100*c.F.dh*c.s,w=r[2]/100*c.F.dw*c.s,h=r[3]/100*c.F.dh*c.s,p=6;
+  var x1=Math.max(4,x-p),y1=Math.max(4,y-p),x2=Math.min(SW-4,x+w+p),y2=Math.min(SH-4,y+h+p);return {x:x1,y:y1,w:Math.max(8,x2-x1),h:Math.max(8,y2-y1)}}
+function sizeStage(){
+  var fs=D.fullscreenElement===player,avW=player.clientWidth;
+  var chrome=$('#ctl').offsetHeight+(player.classList.contains('nocc')?0:$('#cap').offsetHeight);
+  var avH=(fs?window.innerHeight:window.innerHeight-$('.top').offsetHeight-26)-chrome;
+  var w=Math.floor(Math.min(avW,Math.max(avH,200)*1.6));
+  if(w===SW)return false;SW=w;SH=Math.round(w/1.6);stage.style.width=SW+'px';stage.style.height=SH+'px';return true;
+}
+
+/* ---------- rendering ---------- */
+function setLayer(L,key,c){var F=c.F;L.style.width=F.dw+'px';L.style.height=F.dh+'px';L.classList.toggle('phone',F.phone);L.style.transform='translate('+c.tx+'px,'+c.ty+'px) scale('+c.s+')'}
+function showImage(b,c,instant){
+  var L=LAYERS[front];
+  if(layerKey[front]===b.img){setLayer(L,b.img,c);L.style.opacity=1;return}
+  var nf=1-front,N=LAYERS[nf],img=N.firstChild;
+  N.style.transition='none';
+  var pre={s:c.s*1.035,tx:c.tx-(SW*0.0175),ty:c.ty-(SH*0.0175),F:c.F};
+  setLayer(N,b.img,instant?c:pre);N.style.opacity=0;
+  img.src=DIR+IM[b.img][0];img.alt=sceneOf(b)?sceneOf(b).t:'';layerKey[nf]=b.img;
+  void N.offsetWidth;N.style.transition='';
+  var go=function(){setLayer(N,b.img,c);N.style.opacity=1;L.style.opacity=0};
+  if(img.complete&&img.naturalWidth)go();else{var done=false,f=function(){if(!done){done=true;go()}};img.onload=f;img.onerror=f;setTimeout(f,1500)}
+  front=nf;
+}
+function hideImages(){LAYERS.forEach(function(L){L.style.opacity=0})}
+function sceneOf(b){return b&&b.sc>=0?SCENES[b.sc]:null}
+function setCards(b){
+  $('#intro').classList.toggle('on',b.kind==='intro');
+  $('#outro').classList.toggle('on',b.kind==='outro');
+  var ch=$('#chap');ch.classList.remove('on');
+  if(b.kind==='chap'){$('#chap-n').textContent=b.st;$('#chap-k').textContent='Stage '+b.st+' of 7';$('#chap-t').textContent=STAGES[b.st][0];$('#chap-d').textContent=STAGES[b.st][1];void ch.offsetWidth;ch.classList.add('on')}
+}
+function setCaption(t){capP.className='';capP.innerHTML='';var i=0;t.split(/(\s+)/).forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){capP.appendChild(D.createTextNode(w))}else{var sp=D.createElement('span');sp.textContent=w;sp.dataset.i=i;capP.appendChild(sp)}i+=w.length})}
+function kara(ci){if(!capP.classList.contains('kara'))capP.classList.add('kara');[].forEach.call(capP.children,function(s){if(+s.dataset.i<=ci)s.classList.add('on')})}
+function placePop(sr){
+  var pw=pop.offsetWidth,ph=pop.offsetHeight,g=14,m=10,x,y;
+  if(!sr){x=m+6;y=SH-ph-m-6}
+  else if(sr.y+sr.h+g+ph<=SH-m){y=sr.y+sr.h+g;x=sr.x}
+  else if(sr.y-g-ph>=m){y=sr.y-g-ph;x=sr.x}
+  else if(sr.x+sr.w+g+pw<=SW-m){x=sr.x+sr.w+g;y=sr.y}
+  else if(sr.x-g-pw>=m){x=sr.x-g-pw;y=sr.y}
+  else{x=sr.x+m;y=sr.y+sr.h-ph-m}
+  x=Math.min(Math.max(m,x),SW-pw-m);y=Math.min(Math.max(m,y),SH-ph-m);
+  pop.style.left=x+'px';pop.style.top=y+'px';
+}
+function later(fn,ms,my){var id=setTimeout(function(){if(my===tok)fn()},ms/FAST);timers.push(id)}
+function render(instant){
+  var b=BEATS[idx],sc=sceneOf(b),my=tok;
+  if(instant)stage.classList.add('instant');
+  setCards(b);setCaption(b.s);
+  pop.classList.remove('show');
+  if(b.kind==='intro'||b.kind==='outro'){hideImages();spot.className='spot off';cur.classList.remove('show')}
+  else{
+    var c=camera(b);showImage(b,c,instant);
+    if(b.kind==='shot'&&b.r){var sr=project(b.r,c);spot.style.left=sr.x+'px';spot.style.top=sr.y+'px';spot.style.width=sr.w+'px';spot.style.height=sr.h+'px';spot.className='spot on'}
+    else{spot.className='spot off';sr=null}
+    if(b.p){pop.querySelector('b').textContent=b.p[0];var ps=pop.querySelector('span');ps.textContent=b.p[1]||'';ps.hidden=!b.p[1];later(function(){placePop(sr);pop.classList.add('show')},instant?0:780,my)}
+    if(b.k&&sr){var tx=sr.x+sr.w/2,ty=sr.y+sr.h/2;
+      if(!curPos||!cur.classList.contains('show')){cur.style.transition='none';cur.style.transform='translate('+(SW*0.72)+'px,'+(SH*0.9)+'px)';void cur.offsetWidth;cur.style.transition=''}
+      cur.classList.add('show');
+      later(function(){cur.style.transform='translate('+tx+'px,'+ty+'px)';curPos=[tx,ty]},instant?0:650,my);
+      later(function(){cur.classList.remove('tap');void cur.offsetWidth;cur.classList.add('tap');spot.classList.add('press')},instant?0:1550,my);
+    }else cur.classList.remove('show');
+  }
+  if(instant){void stage.offsetWidth;stage.classList.remove('instant')}
+  updateUI();preload();
+  if(started){var h=sc?'#'+sc.id:'';if(location.hash!==h&&(sc||b.kind==='intro'))try{history.replaceState(null,'',h||location.pathname+location.search)}catch(e){}}
+}
+function preload(){var seen={},n=0;for(var i=idx+1;i<BEATS.length&&n<3;i++){var k=BEATS[i].img;if(k&&!seen[k]&&k!==BEATS[idx].img){seen[k]=1;n++;var im=new Image();im.src=DIR+IM[k][0]}}}
+
+/* ---------- narration ---------- */
+function rate(){return +PREF.rate||1}
+function wait(ms,my){return new Promise(function(res){var id=setTimeout(function(){if(my===tok)res()},ms/FAST);timers.push(id)})}
+function stopTalk(){timers.forEach(clearTimeout);timers=[];if(synth){try{synth.cancel()}catch(e){}}}
+function narrate(b,my){
+  var t0=Date.now(),floor=words(b.s)/(3.3*rate())*1000,est=EST[BEATS.indexOf(b)]*1000/rate();
+  if(!PREF.voice||!synth||FAST>1)return wait(est,my);
+  return new Promise(function(res){
+    var u=new SpeechSynthesisUtterance(b.s),done=false;
+    if(voice){u.voice=voice;u.lang=voice.lang}else u.lang='en-US';
+    u.rate=rate();u.pitch=1;u.volume=VOL;
+    function fin(){if(done)return;done=true;var left=floor-(Date.now()-t0);if(left>60)wait(left,my).then(res);else if(my===tok)res()}
+    u.onend=fin;u.onerror=fin;
+    u.onboundary=function(e){if(my===tok&&e.name!=='sentence')kara(e.charIndex)};
+    timers.push(setTimeout(fin,est*2.3+4000));
+    live.push(u);if(live.length>4)live.shift();
+    synth.speak(u);
+  });
+}
+function run(my){
+  var b=BEATS[idx];beatT0=Date.now();
+  var lead=b.kind==='shot'?(b.k?1000:420):300;
+  wait(lead,my).then(function(){return narrate(b,my)}).then(function(){
+    var min=(b.kind==='chap'?2400:b.k?2700:1800)/rate(),spent=Date.now()-beatT0;
+    return wait(Math.max(300/rate(),min-spent),my);
+  }).then(function(){
+    if(my!==tok||!playing)return;
+    if(idx<BEATS.length-1)go(idx+1);else{playing=false;updateUI()}
+  });
+}
+function go(i,instant){
+  idx=Math.max(0,Math.min(BEATS.length-1,i));tok++;stopTalk();render(instant);
+  if(playing)run(tok);
+}
+function play(){
+  if(!started){started=true;$('#poster').classList.remove('on')}
+  if(idx===BEATS.length-1)idx=0;
+  if(synth&&PREF.voice){try{synth.cancel();var u=new SpeechSynthesisUtterance(' ');u.volume=0;synth.speak(u)}catch(e){}}
+  playing=true;go(idx);
+}
+function pause(){playing=false;tok++;stopTalk();updateUI()}
+function toggle(){playing?pause():play()}
+function step(d){if(!started){started=true;$('#poster').classList.remove('on')}go(idx+d)}
+function startOf(i){var b=BEATS[i];return b.kind==='shot'?SCENES[b.sc].first:i}
+function jumpScene(d){var b=BEATS[idx],t=idx,i;
+  if(d>0){for(i=idx+1;i<BEATS.length;i++)if(BEATS[i].kind!=='shot'||b.kind!=='shot'||BEATS[i].sc!==b.sc){t=i;break}}
+  else if(idx>startOf(idx))t=startOf(idx);
+  else{t=0;for(i=idx-1;i>=0;i--){if(BEATS[i].kind!=='chap'){t=startOf(i);break}}}
+  if(!started){started=true;$('#poster').classList.remove('on')}go(t)}
+
+/* ---------- UI ---------- */
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+var segEls=[],segRange=[];
+function buildSegs(){
+  var box=$('#segs'),groups=[];BEATS.forEach(function(b,i){var g=b.st;if(!groups.length||groups[groups.length-1].st!==g)groups.push({st:g,a:i,z:i});groups[groups.length-1].z=i});
+  groups.forEach(function(g){var el=D.createElement('div');el.className='seg';var d=CUM[g.z+1]-CUM[g.a];el.style.flex=d+' 1 0';
+    el.title=g.st===0?'Introduction':g.st===8?'Closing':'Stage '+g.st+': '+STAGES[g.st][0];el.appendChild(D.createElement('i'));box.appendChild(el);segEls.push(el);segRange.push([CUM[g.a],CUM[g.z+1]])});
+}
+function elapsed(){var e=CUM[idx];if(playing)e+=Math.min(EST[idx],(Date.now()-beatT0)/1000*rate()*FAST);return e}
+function tick(){var e=elapsed();segEls.forEach(function(el,i){var r=segRange[i],f=Math.max(0,Math.min(1,(e-r[0])/(r[1]-r[0])));el.firstChild.style.width=(f*100)+'%'});
+  $('#time').textContent=fmt(e/rate())+' / '+fmt(TOTAL/rate());$('#tl').setAttribute('aria-valuenow',Math.round(e/TOTAL*100));$('#tl').setAttribute('aria-valuetext',fmt(e/rate())+' of '+fmt(TOTAL/rate()))}
+setInterval(tick,250);
+function updateUI(){
+  var b=BEATS[idx],sc=sceneOf(b);
+  $('#pp-i').setAttribute('d',playing?'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z':'M7 5v14l12-7z');
+  $('#pp').setAttribute('aria-label',playing?'Pause (Space)':'Play (Space)');$('#pp').title=playing?'Pause (Space)':'Play (Space)';
+  $('#voice').setAttribute('aria-pressed',PREF.voice?'true':'false');$('#voice-w').style.display=PREF.voice?'':'none';
+  $('#ccb').setAttribute('aria-pressed',PREF.cc?'true':'false');player.classList.toggle('nocc',!PREF.cc);
+  $('#vchk').checked=PREF.voice;$('#cchk').checked=PREF.cc;$('#rsel').value=String(PREF.rate);
+  var now=$('#now');
+  if(sc)now.innerHTML='Stage '+sc.st+' · '+STAGES[sc.st][0]+' — <b>Step '+sc.n+' of 25: '+esc(sc.t)+'</b>';
+  else if(b.kind==='chap')now.innerHTML='Stage '+b.st+' · <b>'+STAGES[b.st][0]+'</b>';
+  else now.textContent=b.kind==='intro'?'Introduction':'End of the tour';
+  [].forEach.call(D.querySelectorAll('.ch-g li button'),function(x){var on=sc&&+x.dataset.sc===b.sc;x.classList.toggle('cur-s',on);if(on)x.setAttribute('aria-current','step');else x.removeAttribute('aria-current')});
+  tick();
+}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function buildChapters(){
+  var g=$('#chg');
+  for(var st=1;st<=7;st++){
+    var box=D.createElement('div');box.className='ch-g';
+    var hb=D.createElement('button');hb.type='button';hb.innerHTML='<span>'+st+'</span>'+STAGES[st][0];
+    (function(s){hb.addEventListener('click',function(){for(var i=0;i<BEATS.length;i++)if(BEATS[i].kind==='chap'&&BEATS[i].st===s){jumpTo(i);break}})})(st);
+    box.appendChild(hb);var ol=D.createElement('ol');
+    SCENES.forEach(function(sc,si){if(sc.st!==st)return;var li=D.createElement('li'),bt=D.createElement('button');bt.type='button';bt.dataset.sc=si;bt.innerHTML='<em>'+sc.n+'</em><span>'+esc(sc.t)+'</span>';
+      bt.addEventListener('click',function(){jumpTo(sc.first)});li.appendChild(bt);ol.appendChild(li)});
+    box.appendChild(ol);g.appendChild(box);
+  }
+}
+function jumpTo(i){var wasPlaying=playing||!started;if(!started){started=true;$('#poster').classList.remove('on')}
+  if(wasPlaying&&!playing){if(synth&&PREF.voice){try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;synth.speak(u)}catch(e){}}playing=true}
+  go(i);player.scrollIntoView({block:'nearest',behavior:'smooth'})}
+
+/* voices */
+function scoreVoice(v){var n=v.name,sc=0;if(/natural|neural|online/i.test(n))sc+=10;if(/^en[-_]US/i.test(v.lang))sc+=3;else if(/^en[-_](GB|AU|CA|IE|IN)/i.test(v.lang))sc+=2;if(/google/i.test(n))sc+=4;if(/aria|jenny|ava|andrew|emma|brian|guy|samantha|allison|serena|sonia/i.test(n))sc+=3;if(v.localService===false)sc+=1;return sc}
+function loadVoices(){
+  if(!synth)return;var all=synth.getVoices();if(!all.length)return;
+  voices=all.filter(function(v){return /^en/i.test(v.lang)});if(!voices.length)voices=all.slice();
+  voices.sort(function(a,b){return scoreVoice(b)-scoreVoice(a)||a.name.localeCompare(b.name)});
+  voice=voices.filter(function(v){return v.name===PREF.vname})[0]||voices[0];
+  var sel=$('#vsel');sel.innerHTML='';voices.forEach(function(v,i){var o=D.createElement('option');o.value=i;o.textContent=v.name+' ('+v.lang+')';if(v===voice)o.selected=true;sel.appendChild(o)});
+}
+if(synth){loadVoices();if(synth.addEventListener)synth.addEventListener('voiceschanged',loadVoices);else synth.onvoiceschanged=loadVoices}
+else{$('#vsel').disabled=true;$('#vchk').disabled=true;$('#voice').disabled=true;$('#vnote').textContent='This browser has no speech voice, so the tour plays with captions only.';$('#hint').textContent='This browser has no speech voice, so the tour plays with captions.'}
+
+/* ---------- events ---------- */
+$('#start').addEventListener('click',play);
+$('#again').addEventListener('click',function(){idx=0;play()});
+$('#pp').addEventListener('click',toggle);
+$('#prev').addEventListener('click',function(){step(-1)});
+$('#next').addEventListener('click',function(){step(1)});
+function setVoice(on){PREF.voice=!!on&&!!synth;save();if(!PREF.voice&&synth)try{synth.cancel()}catch(e){}if(playing)go(idx);else updateUI()}
+function setCC(on){PREF.cc=!!on;save();updateUI();if(sizeStage())render(true)}
+$('#voice').addEventListener('click',function(){setVoice(!PREF.voice)});
+$('#vchk').addEventListener('change',function(e){setVoice(e.target.checked)});
+$('#ccb').addEventListener('click',function(){setCC(!PREF.cc)});
+$('#cchk').addEventListener('change',function(e){setCC(e.target.checked)});
+$('#rsel').addEventListener('change',function(e){PREF.rate=+e.target.value;save();if(playing)go(idx);else updateUI()});
+$('#vsel').addEventListener('change',function(e){voice=voices[+e.target.value]||null;PREF.vname=voice?voice.name:'';save();if(playing)go(idx)});
+var menu=$('#menu'),gear=$('#gear');
+gear.addEventListener('click',function(){menu.hidden=!menu.hidden;gear.setAttribute('aria-expanded',String(!menu.hidden))});
+D.addEventListener('click',function(e){if(!menu.hidden&&!menu.contains(e.target)&&!gear.contains(e.target)){menu.hidden=true;gear.setAttribute('aria-expanded','false')}});
+$('#fs').addEventListener('click',function(){if(D.fullscreenElement)D.exitFullscreen();else if(player.requestFullscreen)player.requestFullscreen().catch(function(){})});
+D.addEventListener('fullscreenchange',function(){setTimeout(function(){if(sizeStage())render(true)},60)});
+var tl=$('#tl');
+function seekAt(x){var r=tl.getBoundingClientRect(),f=Math.max(0,Math.min(1,(x-r.left)/r.width)),t=f*TOTAL,i=0;while(i<BEATS.length-1&&CUM[i+1]<=t)i++;if(!started){started=true;$('#poster').classList.remove('on')}go(i)}
+tl.addEventListener('click',function(e){seekAt(e.clientX)});
+tl.addEventListener('keydown',function(e){if(e.key==='Home'){e.preventDefault();go(0)}else if(e.key==='End'){e.preventDefault();go(BEATS.length-1)}});
+D.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;var t=e.target,tag=t.tagName;
+  if(/INPUT|SELECT|TEXTAREA/.test(tag))return;
+  if(e.key==='Escape'&&!menu.hidden){menu.hidden=true;gear.setAttribute('aria-expanded','false');gear.focus();return}
+  if((e.key===' '||e.key==='Enter')&&(tag==='BUTTON'||tag==='A'))return;
+  if(e.key===' '||e.key==='k'||e.key==='K'){e.preventDefault();toggle()}
+  else if(e.key==='ArrowRight'){e.preventDefault();e.shiftKey?jumpScene(1):step(1)}
+  else if(e.key==='ArrowLeft'){e.preventDefault();e.shiftKey?jumpScene(-1):step(-1)}
+  else if(e.key==='m'||e.key==='M')setVoice(!PREF.voice);
+  else if(e.key==='c'||e.key==='C')setCC(!PREF.cc);
+  else if(e.key==='f'||e.key==='F')$('#fs').click();
+});
+var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(sizeStage())render(true)},80)});
+if(window.ResizeObserver)new ResizeObserver(function(){if(sizeStage())render(true)}).observe(player);
+
+/* ---------- start ---------- */
+buildSegs();buildChapters();
+var mins=Math.round(TOTAL/60);$('#poster-p').textContent='A narrated tour of every screen, with voice, captions and highlights. About '+mins+' minutes, in 7 chapters.';
+(function(){var h=decodeURIComponent(location.hash.slice(1));if(!h)return;var sc=SCENES.filter(function(s){return s.id===h})[0];if(sc){idx=sc.first;$('#start-l').textContent='Play from step '+sc.n+': '+sc.t}})();
+sizeStage();render(true);
+var im0=new Image();im0.src=DIR+IM['01a'][0];
+window.vdemo={beats:BEATS,scenes:SCENES,go:function(i){started=true;$('#poster').classList.remove('on');go(i,true)},state:function(){return {idx:idx,playing:playing,SW:SW,SH:SH,total:TOTAL}},fast:function(f){FAST=f||1},vol:function(v){VOL=v},voice:setVoice};
+})();
+</script>
+</body>
+</html>
