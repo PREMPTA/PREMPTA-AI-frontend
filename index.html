@@ -120,6 +120,16 @@ svg.i.lg{width:22px;height:22px}
 .org-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 10px 5px 6px;border-radius:999px;background:var(--subtle);border:1px solid var(--line);font-size:var(--fs-sm);font-weight:600;color:var(--ink);max-width:260px}
 .org-chip i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-style:normal;font-size:11px;font-weight:700;flex:none}
 .org-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* back and forward: the previous and next step of the journey, beside the brand */
+.hnav{display:inline-flex;align-items:center;gap:2px;padding-left:14px;border-left:1px solid var(--line)}
+.hnav .icon-btn{width:34px;height:34px;transition:background-color .15s ease,color .15s ease}
+.hnav .icon-btn:not([aria-disabled="true"]){color:var(--ink)}
+.hnav .icon-btn:not([aria-disabled="true"]):hover{background:var(--hover);color:var(--accent)}
+.hnav .icon-btn:not([aria-disabled="true"]):active{background:var(--accent-soft);color:var(--accent)}
+.hnav .icon-btn[aria-disabled="true"]{color:var(--muted);opacity:.45;cursor:not-allowed}
+.hnav .icon-btn[aria-disabled="true"]:hover{background:transparent}
+@media (max-width:440px){header.top .top-in{gap:8px}.hnav{padding-left:0;border-left:0;gap:0}.hnav .icon-btn{width:32px;height:32px}}
+@media (max-width:420px){.top-in .org-chip{display:none}}
 .nav{display:flex;gap:4px}
 .nav a{display:inline-flex;align-items:center;min-height:36px;padding:6px 12px;border-radius:var(--r-md);color:var(--ink-2);text-decoration:none;font-size:var(--fs-sm);font-weight:600}
 .nav a:hover{background:var(--hover);color:var(--ink)}
@@ -1639,7 +1649,7 @@ const Engine = (() => {
       <button role="menuitem" data-act="signout">${ic('out', 'sm')}Sign out</button></div>` : ''}</div>`;
   const top = cur => {
     const R = S.analysed && ['overview', 'hours', 'breaks'].includes(cur) ? result() : null;
-    return `<header class="top"><div class="top-in">${brand(S.analysed && readiness().ok ? '#/overview' : '#/')}
+    return `<header class="top"><div class="top-in">${brand(S.analysed && readiness().ok ? '#/overview' : '#/')}${navBtns(cur)}
       ${S.org ? `<span class="org-chip" data-tip="${esc(S.org.legal || S.org.name)}"><i>${esc(initials(S.org.name))}</i><span>${esc(S.org.name)}</span></span>` : ''}
       <div class="spacer"></div>${R ? `<span class="status">Analysis complete · ${range(R.period)}</span>` : ''}${themeBtn()}${userMenu()}</div>
       <nav class="journey" aria-label="Steps">${STEP_OF[cur] != null ? `<div class="journey-sm" aria-hidden="true"><span><b>Step ${STEP_OF[cur] + 1} of 7</b> ${STEPS[STEP_OF[cur]].l}</span><span class="jbar"><i style="width:${Math.round((STEP_OF[cur] + 1) / 7 * 100)}%"></i></span></div>` : ''}<div class="journey-in">${stepper(cur)}</div></nav></header>`;
@@ -2340,6 +2350,27 @@ const Engine = (() => {
   }
   const go = v => { U.menu = false; if (location.hash === `#/${v}`) render(); else location.hash = `#/${v}`; };
   window.addEventListener('hashchange', () => { U.menu = false; render(); });
+
+  /* ---------- back and forward: the previous and next step of the journey ----------
+     Analyze is an action, not a place, so Back and Forward step over it. A button is off when there is no step
+     in that direction, or when that step is still locked; its tooltip then says why, as the journey bar does. */
+  const NAV_ORDER = ['org', 'agents', 'ready', 'overview', 'hours', 'breaks'];
+  const navTarget = d => {
+    const i = NAV_ORDER.indexOf(current), v = i < 0 ? null : NAV_ORDER[i + d];
+    if (!v) return null;
+    const lock = stepState().lock[STEP_OF[v]];
+    return {v, ok: resolve(v) === v, why: `${STEPS[STEP_OF[v]].l} is locked. ${lock || 'It opens later in the journey.'}`};
+  };
+  function navMove(d) { const t = navTarget(d); if (t && t.ok) go(t.v); }
+  const navBtns = cur => {
+    const busy = cur === 'run';
+    const btn = (act, d, icon, word, none) => {
+      const t = busy ? null : navTarget(d), on = !!(t && t.ok);
+      const label = busy ? `${word} is available when the analysis finishes.` : on ? `${word} to ${TITLES[t.v]}` : t ? t.why : none;
+      return `<button class="icon-btn" type="button" data-act="${act}" aria-label="${esc(label)}" data-tip="${esc(label)}"${on ? '' : ' aria-disabled="true"'}>${ic(icon)}</button>`;
+    };
+    return `<div class="hnav" role="group" aria-label="Previous and next step">${btn('nav-back', -1, 'left', 'Back', 'This is the first step.')}${btn('nav-fwd', 1, 'right', 'Forward', 'This is the last step.')}</div>`;
+  };
   const focusFirstError = () => { const b = app.querySelector('.field.bad input, .field.bad select, .field.bad'); if (b) { (b.matches('input,select') ? b : b.querySelector('input') || b).focus(); } };
   const clearErrors = form => { form.querySelectorAll('.field.bad').forEach(f => { f.classList.remove('bad'); const m = f.querySelector('.err'); if (m) m.remove(); }); form.querySelectorAll('[aria-invalid]').forEach(x => x.removeAttribute('aria-invalid')); U.errs = {}; };
   const formVals = form => { const v = {}; for (const el of form.elements) if (el.name && el.type !== 'checkbox') v[el.name] = el.value; return v; };
@@ -2450,6 +2481,13 @@ const Engine = (() => {
       try { localStorage.setItem(THEME, n); } catch (err) { /* keep for this visit */ }
       render(true);
     } else if (a === 'menu') { U.menu = !U.menu; render(true); }
+    else if (a === 'nav-back' || a === 'nav-fwd') {
+      if (t.getAttribute('aria-disabled') === 'true') { // explain instead of acting; close an open account menu first
+        if (app.querySelector('.menu')) render(true);
+        const b = app.querySelector(`[data-act="${a}"]`); if (b) showTip(b); return;
+      }
+      navMove(a === 'nav-back' ? -1 : 1);
+    }
     else if (a === 'demo-signup') {
       const form = app.querySelector('form[data-form="signup"]');
       const demo = {name: 'Alex Morgan', email: 'alex.morgan@watkins.example', password: 'demo-password-2026', org: 'Watkins Environmental', legal: D.qb.meta.company};
